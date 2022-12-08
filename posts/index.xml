@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on HUAHUA BLOG</title>
+    <link>http://huahuak.github.io/posts/</link>
+    <description>Recent content in Posts on HUAHUA BLOG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Sep 2022 12:15:02 +0000</lastBuildDate><atom:link href="http://huahuak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Daily-Note-09-18</title>
+      <link>http://huahuak.github.io/posts/daily-note/2022-09-18/</link>
+      <pubDate>Sun, 18 Sep 2022 12:15:02 +0000</pubDate>
+      
+      <guid>http://huahuak.github.io/posts/daily-note/2022-09-18/</guid>
+      <description>&lt;!doctype html&gt; 2022-09-18 Daily-Note 09-18Daily-Note 09-18OVERVIEWGinRouteGin ContextGo MemModelGo SyncPoolMutex &amp;amp; RWMutexCondOnceWaitGroupMapAtomicGo containerListRingHeapIPC sig
+OVERVIEWGin，go web 框架。Go MemModel，go 语言内存模型。Go Sync，Go 并发包，提供 Atomic、cond、once、pool、mutex、rwmutex、waitgroup、map 等线程并发工具。Go container，提供了 List、Ring、Heap 等容器，此外 go builtin 包括 slice、map 等多种数据结构。IPC sig，进程通信中 sig 是通过信号的发送，回调处理函数来实现进程间的通信。GinRoutegin框架路由详解
+LeetCode 208.实现 Trie(前缀树)
+// -- main.go -- //engine := gin.Default()engine.GET(&#34;/test/abc&#34;) // -- routergroup.go -- //// GET is a shortcut for router.Handle(&#34;GET&#34;, path, handle).func (group *RouterGroup) GET(relativePath string, handlers ...HandlerFunc) IRoutes { return group.handle(http.MethodGet, relativePath, handlers)} func (group *RouterGroup) handle(httpMethod, relativePath string, handlers HandlersChain) IRoutes { absolutePath := group.</description>
+    </item>
+    
+    <item>
+      <title>Daily-Note-09-15</title>
+      <link>http://huahuak.github.io/posts/daily-note/2022-09-15/</link>
+      <pubDate>Thu, 15 Sep 2022 12:15:02 +0000</pubDate>
+      
+      <guid>http://huahuak.github.io/posts/daily-note/2022-09-15/</guid>
+      <description>&lt;!doctype html&gt; 2022-09-15 Daily-Note 09-15Daily-Note 09-15OVERVIEWActor ModelNettyselect / poll、信号驱动 IO、epollJava NIO
+OVERVIEW在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。
+Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。背景介绍Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server.select / poll、信号驱动 IO、epoll，多种非阻塞的操作系统 IO 模型。Java NIO，与 java 1.4 之前的 BIO 相比，NIO 提供了非阻塞的 IO 模型，大大提高了 Java 编程语言在大型应用服务器上的 IO 性能。Actor Model我们为什么需要 Actor 编程模型？</description>
+    </item>
+    
+  </channel>
+</rss>

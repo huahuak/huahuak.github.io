@@ -1,0 +1,48 @@
+body {
+  margin: 0px;
+}
+
+.index {
+  min-height: 800px;
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 1.6;
+}
+
+.header {
+  max-width: 830px;
+  margin: auto;
+}
+
+footer {
+  max-width: 830px;
+  margin: auto;
+}
+
+.menu {
+  font-size: 18px;
+  text-align: center;
+}
+
+.menu li {
+  display: inline-block;
+}
+
+hr {
+  border-style: dashed;
+  color: #ddd;
+}
+
+a {
+  color: #4183C4;
+}
+
+ul:first-child {
+  margin-top: 0;
+}
+
+ul,
+ol {
+  padding-left: 0px !important;
+}
