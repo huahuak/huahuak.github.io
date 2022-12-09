@@ -26,7 +26,7 @@ LeetCode 208.实现 Trie(前缀树)
       
       <guid>http://huahuak.github.io/posts/daily-note/2022-09-15/</guid>
       <description>&lt;!doctype html&gt; 2022-09-15 Daily-Note 09-15Daily-Note 09-15OVERVIEWActor ModelNettyselect / poll、信号驱动 IO、epollJava NIO
-OVERVIEW在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。
+OVERVIEW在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于分布式系统的基石。
 Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。背景介绍Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server.select / poll、信号驱动 IO、epoll，多种非阻塞的操作系统 IO 模型。Java NIO，与 java 1.4 之前的 BIO 相比，NIO 提供了非阻塞的 IO 模型，大大提高了 Java 编程语言在大型应用服务器上的 IO 性能。Actor Model我们为什么需要 Actor 编程模型？</description>
     </item>
     
