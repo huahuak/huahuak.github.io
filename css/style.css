@@ -10,13 +10,29 @@ body {
   line-height: 1.6;
 }
 
+#content {
+  margin-top: 50px;
+}
+
+.top {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: white;
+
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .header {
-  max-width: 830px;
-  margin: auto;
+  max-width: 860px;
+  margin: .5rem auto 0 auto;
 }
 
 footer {
-  max-width: 830px;
+  max-width: 860px;
   margin: auto;
 }
 
