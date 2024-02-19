@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Daily-Notes | Hua&#39;s Blogs</title>
+
+      <link rel="stylesheet" href="/css/main.min.8c3eff0644c8c54621005e6b6004d03df592dff3be44f4cdb15e9ba50955b716.css" integrity="sha256-jD7/BkTIxUYhAF5rYATQPfWS3/O&#43;RPTNsV6bpQlVtxY=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.08ff23f09f6381b4b42b54cc7a4f17700f2a3d22abc8024d3404bd66f3389ac7.css" integrity="sha256-CP8j8J9jgbS0K1TMek8XcA8qPSKryAJNNAS9ZvM4msc=" crossorigin="anonymous">
+
+
+      <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
+  <div style="font-size: 2em;">
+    <a href="/home" style="color: #222;"> HUAHUA </a>
+  </div>
+  <div style="display: flex;">
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+      content: "»";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/">Hua&#39;s Blogs</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/daily-note/">Daily-Notes</a>
+    </li>
+  </ol>
+</nav>
+    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: rgb(0, 122, 255) ;background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
+  </div>
+</div>
+
+  </header>
+  <main>
+    
+<h1 class="center">Daily-Notes</h1>
+
+<div class="card-container center">
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/daily-note/2022-09-15/">2022-09-15 </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#actor-model">Actor Model</a></li>
+    <li><a href="#netty">Netty</a></li>
+    <li><a href="#select--poll信号驱动-ioepoll">select / poll、信号驱动 IO、epoll</a></li>
+    <li><a href="#java-nio">Java NIO</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/daily-note/2022-09-18/">2022-09-18 </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#gin">Gin</a>
+      <ul>
+        <li><a href="#route">Route</a></li>
+        <li><a href="#gin-context">Gin Context</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-memmodel">Go MemModel</a></li>
+    <li><a href="#go-sync">Go Sync</a>
+      <ul>
+        <li><a href="#pool">Pool</a></li>
+        <li><a href="#mutex--rwmutex">Mutex &amp; RWMutex</a></li>
+        <li><a href="#cond">Cond</a></li>
+        <li><a href="#once">Once</a></li>
+        <li><a href="#waitgroup">WaitGroup</a></li>
+        <li><a href="#map">Map</a></li>
+        <li><a href="#atomic">Atomic</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-container">Go container</a>
+      <ul>
+        <li><a href="#list">List</a></li>
+        <li><a href="#ring">Ring</a></li>
+        <li><a href="#heap">Heap</a></li>
+      </ul>
+    </li>
+    <li><a href="#ipc-sig">IPC sig</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/daily-note/2022-10-04/">2022-10-04 </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#spark-并发模型">Spark 并发模型</a>
+      <ul>
+        <li><a href="#rdd">RDD</a></li>
+        <li><a href="#treenode">TreeNode</a></li>
+        <li><a href="#shuffle">Shuffle</a></li>
+        <li><a href="#sql-提交流程">SQL 提交流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#线性模型">线性模型</a>
+      <ul>
+        <li><a href="#1-前置知识">§1 前置知识</a></li>
+        <li><a href="#2-线性模型">§2 线性模型</a></li>
+        <li><a href="#3-逻辑回归">§3 逻辑回归</a></li>
+        <li><a href="#4-广义线性模型">§4 广义线性模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#字典树">字典树</a></li>
+    <li><a href="#拉格朗日乘子法">拉格朗日乘子法</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/daily-note/2022-10-24/">2022-10-24 </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#pytorch">Pytorch</a></li>
+    <li><a href="#神经网络">神经网络</a></li>
+    <li><a href="#sparkplanner">SparkPlanner</a>
+      <ul>
+        <li><a href="#aggregation">Aggregation</a></li>
+        <li><a href="#join">Join</a></li>
+      </ul>
+    </li>
+    <li><a href="#spark-expression">Spark Expression</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/daily-note/2022-11-02/">2022-11-02 </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#kafka">Kafka</a></li>
+    <li><a href="#docker">Docker</a></li>
+    <li><a href="#spark-shuffle">Spark Shuffle</a>
+      <ul>
+        <li><a href="#shuffleexchangeexec">ShuffleExchangeExec</a></li>
+        <li><a href="#sortshufflemanager">SortShuffleManager</a></li>
+        <li><a href="#externalsorter">ExternalSorter</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/daily-note/2022-11-20/">2022-11-20 </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#apache-arrow">Apache Arrow</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+</div>
+
+  </main>
+  
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Go_notes | Hua&#39;s Blogs</title>
+
+      <link rel="stylesheet" href="/css/main.min.8c3eff0644c8c54621005e6b6004d03df592dff3be44f4cdb15e9ba50955b716.css" integrity="sha256-jD7/BkTIxUYhAF5rYATQPfWS3/O&#43;RPTNsV6bpQlVtxY=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.08ff23f09f6381b4b42b54cc7a4f17700f2a3d22abc8024d3404bd66f3389ac7.css" integrity="sha256-CP8j8J9jgbS0K1TMek8XcA8qPSKryAJNNAS9ZvM4msc=" crossorigin="anonymous">
+
+
+      <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
+  <div style="font-size: 2em;">
+    <a href="/home" style="color: #222;"> HUAHUA </a>
+  </div>
+  <div style="display: flex;">
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+      content: "»";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/">Hua&#39;s Blogs</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/go_note/">Go_notes</a>
+    </li>
+  </ol>
+</nav>
+    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: rgb(0, 122, 255) ;background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
+  </div>
+</div>
+
+  </header>
+  <main>
+    
+<h1 class="center">Go_notes</h1>
+
+<div class="card-container center">
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/go_note/go_note/">GO_NOTE </a>
+    </div>
+    <div class="summary-nav">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ref">Ref</a></li>
+    <li><a href="#todo">TODO</a></li>
+    <li><a href="#语法基础">语法基础</a>
+      <ul>
+        <li><a href="#for--range">for &amp; range</a></li>
+        <li><a href="#select">select</a></li>
+        <li><a href="#defer">defer</a></li>
+        <li><a href="#panic--recover">panic &amp; recover</a></li>
+        <li><a href="#make--new">make &amp; new</a></li>
+      </ul>
+    </li>
+    <li><a href="#面向对象编程">面向对象编程</a>
+      <ul>
+        <li><a href="#interface--struct">interface &amp; struct</a></li>
+        <li><a href="#反射">反射</a></li>
+      </ul>
+    </li>
+    <li><a href="#标准容器">标准容器</a>
+      <ul>
+        <li><a href="#数组">数组</a></li>
+        <li><a href="#slice">slice</a></li>
+        <li><a href="#map">map</a></li>
+        <li><a href="#list">List</a></li>
+        <li><a href="#ring">Ring</a></li>
+        <li><a href="#heap">Heap</a></li>
+      </ul>
+    </li>
+    <li><a href="#并发编程">并发编程</a>
+      <ul>
+        <li><a href="#channel">Channel</a></li>
+        <li><a href="#go-sync">Go Sync</a></li>
+        <li><a href="#pool">Pool</a></li>
+        <li><a href="#mutex--rwmutex">Mutex &amp; RWMutex</a></li>
+        <li><a href="#cond">Cond</a></li>
+        <li><a href="#once">Once</a></li>
+        <li><a href="#waitgroup">WaitGroup</a></li>
+        <li><a href="#map-1">Map</a></li>
+        <li><a href="#context--定时器">Context &amp; 定时器</a></li>
+        <li><a href="#context">Context</a></li>
+        <li><a href="#timer">Timer</a></li>
+      </ul>
+    </li>
+    <li><a href="#go内部实现机制">Go内部实现机制</a>
+      <ul>
+        <li><a href="#gmp-调度器">GMP 调度器</a></li>
+        <li><a href="#网络轮询器">网络轮询器</a></li>
+        <li><a href="#系统监控">系统监控</a></li>
+        <li><a href="#内存分配器">内存分配器</a></li>
+        <li><a href="#垃圾收集器">垃圾收集器</a></li>
+        <li><a href="#gc-算法">GC 算法</a></li>
+        <li><a href="#栈内存管理">栈内存管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#标准库">标准库</a>
+      <ul>
+        <li><a href="#go-container">Go container</a></li>
+        <li><a href="#list-1">List</a></li>
+        <li><a href="#ring-1">Ring</a></li>
+        <li><a href="#heap-1">Heap</a></li>
+        <li><a href="#nethttp">net/http</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用库">常用库</a>
+      <ul>
+        <li><a href="#panjf2000ants">panjf2000/ants</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+</div>
+
+  </main>
+  
+</body>
+
+</html>

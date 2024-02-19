@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | Hua&#39;s Blogs</title>
+
+      <link rel="stylesheet" href="/css/main.min.8c3eff0644c8c54621005e6b6004d03df592dff3be44f4cdb15e9ba50955b716.css" integrity="sha256-jD7/BkTIxUYhAF5rYATQPfWS3/O&#43;RPTNsV6bpQlVtxY=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.08ff23f09f6381b4b42b54cc7a4f17700f2a3d22abc8024d3404bd66f3389ac7.css" integrity="sha256-CP8j8J9jgbS0K1TMek8XcA8qPSKryAJNNAS9ZvM4msc=" crossorigin="anonymous">
+
+
+      <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
+  <div style="font-size: 2em;">
+    <a href="/home" style="color: #222;"> HUAHUA </a>
+  </div>
+  <div style="display: flex;">
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+      content: "»";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/">Hua&#39;s Blogs</a>
+    </li>
+    
+    <li>
+      <a href="/machine_learning/">Machine_learnings</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/machine_learning/natural_language_generation/natural_language_generation/"></a>
+    </li>
+  </ol>
+</nav>
+    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: rgb(0, 122, 255) ;background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
+  </div>
+</div>
+
+  </header>
+  <main>
+    
+<main class="aside-layout">
+  <script>
+    function toggleVisibility() {
+      var element = document.getElementById("toggleAside");
+      var container = document.querySelector("main.container");
+      if (element.style.display === "none") {
+        element.style.display = "block"; 
+        container.style.gridTemplateColumns = '1fr 3fr';
+      } else {
+        element.style.display = "none"; 
+        container.style.gridTemplateColumns = '1fr';
+      }
+    }
+  </script>
+  <aside id="toggleAside">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#recurrent-neural-network">Recurrent Neural Network</a></li>
+    <li><a href="#milestone-papers">Milestone papers</a></li>
+    <li><a href="#paper-reading">Paper Reading</a></li>
+  </ul>
+</nav>
+  </aside>
+
+  <article class="center">
+    
+    <h1 id="natural-language-generation">Natural Language Generation</h1>
+<p>
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/../../home" >Go Back Home</a></p>
+<p><strong>Link</strong></p>
+<p>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/NLG.pdf" >自然语言生成多种方法调研报告.pdf</a></p>
+<h2 id="recurrent-neural-network">Recurrent Neural Network</h2>
+<!-- raw HTML omitted -->
+<h2 id="milestone-papers">Milestone papers</h2>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Comments</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/serial_order_a_parallel_distrmuted_processing_approach.pdf" >serial_order_a_parallel_distrmuted_processing_approach.pdf</a></td>
+<td>Jordan RNN</td>
+<td>1986</td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/finding_structure_in_time.pdf" >finding_structure_in_time.pdf</a></td>
+<td>Elman RNN</td>
+<td>1990</td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/long_short_term_memory.pdf" >long_short_term_memory.pdf</a></td>
+<td>LSTM</td>
+<td>1997</td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/NIPS-2014-sequence-to-sequence-learning-with-neural-networks-Paper.pdf" >NIPS-2014-sequence-to-sequence-learning-with-neural-networks-Paper.pdf</a></td>
+<td>Seq2Seq</td>
+<td>NIPS-2014</td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/learning_phrase_representations_using_rnn_encoder_decoder_for_statistical_machine_translation.pdf" >learning_phrase_representations_using_rnn_encoder<!-- raw HTML omitted -->_decoder_for_statistical_machine_translation.pdf</a></td>
+<td>Encoder-Decoder</td>
+<td></td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate.pdf" >neural_machine_translation_by_jointly_learning<!-- raw HTML omitted -->_to_align_and_translate.pdf</a></td>
+<td>Attention</td>
+<td></td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/attention_is_all_you_need.pdf" >attention_is_all_you_need.pdf</a></td>
+<td>Transformer</td>
+<td></td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/improving_language_understanding_by_generative_pre_training.pdf" >improving_language_understanding_<!-- raw HTML omitted -->by_generative_pre_training.pdf</a></td>
+<td>Generative Pre Traning</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="paper-reading">Paper Reading</h2>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/a_survey_of_natural_language_generation_techniques_with_a_focus_on_dialogue_systems_past_present_and_future_directions.pdf" >A Survey of Natural Language Generation Techniques <!-- raw HTML omitted -->with a Focus on Dialogue Systems - Past, Present and Future Directions.pdf</a></td>
+<td></td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/%e8%87%aa%e7%84%b6%e8%af%ad%e8%a8%80%e7%94%9f%e6%88%90%e7%bb%bc%e8%bf%b0.pdf" >自然语言生成综述.pdf</a></td>
+<td></td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/building_applied_natural_language_generation_systems.pdf" >Building applied natural language generation systems.pdf</a></td>
+<td></td>
+</tr>
+<tr>
+<td>
+
+
+
+
+
+
+
+ 
+
+
+
+<a href="/machine_learning/natural_language_generation/paper/forest_based_statistical_sentence_generation.pdf" >Forest-Based Statistical Sentence Generation.pdf</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+  </article>
+</main>
+
+  </main>
+  
+</body>
+
+</html>

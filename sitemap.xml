@@ -2,9 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://example.org/c&#43;&#43;/c&#43;&#43;/</loc>
+  </url><url>
+    <loc>https://example.org/daily-note/2022-09-15/</loc>
+  </url><url>
+    <loc>https://example.org/daily-note/2022-09-18/</loc>
+  </url><url>
+    <loc>https://example.org/daily-note/2022-10-04/</loc>
+  </url><url>
+    <loc>https://example.org/daily-note/2022-10-24/</loc>
+  </url><url>
+    <loc>https://example.org/daily-note/2022-11-02/</loc>
+  </url><url>
+    <loc>https://example.org/daily-note/2022-11-20/</loc>
+  </url><url>
+    <loc>https://example.org/draft/</loc>
+  </url><url>
+    <loc>https://example.org/go_note/go_note/</loc>
+  </url><url>
+    <loc>https://example.org/home/</loc>
+  </url><url>
+    <loc>https://example.org/machine_learning/natural_language_generation/natural_language_generation/</loc>
+  </url><url>
+    <loc>https://example.org/os_note/os_note/</loc>
+  </url><url>
+    <loc>https://example.org/project/soteria/</loc>
+  </url><url>
+    <loc>https://example.org/research/ai_with_tee/ai_with_tee/</loc>
+  </url><url>
+    <loc>https://example.org/c&#43;&#43;/</loc>
+  </url><url>
     <loc>https://example.org/categories/</loc>
   </url><url>
+    <loc>https://example.org/daily-note/</loc>
+  </url><url>
+    <loc>https://example.org/go_note/</loc>
+  </url><url>
     <loc>https://example.org/</loc>
+  </url><url>
+    <loc>https://example.org/machine_learning/</loc>
+  </url><url>
+    <loc>https://example.org/os_note/</loc>
+  </url><url>
+    <loc>https://example.org/project/</loc>
+  </url><url>
+    <loc>https://example.org/research/</loc>
   </url><url>
     <loc>https://example.org/tags/</loc>
   </url>

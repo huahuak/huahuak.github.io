@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go_notes on Hua&#39;s Blogs</title>
+    <link>https://example.org/go_note/</link>
+    <description>Recent content in Go_notes on Hua&#39;s Blogs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://example.org/go_note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://example.org/go_note/go_note/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/go_note/go_note/</guid>
+      <description>Go quick start Ref Go 语言设计与实现&#xA;TODO select/defer/panic&amp;amp;recover Timer: Go 定时器实现 内存分配器/垃圾收集器/栈内存管理 Json/HTTP/数据库等标准库 同步原语拓展部分 ErrGroup/Semaphore/SingleFlight 深入理解 GMP 模型、网络轮询器 Go Lambda 变量逃逸 nil and &amp;hellip;args?</description>
+    </item>
+  </channel>
+</rss>

@@ -7,5 +7,103 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://example.org/c&#43;&#43;/c&#43;&#43;/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/c&#43;&#43;/c&#43;&#43;/</guid>
+      <description>C++ Note Overload </description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/daily-note/2022-09-15/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/daily-note/2022-09-15/</guid>
+      <description>Daily-Note 09-15 OVERVIEW 在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。&#xA;Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。 背景介绍 Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/daily-note/2022-09-18/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/daily-note/2022-09-18/</guid>
+      <description>Daily-Note 09-18 OVERVIEW Gin，go web 框架。 Go MemModel，go 语言内存模型。 Go Sync，Go 并发包，提供 Atomic、cond、once、pool、mutex、rwmutex、waitgroup、map 等线程并发工具。 Go container，提供了 List、Ring、Heap 等容器，此外 go builtin 包括 slice、map 等多种数据结构。 IPC sig，进程通信中 sig 是通过信号的发送，回调处理函数来实现进程间的通信。 Gin Route gin框架路由详解</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/daily-note/2022-10-04/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/daily-note/2022-10-04/</guid>
+      <description>Daily-Note 10-04 OVERVIEW Spark 并发模型，Spark 以 Executor 进程为单元，在 task 上实现多线程并发模型。 线性模型，传统机器学习模型。 字典树，一种前缀树，可用于路由匹配、语法补全等场景。 拉格朗日乘子法，数学最优化问题中求解多元函数在约束条件下局部极值的方法。 Spark 并发模型 RDD RDD 是 Resilient Distrubuted Dataset，弹性分布式数据集，是 Spark 数据的基本组织方式。</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/daily-note/2022-10-24/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/daily-note/2022-10-24/</guid>
+      <description>Daily-Note 10-24 OVERVIEW Pytorch，机器学习框架 神经网络，由神经元构成的非线性参数模型。 SparkPlanner，将 Logical Plan 转换到 Physics Plan。 Spark Expression， Pytorch TUTORIAL 1: INTRODUCTION TO PYTORCH fsdl-text-recognizer-2021-labs</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/daily-note/2022-11-02/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/daily-note/2022-11-02/</guid>
+      <description>Daily-Note 11-02 OVERVIEW Kafka，分布式高性能事件流式处理平台。 Docker，docker 是一个用于部署、传输、运行应用的开发平台。 Spark Shuffle，分布式环境下重新组织数据使有序的操作。 Kafka Kafka introduction&#xA;Kafka documentation&#xA;Docker docker&#xA;Docker 从入门到实践&#xA;EntryPoint，该命令相比于 CMD 命令而言，可以在 docker run 命令后添加参数。 EntryPoint</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/daily-note/2022-11-20/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/daily-note/2022-11-20/</guid>
+      <description>Daily-Note 11-20 OVERVIEW Apache Arrow，用于高性能大数据处理传输场景。 Apache Arrow https://arrow.apache.org</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/draft/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/draft/</guid>
+      <description>Draft Linux disk manage Linux 扩容 / 根分区(LVM+非LVM) from 知乎&#xA;Ubuntu update-alternatives blog4hua markdown to html, with code highlight and latex render.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/go_note/go_note/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/go_note/go_note/</guid>
+      <description>Go quick start Ref Go 语言设计与实现&#xA;TODO select/defer/panic&amp;amp;recover Timer: Go 定时器实现 内存分配器/垃圾收集器/栈内存管理 Json/HTTP/数据库等标准库 同步原语拓展部分 ErrGroup/Semaphore/SingleFlight 深入理解 GMP 模型、网络轮询器 Go Lambda 变量逃逸 nil and &amp;hellip;args?</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/home/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/home/</guid>
+      <description>Home Programming Language Language Note Go go_note.md C++ c++.md Operate Sytem os_note.md&#xA;Machine Learning Field Note Natural Language Generation natural_language_generation.md Research ai_with_tee.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/machine_learning/natural_language_generation/natural_language_generation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/machine_learning/natural_language_generation/natural_language_generation/</guid>
+      <description>Natural Language Generation Go Back Home&#xA;Link&#xA;自然语言生成多种方法调研报告.pdf&#xA;Recurrent Neural Network Milestone papers Paper Comments Source serial_order_a_parallel_distrmuted_processing_approach.pdf Jordan RNN 1986 finding_structure_in_time.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/os_note/os_note/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/os_note/os_note/</guid>
+      <description>Operate System Note Overview Cache Paper Comments MESIF-2009.pdf cache coherence protocol </description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/project/soteria/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/project/soteria/</guid>
+      <description>Soteria Soteria1 is a secure neural network framework based on trusted hardware.&#xA;Overview Soteria Wiki&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/research/ai_with_tee/ai_with_tee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/research/ai_with_tee/ai_with_tee/</guid>
+      <description>AI with TEE Go Back Home&#xA;Paper Paper Comment Source shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf AAAI 2021 slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch compu- tation) and a trusted execution environment (TEE) (for minimizing the use of cryptography).</description>
+    </item>
   </channel>
 </rss>
