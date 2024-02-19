@@ -297,7 +297,7 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// task gets a different copy of the RDD. This provides stronger isolation between tasks that
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// might modify state of objects referenced in their closures. This is necessary in Hadoop
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// where the JobConf/Configuration object is not thread-safe.
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">var</span> <span style="color:#000">taskBinary</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Broadcast</span><span style="color:#000">[</span><span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Byte</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">null</span> <span style="color:#177500">// 	序列化 task
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">var</span> <span style="color:#000">taskBinary</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Broadcast</span><span style="color:#000">[</span><span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Byte</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">null</span> <span style="color:#177500">//  序列化 task
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">var</span> <span style="color:#000">partitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Partition</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">null</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a90d91">try</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// For ShuffleMapTask, serialize and broadcast (rdd, shuffleDep).
@@ -337,7 +337,7 @@
 </span></span><span style="display:flex;"><span>          <span style="color:#a90d91">val</span> <span style="color:#000">part</span> <span style="color:#a90d91">=</span> <span style="color:#000">partitions</span><span style="color:#000">(</span><span style="color:#000">id</span><span style="color:#000">)</span>
 </span></span><span style="display:flex;"><span>          <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">pendingPartitions</span> <span style="color:#000">+=</span> <span style="color:#000">id</span>
 </span></span><span style="display:flex;"><span>          
-</span></span><span style="display:flex;"><span>         	<span style="color:#177500">// 生成 ShuffleMapTask
+</span></span><span style="display:flex;"><span>          <span style="color:#177500">// 生成 ShuffleMapTask
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>          <span style="color:#a90d91">new</span> <span style="color:#3f6e75">ShuffleMapTask</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">id</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">latestInfo</span><span style="color:#000">.</span><span style="color:#000">attemptNumber</span><span style="color:#000">,</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#000">taskBinary</span><span style="color:#000">,</span> <span style="color:#000">part</span><span style="color:#000">,</span> <span style="color:#000">locs</span><span style="color:#000">,</span> <span style="color:#000">properties</span><span style="color:#000">,</span> <span style="color:#000">serializedTaskMetrics</span><span style="color:#000">,</span> <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">),</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">applicationId</span><span style="color:#000">),</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">applicationAttemptId</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">.</span><span style="color:#000">isBarrier</span><span style="color:#000">())</span>
@@ -593,7 +593,7 @@ $$
 $$
 \begin{array}{rcl}
   \frac{\partial}{\partial\theta_j}J(\theta)
-  &=&\frac{\partial}{\partial\theta_j}\frac{1}{2}\left(h_\theta(x)-y\right)^2\\ 
+  &=&\frac{\partial}{\partial\theta_j}\frac{1}{2}\left(h_\theta(x)-y\right)^2\\
   &=&2\cdot\frac{1}{2}\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(h_\theta(x)-y\right)\\
   &=&\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(\sum_{i=0}^{d}\theta_ix_i-y\right)\\
   &=&\left(h_\theta(x)-y\right)x_j
@@ -613,10 +613,10 @@ $$
 \begin{array}{rcl}
 \nabla_\theta J(\theta)
 &=&\nabla_\theta\frac{1}{2}(X(\theta-\vec{y})^T(X\theta-\vec{y})\\
-&=&\frac{1}{2}\nabla_\theta((X\theta)^T X\theta-(X\theta)^T\vec{y}-\vec{y}^T(X\theta)+\vec{y}^T\vec{y})\\ 
-&=&\frac{1}{2}\nabla_\theta(\theta^T(X^T X)\theta-\vec{y}^T(X\theta)-\vec{y}^T(X\theta))\\ 
-&=&\frac{1}{2}\nabla_\theta\left(\theta^T(X^T X X)\theta-2(X^T\vec{y})^T\theta\right)\\ &=&\frac{1}{2}\left(2X^T X\theta-2X^T\vec{y}\right)\\ 
-&=&X^T X\theta-X^T\vec{y}\\ 
+&=&\frac{1}{2}\nabla_\theta((X\theta)^T X\theta-(X\theta)^T\vec{y}-\vec{y}^T(X\theta)+\vec{y}^T\vec{y})\\
+&=&\frac{1}{2}\nabla_\theta(\theta^T(X^T X)\theta-\vec{y}^T(X\theta)-\vec{y}^T(X\theta))\\
+&=&\frac{1}{2}\nabla_\theta\left(\theta^T(X^T X X)\theta-2(X^T\vec{y})^T\theta\right)\\ &=&\frac{1}{2}\left(2X^T X\theta-2X^T\vec{y}\right)\\
+&=&X^T X\theta-X^T\vec{y}\\
 \end{array}
 $$
 <p>
@@ -649,8 +649,8 @@ $$
 $$
 \begin{array}{rcl}
 L(\theta)
-&=&p(\vec{y}\mid X;\theta)\\ 
-&=&\prod\limits_{i=1}^np(y^{(i)}\mid x^{(i)};\theta)\\ 
+&=&p(\vec{y}\mid X;\theta)\\
+&=&\prod\limits_{i=1}^np(y^{(i)}\mid x^{(i)};\theta)\\
 &=&\prod\limits_{i=1}^n\left(h_\theta(x^{(i)})\right)^{y^{(i)}}\left(1-h_\theta(x^{(i)})\right)^{1-y^{(i)}}
 \end{array}
 $$
@@ -660,7 +660,7 @@ $$
 $$
 \begin{array}{rcl}
 \ell(\theta)
-&=&\log L(\theta)\\ 
+&=&\log L(\theta)\\
 &=&\sum_{i=1}^n y^{(i)}\log h(x^{(i)})+(1-y^{(i)})\log(1-h(x^{(i)}))
 \end{array}
 $$
@@ -670,9 +670,9 @@ $$
 $$
 \begin{array}{rcl}
 \frac{\partial}{\partial\theta_j}\ell(\theta)
-&=&\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)\frac{\partial}{\partial\theta_j}g(\theta^Tx)\\ 
-&=&\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)g(\theta^Tx)(1-g(\theta^Tx))\frac{\partial}{\partial\theta_j}g^Tx\\ 
-&=&\left(y(1-g(\theta^Tx))-(1-y)g(\theta^Tx)\right)x_j\\ 
+&=&\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)\frac{\partial}{\partial\theta_j}g(\theta^Tx)\\
+&=&\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)g(\theta^Tx)(1-g(\theta^Tx))\frac{\partial}{\partial\theta_j}g^Tx\\
+&=&\left(y(1-g(\theta^Tx))-(1-y)g(\theta^Tx)\right)x_j\\
 &=&(y-h_g(x))\:x_j
 \end{array}
 $$
@@ -704,61 +704,63 @@ p(y|x;\theta)
 $$
 <p>
 根据指数族分布形式可知，
+</p>
 $$
-\begin{array}{rcl}</p>
-<p>\eta
-&amp;=&amp;\begin{bmatrix}
-\log(\frac{\phi_1}{\phi_k})\
-\log(\frac{\phi_2}{\phi_k})\
-\vdots\
+\begin{array}{rcl}
+\eta
+&=&\begin{bmatrix}
+\log(\frac{\phi_1}{\phi_k})\\
+\log(\frac{\phi_2}{\phi_k})\\
+\vdots\\
 \log(\frac{\phi_k-1}{\phi_k})
-\end{bmatrix}\</p>
-<p>a(\eta)&amp;=&amp;-log(\phi_k)\</p>
-<p>b(y)&amp;=&amp;1</p>
-<p>\end{array}
-</p>
+\end{bmatrix}\\
+a(\eta)&=&-log(\phi_k)\\
+b(y)&=&1
+\end{array}
 $$
+<p>
 这里假设 $T(y)=y; h(\theta)=E[y|x]$，则有，
-$$
-<p>
-\begin{array}{rcl}</p>
-<p>h_{\theta}(x)
-&amp;=&amp;\text{E}[T(y)|x;\theta]\
-&amp;=&amp;E\left[\begin{array}{c|c}
-\begin{matrix}
-1{y=2}\
-1{y=2}\
-\vdots\
-1{y=k-1}
-\end{matrix}&amp;
-x;\theta
-\end{array}\right]\
-&amp;=&amp;\left[
-\begin{matrix}
-\phi_1\
-\phi_2\
-\vdots\
-\phi_{k-1}
-\end{matrix}
-\right]\
-&amp;=&amp;\left[
-\begin{matrix}
-\frac{\exp(\theta_1^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\
-\frac{\exp(\theta_2^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\
-\vdots\
-\frac{\exp(\theta_{k-1}^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\
-\end{matrix}
-\right]</p>
-<p>\end{array}
 </p>
 $$
-根据多项分布的概率分布函数，将 $h(\theta)$ 代入概率分布函数，根据极大似然求对应的 $\theta$。
+\begin{array}{rcl}
+h_{\theta}(x)
+&=&\text{E}[T(y)|x;\theta]\\
+&=&E\left[\begin{array}{c|c}
+ \begin{matrix}
+ 1\{y=2\}\\
+ 1\{y=2\}\\
+ \vdots\\
+ 1\{y=k-1\}
+ \end{matrix}&
+ x;\theta
+ \end{array}\right]\\
+&=&\left[
+ \begin{matrix}
+ \phi_1\\
+ \phi_2\\
+ \vdots\\
+ \phi_{k-1}
+ \end{matrix}
+ \right]\\
+&=&\left[
+  \begin{matrix}
+  \frac{\exp(\theta_1^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\
+  \frac{\exp(\theta_2^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\
+  \vdots\\
+  \frac{\exp(\theta_{k-1}^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\
+  \end{matrix}
+  \right]
+\end{array}
 $$
 <p>
-\begin{array}{rcl}\ell(\theta)
-&amp;=&amp;\sum\limits_{i=1}^n\log p(y^{(i)}|x^{(i)};\theta)\
-&amp;=&amp;\sum\limits_{i=1}^n\log\prod\limits_{l=1}^k\left(\dfrac{e^{\theta_l^Tx^{(i)}}}{\sum\limits_{j=1}^ke^{\theta_j^Tx^{(i)}}}\right)^{1{y^{(i)}=l}}\end{array}
+根据多项分布的概率分布函数，将 $h(\theta)$ 代入概率分布函数，根据极大似然求对应的 $\theta$。
+</p>
 $$
+\begin{array}{rcl}\ell(\theta)
+&=&\sum\limits_{i=1}^n\log p(y^{(i)}|x^{(i)};\theta)\\
+&=&\sum\limits_{i=1}^n\log\prod\limits_{l=1}^k\left(\dfrac{e^{\theta_l^Tx^{(i)}}}{\sum\limits_{j=1}^ke^{\theta_j^Tx^{(i)}}}\right)^{1\{y^{(i)}=l\}}\end{array}
+$$
+<p>
 可以通过 gradient ascent 或 Newton&rsquo;s method 进行求解。</p>
 <h2 id="字典树">字典树</h2>
 <blockquote>
