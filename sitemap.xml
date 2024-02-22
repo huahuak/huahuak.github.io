@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://example.org/big_data/spark/</loc>
+  </url><url>
     <loc>https://example.org/c&#43;&#43;/c&#43;&#43;/</loc>
   </url><url>
     <loc>https://example.org/daily-note/2022-09-15/</loc>
@@ -29,6 +31,8 @@
     <loc>https://example.org/project/soteria/</loc>
   </url><url>
     <loc>https://example.org/research/ai_with_tee/ai_with_tee/</loc>
+  </url><url>
+    <loc>https://example.org/big_data/</loc>
   </url><url>
     <loc>https://example.org/c&#43;&#43;/</loc>
   </url><url>

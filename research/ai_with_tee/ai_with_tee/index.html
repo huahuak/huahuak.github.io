@@ -16,24 +16,24 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title> | Hua&#39;s Blogs</title>
+<title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.08bd8dd00cc1c4e864627f1c0d0381ec56ab6abfeb4a32298d3a451553f8ef30.css" integrity="sha256-CL2N0AzBxOhkYn8cDQOB7Farar/rSjIpjTpFFVP47zA=" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/var.min.166df576c80a2cfea7191ca22d361410e76a7b6becdce62142e239a0c4d62f3e.css" integrity="sha256-Fm31dsgKLP6nGRyiLTYUEOdqe2vs3OYhQuI5oMTWLz4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.de9e884262e64227db8aa81699b0e04e6db362221dde03e6a272b7823ffecec2.css" integrity="sha256-3p6IQmLmQifbiqgWmbDgTm2zYiId3gPmonK3gj/&#43;zsI=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
-  <header>
-    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
-  <div style="font-size: 2em;">
-    <a href="/home" style="color: #222;"> HUAHUA </a>
-  </div>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
   <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
     <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
   <style>
     ol {
@@ -53,13 +53,15 @@
     }
 
     .breadcrumb li:not(:last-child)::after {
-      content: "»";
+       
+      color: var(--blue);
+      content: "·";
     }
   </style>
   <ol>
     
     <li>
-      <a href="/">Hua&#39;s Blogs</a>
+      <a href="/">Home</a>
     </li>
     
     <li>
@@ -71,60 +73,43 @@
     </li>
   </ol>
 </nav>
-    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: var(--blue); background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
   </div>
-</div>
+</header>
 
-  </header>
-  <main>
-    
-<main class="aside-layout">
-  <script>
-    function toggleVisibility() {
-      var element = document.getElementById("toggleAside");
-      var container = document.querySelector("main.aside-layout");
-      if (element.style.display === "none") {
-        element.style.display = "block"; 
-        container.style.gridTemplateColumns = '1fr 3fr';
-      } else {
-        element.style.display = "none"; 
-        container.style.gridTemplateColumns = '1fr';
-      }
-    }
-  </script>
-  <aside id="toggleAside">
-    <nav id="TableOfContents">
+<div class="main-container">
+  <nav id="TableOfContents">
   <ul>
     <li><a href="#paper">Paper</a>
       <ul>
         <li><a href="#slalom">SLALOM</a></li>
       </ul>
     </li>
+    <li><a href="#baseline">Baseline</a></li>
+    <li><a href="#verifiable-execution">Verifiable Execution</a></li>
+    <li><a href="#quantization">QUANTIZATION</a></li>
     <li><a href="#slide">Slide</a></li>
     <li><a href="#experiment">Experiment</a></li>
+    <li><a href="#related-paper">Related Paper</a></li>
   </ul>
 </nav>
-  </aside>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
 
-  <article class="center">
-    
-    <h1 id="ai-with-tee">AI with TEE</h1>
-<p>
-
-
-
-
-
-
-
-
-
-
- 
+<a href="https://github.com/huahuak/huahuak.github.io">
+  <span class="gh-ico"></span>
+</a>
+ </header>
+      <main class="center main-container"> 
 
 
-
-<a href="/research/ai_with_tee/../../home" >Go Back Home</a></p>
+<h1 id="ai-with-tee">AI with TEE</h1>
+<p><a href="../../home.md">Go Back Home</a></p>
 <h2 id="paper">Paper</h2>
 <table>
 <thead>
@@ -137,68 +122,20 @@
 </thead>
 <tbody>
 <tr>
-<td>
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf" >shadownet_a_secure_and_efficient_on_<!-- raw HTML omitted -->device_model_inference_system_for_<!-- raw HTML omitted -->convolutional_neural_networks.pdf</a></td>
+<td><a href="shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf">shadownet_a_secure_and_efficient_on_<br />device_model_inference_system_for_<br />convolutional_neural_networks.pdf</a></td>
 <td></td>
 <td>SP 2023</td>
 <td></td>
 </tr>
 <tr>
-<td>
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf" >goten_gpu_outsourcing_trusted_execution<!-- raw HTML omitted -->_of_neural_network_training.pdf</a></td>
+<td><a href="goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf">goten_gpu_outsourcing_trusted_execution<br />_of_neural_network_training.pdf</a></td>
 <td></td>
 <td>AAAI 2021</td>
 <td></td>
 </tr>
 <tr>
-<td>
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf" >slalom_fast_verifiable_and_private_execution<!-- raw HTML omitted -->_of_neural_networks_in_trusted_hardware.pdf</a></td>
-<td>Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch compu- tation) and a trusted execution environment (TEE) (for minimizing the use of cryptography). 
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/#SLALOM" >link</a></td>
+<td><a href="slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf">slalom_fast_verifiable_and_private_execution<br />_of_neural_networks_in_trusted_hardware.pdf</a></td>
+<td>Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch compu- tation) and a trusted execution environment (TEE) (for minimizing the use of cryptography). <a href="#SLALOM">link</a></td>
 <td>ICLR 2019</td>
 <td></td>
 </tr>
@@ -206,76 +143,307 @@
 </table>
 <h3 id="slalom">SLALOM</h3>
 <p>SlALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</p>
+<p>‼️ <strong>Challenge:</strong></p>
+<p>A specific challenge they raised is that of appropriately splitting ML computations between trusted and untrusted components, to increase efficiency as well as security by minimizing the Trusted Computing Base.</p>
+<p><strong>Solution:</strong></p>
+<p>This paper explores a novel approach to this challenge, wherein a Deep Neural Network (DNN) execution is <em>partially outsourced from a TEE to a co-located, untrusted but faster device</em>.</p>
+<p><strong>How to check integrity of outsource result?</strong></p>
+<p>Freivalds&rsquo; algorithm is a probabilistic randoized algorithm used to verify matrix multiplication.</p>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://en.wikipedia.org/wiki/Freivalds%27_algorithm" 
-  target="_blank" rel="noopener" >Freivalds&rsquo; algorithm - Wikipedia</a></p>
-<!-- raw HTML omitted -->
+<p><a href="https://en.wikipedia.org/wiki/Freivalds'_algorithm">Freivalds&rsquo; algorithm - Wikipedia</a></p>
+<p><b>Freivalds' algorithm</b> (named after <a href="/wiki/R%C5%ABsi%C5%86%C5%A1_M%C4%81rti%C5%86%C5%A1_Freivalds" title="Rūsiņš Mārtiņš Freivalds">Rūsiņš Mārtiņš Freivalds</a>) is a probabilistic <a href="/wiki/Randomized_algorithm" title="Randomized algorithm">randomized algorithm</a> used to verify <a href="/wiki/Matrix_multiplication" title="Matrix multiplication">matrix multiplication</a>. Given three <i>n</i>&nbsp;×&nbsp;<i>n</i> <a href="/wiki/Matrix_(mathematics)" title="Matrix (mathematics)">matrices</a> <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle A}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>A</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle A}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7daff47fa58cdfd29dc333def748ff5fa4c923e3" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.743ex; height:2.176ex;" alt="{\displaystyle A}"></span>, <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle B}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>B</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle B}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/47136aad860d145f75f3eed3022df827cee94d7a" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.764ex; height:2.176ex;" alt="{\displaystyle B}"></span>, and <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle C}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>C</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle C}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4fc55753007cd3c18576f7933f6f089196732029" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.766ex; height:2.176ex;" alt="{\displaystyle C}"></span>, a general problem is to verify whether <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle A\times B=C}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>A</mi>
+   <mo>×<!-- × --></mo>
+   <mi>B</mi>
+   <mo>=</mo>
+   <mi>C</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle A\times B=C}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/6cfec2929c0c42a7dee59545916c8ea52a98a38b" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:11.212ex; height:2.176ex;" alt="{\displaystyle A\times B=C}"></span>. A naïve <a href="/wiki/Algorithm" title="Algorithm">algorithm</a> would compute the product <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle A\times B}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>A</mi>
+   <mo>×<!-- × --></mo>
+   <mi>B</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle A\times B}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/65f31ae45b0098f06b5d22c38d317eb097a88fa9" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:6.348ex; height:2.176ex;" alt="{\displaystyle A\times B}"></span> explicitly and compare term by term whether this product equals <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle C}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>C</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle C}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4fc55753007cd3c18576f7933f6f089196732029" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.766ex; height:2.176ex;" alt="{\displaystyle C}"></span>. However, the <a href="/wiki/Computational_complexity_of_matrix_multiplication" title="Computational complexity of matrix multiplication">best known matrix multiplication algorithm</a> runs in <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle O(n^{2.3729})}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>O</mi>
+   <mo stretchy="false">(</mo>
+   <msup>
+     <mi>n</mi>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mn>2.3729</mn>
+     </mrow>
+   </msup>
+   <mo stretchy="false">)</mo>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle O(n^{2.3729})}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d32afead7478922e250a51e8629d2e5c3f725042" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:9.777ex; height:3.176ex;" alt="{\displaystyle O(n^{2.3729})}"></span> time.<sup id="cite_ref-williams_1-0" class="reference"><a href="#cite_note-williams-1">[1]</a></sup> Freivalds' algorithm utilizes <a href="/wiki/Randomization" title="Randomization">randomization</a> in order to reduce this time bound to <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle O(n^{2})}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>O</mi>
+   <mo stretchy="false">(</mo>
+   <msup>
+     <mi>n</mi>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mn>2</mn>
+     </mrow>
+   </msup>
+   <mo stretchy="false">)</mo>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle O(n^{2})}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/6cd9594a16cb898b8f2a2dff9227a385ec183392" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:6.032ex; height:3.176ex;" alt="{\displaystyle O(n^{2})}"></span><sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>
+<a href="/wiki/With_high_probability" title="With high probability">with high probability</a>. In <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle O(kn^{2})}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>O</mi>
+   <mo stretchy="false">(</mo>
+   <mi>k</mi>
+   <msup>
+     <mi>n</mi>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mn>2</mn>
+     </mrow>
+   </msup>
+   <mo stretchy="false">)</mo>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle O(kn^{2})}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/e38360670c88999fd738d8ddbe8de9a0518b80ee" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:7.243ex; height:3.176ex;" alt="{\displaystyle O(kn^{2})}"></span> time the algorithm can verify a matrix product with probability of failure less than <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle 2^{-k}}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <msup>
+     <mn>2</mn>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mo>−<!-- − --></mo>
+       <mi>k</mi>
+     </mrow>
+   </msup>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle 2^{-k}}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d5ba5275e798107d7738afeb76e2bdb91cd37e0f" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:3.53ex; height:2.676ex;" alt="{\displaystyle 2^{-k}}"></span>.
+</p>
 </blockquote>
+<p><a href="slalom/NIPS-2017-safetynets-verifiable-execution-of-deep-neural-networks-on-an-untrusted-cloud-Paper.pdf">Safetynets</a> is a framework that enables an untrusted server (the cloud) to provide a client with a short mathematical proof of the correctness of inference tasks that they perform on behalf of the client.</p>
+<h4 id="solution">Solution</h4>
+<p><strong>Privacy</strong>，$x$ is input, $r$ is random vector, $f$ is linear function. pre-computes $u=f(r)$, then TEE send $Enc(x)=x+r$ to unstrusted part, untrusted part then compute $f(Enc(x))$, TEE get result by $f(x)=f(x+r)-f(r)=f(Enc(x))-u$.</p>
+<h4 id="discussion">Discussion</h4>
+<ol>
+<li>
+<p>Communication in Distributed System.</p>
+<p>Slalom say,</p>
+<blockquote>
+<p>In our setting, the TEE is <em>co-located</em> with the server’s faster untrusted processors, thus widening the design space to <em>interactive</em> outsourcing protocols with high communication but better efficiency.</p>
+</blockquote>
+<p>so the overhead of communication in distributed system is not under consideration.</p>
+<p>Slalom say,</p>
+<blockquote>
+<p>Using Freivalds’ algorithm and symmetric encryption for each linear layer in a DNN incurs high interaction and communication between the TEE and untrusted co-processor (e.g., over 50MB per inference for VGG16, see Table 3). This would be prohibitive if they were not co-located.</p>
+</blockquote>
+</li>
+<li></li>
+</ol>
+<h2 id="baseline">Baseline</h2>
+<p>Baseline run NN fully in TEE.</p>
+<ul>
+<li><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">oblivious_multi_party_machine_learning_on_trusted_processors.pdf</a></li>
+</ul>
+<h2 id="verifiable-execution">Verifiable Execution</h2>
+<p><a href="slalom/NIPS-2017-safetynets-verifiable-execution-of-deep-neural-networks-on-an-untrusted-cloud-Paper.pdf">Safetynets</a> is a framework that enables an untrusted server (the cloud) to provide a client with a short mathematical proof of the correctness of inference tasks that they perform on behalf of the client.</p>
+<h2 id="quantization">QUANTIZATION</h2>
 <h2 id="slide">Slide</h2>
-<p>
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/hw-aitee-1.pdf" >hw-aitee-1.pdf</a></p>
-<p>
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/hw-aitee-2.pdf" >hw-aitee-2.pdf</a></p>
-<p>
-
-
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/hw-aitee3-final.pdf" >hw-aitee3-final.pdf</a></p>
+<p><a href="hw-aitee-1.pdf">hw-aitee-1.pdf</a></p>
+<p><a href="hw-aitee-2.pdf">hw-aitee-2.pdf</a></p>
+<p><a href="hw-aitee3-final.pdf">hw-aitee3-final.pdf</a></p>
 <h2 id="experiment">Experiment</h2>
-<p>
+<p><a href="main.ipynb">main.ipynb</a>:</p>
+<h2 id="related-paper">Related Paper</h2>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Comment</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="related_paper/bicoptor_two_round_secure_three_party_non_linear_computation_without_preprocessing_for_privacy_preserving_machine_learning.pdf">bicoptor_two_round_secure_three_party<br />_non_linear_computation_without_preprocessing<br />_for_privacy_preserving_machine_learning.pdf</a></td>
+<td>3-MPC Protocl for non-linear function overhead.</td>
+<td>2023 SP</td>
+</tr>
+<tr>
+<td><a href="related_paper/a_berkeley_view_of_systems_challenges_for_ai.pdf">a_berkeley_view_of_systems_challenges_for_ai.pdf</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">oblivious_multi_party_machine_learning_on_trusted_processors.pdf</a></td>
+<td></td>
+<td>2016 SS</td>
+</tr>
+</tbody>
+</table>
 
 
-
-
-
-
-
- 
-
-
-
-<a href="/research/ai_with_tee/main.ipynb" >main.ipynb</a>:</p>
-
-  </article>
-</main>
-
-  </main>
+ </main>
+      <footer>  </footer>
+    </div>
+  </div>
   
 </body>
+
+
+
+
+<script>
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'research\/ai_with_tee\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 48,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+
+</script>
 
 </html>

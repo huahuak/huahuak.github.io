@@ -16,24 +16,24 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title> | Hua&#39;s Blogs</title>
+<title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.08bd8dd00cc1c4e864627f1c0d0381ec56ab6abfeb4a32298d3a451553f8ef30.css" integrity="sha256-CL2N0AzBxOhkYn8cDQOB7Farar/rSjIpjTpFFVP47zA=" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/var.min.166df576c80a2cfea7191ca22d361410e76a7b6becdce62142e239a0c4d62f3e.css" integrity="sha256-Fm31dsgKLP6nGRyiLTYUEOdqe2vs3OYhQuI5oMTWLz4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.de9e884262e64227db8aa81699b0e04e6db362221dde03e6a272b7823ffecec2.css" integrity="sha256-3p6IQmLmQifbiqgWmbDgTm2zYiId3gPmonK3gj/&#43;zsI=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
-  <header>
-    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
-  <div style="font-size: 2em;">
-    <a href="/home" style="color: #222;"> HUAHUA </a>
-  </div>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
   <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
     <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
   <style>
     ol {
@@ -53,13 +53,15 @@
     }
 
     .breadcrumb li:not(:last-child)::after {
-      content: "»";
+       
+      color: var(--blue);
+      content: "·";
     }
   </style>
   <ol>
     
     <li>
-      <a href="/">Hua&#39;s Blogs</a>
+      <a href="/">Home</a>
     </li>
     
     <li>
@@ -71,29 +73,11 @@
     </li>
   </ol>
 </nav>
-    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: var(--blue); background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
   </div>
-</div>
+</header>
 
-  </header>
-  <main>
-    
-<main class="aside-layout">
-  <script>
-    function toggleVisibility() {
-      var element = document.getElementById("toggleAside");
-      var container = document.querySelector("main.aside-layout");
-      if (element.style.display === "none") {
-        element.style.display = "block"; 
-        container.style.gridTemplateColumns = '1fr 3fr';
-      } else {
-        element.style.display = "none"; 
-        container.style.gridTemplateColumns = '1fr';
-      }
-    }
-  </script>
-  <aside id="toggleAside">
-    <nav id="TableOfContents">
+<div class="main-container">
+  <nav id="TableOfContents">
   <ul>
     <li><a href="#overview">OVERVIEW</a></li>
     <li><a href="#pytorch">Pytorch</a></li>
@@ -107,11 +91,23 @@
     <li><a href="#spark-expression">Spark Expression</a></li>
   </ul>
 </nav>
-  </aside>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
 
-  <article class="center">
-    
-    <h1 id="daily-note-10-24">Daily-Note 10-24</h1>
+<a href="https://github.com/huahuak/huahuak.github.io">
+  <span class="gh-ico"></span>
+</a>
+ </header>
+      <main class="center main-container"> 
+
+
+<h1 id="daily-note-10-24">Daily-Note 10-24</h1>
 <h2 id="overview">OVERVIEW</h2>
 <ol>
 <li><strong>Pytorch</strong>，机器学习框架</li>
@@ -121,46 +117,22 @@
 </ol>
 <h2 id="pytorch">Pytorch</h2>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://pytorch-lightning.readthedocs.io/en/latest/notebooks/course_UvA-DL/01-introduction-to-pytorch.html" 
-  target="_blank" rel="noopener" >TUTORIAL 1: INTRODUCTION TO PYTORCH</a>
-
-
-
-
-
-<a href="https://github.com/full-stack-deep-learning/fsdl-text-recognizer-2021-labs/tree/main" 
-  target="_blank" rel="noopener" >fsdl-text-recognizer-2021-labs</a></p>
+<p><a href="https://pytorch-lightning.readthedocs.io/en/latest/notebooks/course_UvA-DL/01-introduction-to-pytorch.html">TUTORIAL 1: INTRODUCTION TO PYTORCH</a>
+<a href="https://github.com/full-stack-deep-learning/fsdl-text-recognizer-2021-labs/tree/main">fsdl-text-recognizer-2021-labs</a></p>
 </blockquote>
 <h2 id="神经网络">神经网络</h2>
 <p><em>(Neural Network)</em></p>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://pytorch-lightning.readthedocs.io/en/latest/notebooks/course_UvA-DL/01-introduction-to-pytorch.html#The-data-loader-class" 
-  target="_blank" rel="noopener" >Tutorial 1: Introduction to PyTorch</a></p>
+<p><a href="https://pytorch-lightning.readthedocs.io/en/latest/notebooks/course_UvA-DL/01-introduction-to-pytorch.html#The-data-loader-class">Tutorial 1: Introduction to PyTorch</a></p>
 </blockquote>
 <p><strong>BP (Back Propagation)</strong></p>
 <h2 id="sparkplanner">SparkPlanner</h2>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://dataninjago.com/2022/01/02/spark-deep-dive-11-spark-planner-overview/" 
-  target="_blank" rel="noopener" >Spark SQL Query Engine Deep Dive (7) – Spark Planner Overview</a></p>
+<p><a href="https://dataninjago.com/2022/01/02/spark-deep-dive-11-spark-planner-overview/">Spark SQL Query Engine Deep Dive (7) – Spark Planner Overview</a></p>
 </blockquote>
 <p><strong>QueryPlan</strong>，QueryPlan 继承自 TreeNode，其增加了逻辑图和物理图的一些公共属性和遍历方法。</p>
-<p><strong>LogicalPlan</strong>，LogicalPlan 是逻辑图中如 Aggregate/Sort/Join 等节点的基类。其基础自 <!-- raw HTML omitted -->QueryPlan<!-- raw HTML omitted -->。</p>
-<p><strong>SparkPlan</strong>，SparkPlan 是物理算子的基类，物理算子包括 HashAggregateExec、ShuffleExchangeExec 等。与 LogicalPlan 相同，继承自 <!-- raw HTML omitted -->QueryPlan<!-- raw HTML omitted -->。</p>
+<p><strong>LogicalPlan</strong>，LogicalPlan 是逻辑图中如 Aggregate/Sort/Join 等节点的基类。其基础自 <font color=green>QueryPlan</font>。</p>
+<p><strong>SparkPlan</strong>，SparkPlan 是物理算子的基类，物理算子包括 HashAggregateExec、ShuffleExchangeExec 等。与 LogicalPlan 相同，继承自 <font color=green>QueryPlan</font>。</p>
 <p><strong>QueryExecution</strong> 包括一个请求中主要流程的各个阶段，包括 UnresovledPlan Logical Plan/Logical Plan/Optimized Logical Plan/Physical Plan 等阶段。在 QueryExecution 中分别对应为 logical/analyzed/optimized/sparkPlan 等属性。</p>
 <p><em>QueryExecution.createSparkPlan()</em> 方法将 optimized 转换为 sparkPlan。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>  <span style="color:#177500">/**
@@ -227,13 +199,7 @@
 </span></span></code></pre></div><p>Strategies 包括 Join/Aggregation 等策略，分别负责转换相关的 logical plan 节点。</p>
 <h3 id="aggregation">Aggregation</h3>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://dataninjago.com/2022/01/04/spark-deep-dive-12-aggregation-strategy/" 
-  target="_blank" rel="noopener" >Spark SQL Query Engine Deep Dive (8) – Aggregation Strategy</a></p>
+<p><a href="https://dataninjago.com/2022/01/04/spark-deep-dive-12-aggregation-strategy/">Spark SQL Query Engine Deep Dive (8) – Aggregation Strategy</a></p>
 </blockquote>
 <p>在应用 Aggregation 到 logical plan 时，首先匹配是否为 PhysicalAggregation 模式，并分别判断是 AggregateExpression 或 PythonUDF。</p>
 <p>1）当为 AggregateExpression 时，当不存在 Distinct 情况下，将直接调用 <em>AggUtils.planAggregateWithoutDistinct()</em> 方法返回对应的 HashAggregateExec 物理算子结构并替换原 logical plan 中的 aggregation 节点。</p>
@@ -253,13 +219,7 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#000">aggregateOperator</span>
 </span></span></code></pre></div><h3 id="join">Join</h3>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://dataninjago.com/2022/01/11/spark-sql-query-engine-deep-dive-11-join-strategies/" 
-  target="_blank" rel="noopener" >Spark SQL Query Engine Deep Dive (11) – Join Strategies</a></p>
+<p><a href="https://dataninjago.com/2022/01/11/spark-sql-query-engine-deep-dive-11-join-strategies/">Spark SQL Query Engine Deep Dive (11) – Join Strategies</a></p>
 </blockquote>
 <p><strong>Spark Join Strategy</strong>，Spark 提供多种 Join Strategy，包括常见的 Hash、Sort、NestedLoop 等。</p>
 <p><strong>JoinSelection</strong> 用于选择对应的 Join Strategy，join 主要分为 equi-join 和 not equi-join，前者即使用 == 作为判断条件，后者包括 &lt;&gt;, &lt;, &gt; 等。</p>
@@ -317,13 +277,7 @@
 </span></span><span style="display:flex;"><span>           <span style="color:#000">createCartesianProduct</span><span style="color:#000">()</span> <span style="color:#a90d91">else</span> <span style="color:#3f6e75">None</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#000">.</span><span style="color:#000">getOrElse</span><span style="color:#000">(</span><span style="color:#000">createJoinWithoutHint</span><span style="color:#000">())</span>
 </span></span></code></pre></div><blockquote>
-<p>
-
-
-
-
-<a href="https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-hints.html" 
-  target="_blank" rel="noopener" >sql syntax: hints</a></p>
+<p><a href="https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-hints.html">sql syntax: hints</a></p>
 </blockquote>
 <p>createBroadcastHashJoin() 方法判断 join 的 left side 和 right side 是否有用户指定的 hint，如果有返回 buildSide，从而构建对应的 BroadcastHashJoinExec。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">createBroadcastHashJoin</span><span style="color:#000">(</span><span style="color:#000">onlyLookingAtHint</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Boolean</span><span style="color:#000">)</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
@@ -382,11 +336,107 @@
 <p><strong>BroadcastNestedLoopJoin</strong>，兜底策略，嵌套循环 Join 性能极差。</p>
 <h2 id="spark-expression">Spark Expression</h2>
 
-  </article>
-</main>
 
-  </main>
+ </main>
+      <footer>  </footer>
+    </div>
+  </div>
   
 </body>
+
+
+
+
+<script>
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'daily-note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 48,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+
+</script>
 
 </html>

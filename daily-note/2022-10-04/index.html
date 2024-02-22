@@ -16,24 +16,24 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title> | Hua&#39;s Blogs</title>
+<title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.08bd8dd00cc1c4e864627f1c0d0381ec56ab6abfeb4a32298d3a451553f8ef30.css" integrity="sha256-CL2N0AzBxOhkYn8cDQOB7Farar/rSjIpjTpFFVP47zA=" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/var.min.166df576c80a2cfea7191ca22d361410e76a7b6becdce62142e239a0c4d62f3e.css" integrity="sha256-Fm31dsgKLP6nGRyiLTYUEOdqe2vs3OYhQuI5oMTWLz4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.de9e884262e64227db8aa81699b0e04e6db362221dde03e6a272b7823ffecec2.css" integrity="sha256-3p6IQmLmQifbiqgWmbDgTm2zYiId3gPmonK3gj/&#43;zsI=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
-  <header>
-    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
-  <div style="font-size: 2em;">
-    <a href="/home" style="color: #222;"> HUAHUA </a>
-  </div>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
   <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
     <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
   <style>
     ol {
@@ -53,13 +53,15 @@
     }
 
     .breadcrumb li:not(:last-child)::after {
-      content: "»";
+       
+      color: var(--blue);
+      content: "·";
     }
   </style>
   <ol>
     
     <li>
-      <a href="/">Hua&#39;s Blogs</a>
+      <a href="/">Home</a>
     </li>
     
     <li>
@@ -71,29 +73,11 @@
     </li>
   </ol>
 </nav>
-    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: var(--blue); background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
   </div>
-</div>
+</header>
 
-  </header>
-  <main>
-    
-<main class="aside-layout">
-  <script>
-    function toggleVisibility() {
-      var element = document.getElementById("toggleAside");
-      var container = document.querySelector("main.aside-layout");
-      if (element.style.display === "none") {
-        element.style.display = "block"; 
-        container.style.gridTemplateColumns = '1fr 3fr';
-      } else {
-        element.style.display = "none"; 
-        container.style.gridTemplateColumns = '1fr';
-      }
-    }
-  </script>
-  <aside id="toggleAside">
-    <nav id="TableOfContents">
+<div class="main-container">
+  <nav id="TableOfContents">
   <ul>
     <li><a href="#overview">OVERVIEW</a></li>
     <li><a href="#spark-并发模型">Spark 并发模型</a>
@@ -116,11 +100,23 @@
     <li><a href="#拉格朗日乘子法">拉格朗日乘子法</a></li>
   </ul>
 </nav>
-  </aside>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
 
-  <article class="center">
-    
-    <h1 id="daily-note-10-04">Daily-Note 10-04</h1>
+<a href="https://github.com/huahuak/huahuak.github.io">
+  <span class="gh-ico"></span>
+</a>
+ </header>
+      <main class="center main-container"> 
+
+
+<h1 id="daily-note-10-04">Daily-Note 10-04</h1>
 <h2 id="overview">OVERVIEW</h2>
 <ol>
 <li><strong>Spark 并发模型</strong>，Spark 以 Executor 进程为单元，在 task 上实现多线程并发模型。</li>
@@ -153,13 +149,7 @@
 </span></span></code></pre></div><p>调用 <em>iterator()</em> 方法将触发 RDD 的计算方法，<em>getOrCompute</em> 和 <em>computeOrReadCheckpoint</em> 方法实现了计算结果缓存的机制，其最终的计算方法落在 <em>compute</em> 方法，该方法由 RDD 的子类实现具体的计算方法。</p>
 <h3 id="treenode">TreeNode</h3>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://stackoverflow.com/questions/33062753/how-to-explain-treenode-type-restriction-and-self-type-in-sparks-treenode" 
-  target="_blank" rel="noopener" >How to explain TreeNode type restriction and self-type in Spark&rsquo;s TreeNode?</a></p>
+<p><a href="https://stackoverflow.com/questions/33062753/how-to-explain-treenode-type-restriction-and-self-type-in-sparks-treenode">How to explain TreeNode type restriction and self-type in Spark&rsquo;s TreeNode?</a></p>
 </blockquote>
 <p>TreeNode 是 Spark 组织计算流程的数据结构，其子类包括 Expression 和 QueryPlan，QueryPlan 实现有 LogicalPlan 和 SparkPlan，前者是逻辑图，后者是实际的物理执行图。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- SparkPlan.scala -- //
@@ -176,13 +166,7 @@
 <p>这样最开始只需要构造一个 RDD，调用其 <em>Iterator()</em> 方法，<em>Iterator()</em> 方法调用具体的 <em>compute()</em> 方法，实现 RDD 的转换，最后生成目标的 RDD。</p>
 <h3 id="shuffle">Shuffle</h3>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://dataninjago.com/2022/01/29/spark-sql-query-engine-deep-dive-shuffleexchangeexec-unsafeshufflewriter/" 
-  target="_blank" rel="noopener" >Spark SQL Query Engine Deep Dive (16) – ShuffleExchangeExec &amp; UnsafeShuffleWriter</a></p>
+<p><a href="https://dataninjago.com/2022/01/29/spark-sql-query-engine-deep-dive-shuffleexchangeexec-unsafeshufflewriter/">Spark SQL Query Engine Deep Dive (16) – ShuffleExchangeExec &amp; UnsafeShuffleWriter</a></p>
 </blockquote>
 <p>Shuffle 的作用是重排 inputRDD 中 partions 的 record，将其映射到 outputRDD 指定的 partions 中。</p>
 <h3 id="sql-提交流程">SQL 提交流程</h3>
@@ -503,70 +487,28 @@
 <p><strong>总结</strong>，</p>
 <h2 id="线性模型">线性模型</h2>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://docs.google.com/spreadsheets/d/18pHRegyB0XawIdbZbvkr8-jMfi_2ltHVYPjBEOim-6w/edit#gid=0" 
-  target="_blank" rel="noopener" >CS229 Syllabus</a></p>
+<p><a href="https://docs.google.com/spreadsheets/d/18pHRegyB0XawIdbZbvkr8-jMfi_2ltHVYPjBEOim-6w/edit#gid=0">CS229 Syllabus</a></p>
 </blockquote>
 <h3 id="1-前置知识">§1 前置知识</h3>
 <h4 id="11-极大似然法">§1.1 极大似然法</h4>
 <p><em>(<strong>M</strong>aximum <strong>L</strong>ikelihood <strong>E</strong>stimation，MLE)</em></p>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://zh.wikipedia.org/zh-cn/%e4%bc%bc%e7%84%b6%e5%87%bd%e6%95%b0" 
-  target="_blank" rel="noopener" >似然函数 Wiki</a></p>
-<p>
-
-
-
-
-<a href="https://en.wikipedia.org/wiki/Likelihood_function" 
-  target="_blank" rel="noopener" >Likelihood function Wiki</a></p>
-<p>
-
-
-
-
-<a href="https://zh.wikipedia.org/zh-cn/%e6%9c%80%e5%a4%a7%e4%bc%bc%e7%84%b6%e4%bc%b0%e8%ae%a1" 
-  target="_blank" rel="noopener" >极大似然估计 Wiki</a></p>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0">似然函数 Wiki</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Likelihood_function">Likelihood function Wiki</a></p>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1">极大似然估计 Wiki</a></p>
 </blockquote>
 <h4 id="12-矩阵导数">§1.2 矩阵导数</h4>
 <p><em>(Matrix derivatives)</em></p>
 <h4 id="13-指数族分布">§1.3 指数族分布</h4>
 <p><em>(The exponential family)</em></p>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://baike.baidu.com/item/%e6%8c%87%e6%95%b0%e6%97%8f%e5%88%86%e5%b8%83/19098398" 
-  target="_blank" rel="noopener" >指数族分布 百度百科</a></p>
-<p>
-
-
-
-
-<a href="https://en.wikipedia.org/wiki/Exponential_family" 
-  target="_blank" rel="noopener" >Exponential family Wiki</a></p>
+<p><a href="https://baike.baidu.com/item/%E6%8C%87%E6%95%B0%E6%97%8F%E5%88%86%E5%B8%83/19098398">指数族分布 百度百科</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Exponential_family">Exponential family Wiki</a></p>
 </blockquote>
 <h4 id="14-多项分布">§1.4 多项分布</h4>
 <p><em>(Multinomial Distribution)</em></p>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://baike.baidu.com/item/%e5%a4%9a%e9%a1%b9%e5%88%86%e5%b8%83/6548502" 
-  target="_blank" rel="noopener" >多项分布 百度百科</a></p>
+<p><a href="https://baike.baidu.com/item/%E5%A4%9A%E9%A1%B9%E5%88%86%E5%B8%83/6548502">多项分布 百度百科</a></p>
 </blockquote>
 <p>多项分布的概率分布函数为：
 </p>
@@ -628,13 +570,7 @@ $$
 <p>
 <strong>概率解释</strong>，为什么选择 $J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2$ 作为 cost function?</p>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://blog.csdn.net/u012946504/article/details/78785583" 
-  target="_blank" rel="noopener" >CS229学习笔记之概率解释与局部加权线性回归</a></p>
+<p><a href="https://blog.csdn.net/u012946504/article/details/78785583">CS229学习笔记之概率解释与局部加权线性回归</a></p>
 </blockquote>
 <h3 id="3-逻辑回归">§3 逻辑回归</h3>
 <p><em>(Logistic Regression)</em></p>
@@ -764,23 +700,11 @@ $$
 可以通过 gradient ascent 或 Newton&rsquo;s method 进行求解。</p>
 <h2 id="字典树">字典树</h2>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://oi-wiki.org/string/trie/" 
-  target="_blank" rel="noopener" >字典树(Trie) OI-Wiki</a></p>
+<p><a href="https://oi-wiki.org/string/trie/">字典树(Trie) OI-Wiki</a></p>
 </blockquote>
 <h2 id="拉格朗日乘子法">拉格朗日乘子法</h2>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://zh.m.wikipedia.org/zh-cn/%e6%8b%89%e6%a0%bc%e6%9c%97%e6%97%a5%e4%b9%98%e6%95%b0" 
-  target="_blank" rel="noopener" >拉格朗日乘数 wiki</a></p>
+<p><a href="https://zh.m.wikipedia.org/zh-cn/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0">拉格朗日乘数 wiki</a></p>
 <p>同济大学 高等数学下</p>
 </blockquote>
 <p><strong>二元函数极值</strong>，</p>
@@ -807,11 +731,107 @@ $$
 <p><strong>证明</strong>，</p>
 <p><strong>应用</strong>，</p>
 
-  </article>
-</main>
 
-  </main>
+ </main>
+      <footer>  </footer>
+    </div>
+  </div>
   
 </body>
+
+
+
+
+<script>
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'daily-note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 48,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+
+</script>
 
 </html>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Daily-Notes on Hua&#39;s Blogs</title>
+    <title>Daily-Notes on Home</title>
     <link>https://example.org/daily-note/</link>
-    <description>Recent content in Daily-Notes on Hua&#39;s Blogs</description>
+    <description>Recent content in Daily-Notes on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://example.org/daily-note/index.xml" rel="self" type="application/rss+xml" />
@@ -12,7 +12,7 @@
       <link>https://example.org/daily-note/2022-09-15/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/daily-note/2022-09-15/</guid>
-      <description>Daily-Note 09-15 OVERVIEW 在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。&#xA;Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。 背景介绍 Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients.</description>
+      <description>Daily-Note 09-15 OVERVIEW 在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。&#xA;Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。背景介绍 Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients.</description>
     </item>
     <item>
       <title></title>
@@ -40,7 +40,7 @@
       <link>https://example.org/daily-note/2022-11-02/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/daily-note/2022-11-02/</guid>
-      <description>Daily-Note 11-02 OVERVIEW Kafka，分布式高性能事件流式处理平台。 Docker，docker 是一个用于部署、传输、运行应用的开发平台。 Spark Shuffle，分布式环境下重新组织数据使有序的操作。 Kafka Kafka introduction&#xA;Kafka documentation&#xA;Docker docker&#xA;Docker 从入门到实践&#xA;EntryPoint，该命令相比于 CMD 命令而言，可以在 docker run 命令后添加参数。 EntryPoint</description>
+      <description>Daily-Note 11-02 OVERVIEW Kafka，分布式高性能事件流式处理平台。 Docker，docker 是一个用于部署、传输、运行应用的开发平台。 Spark Shuffle，分布式环境下重新组织数据使有序的操作。 Kafka Kafka introduction&#xA;Kafka documentation&#xA;Docker docker&#xA;Docker 从入门到实践&#xA;EntryPoint，该命令相比于 CMD 命令而言，可以在 docker run 命令后添加参数。EntryPoint</description>
     </item>
     <item>
       <title></title>

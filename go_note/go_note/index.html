@@ -16,24 +16,24 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title> | Hua&#39;s Blogs</title>
+<title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.08bd8dd00cc1c4e864627f1c0d0381ec56ab6abfeb4a32298d3a451553f8ef30.css" integrity="sha256-CL2N0AzBxOhkYn8cDQOB7Farar/rSjIpjTpFFVP47zA=" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/var.min.166df576c80a2cfea7191ca22d361410e76a7b6becdce62142e239a0c4d62f3e.css" integrity="sha256-Fm31dsgKLP6nGRyiLTYUEOdqe2vs3OYhQuI5oMTWLz4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.de9e884262e64227db8aa81699b0e04e6db362221dde03e6a272b7823ffecec2.css" integrity="sha256-3p6IQmLmQifbiqgWmbDgTm2zYiId3gPmonK3gj/&#43;zsI=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
-  <header>
-    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
-  <div style="font-size: 2em;">
-    <a href="/home" style="color: #222;"> HUAHUA </a>
-  </div>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
   <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
     <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
   <style>
     ol {
@@ -53,13 +53,15 @@
     }
 
     .breadcrumb li:not(:last-child)::after {
-      content: "»";
+       
+      color: var(--blue);
+      content: "·";
     }
   </style>
   <ol>
     
     <li>
-      <a href="/">Hua&#39;s Blogs</a>
+      <a href="/">Home</a>
     </li>
     
     <li>
@@ -71,29 +73,11 @@
     </li>
   </ol>
 </nav>
-    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: var(--blue); background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
   </div>
-</div>
+</header>
 
-  </header>
-  <main>
-    
-<main class="aside-layout">
-  <script>
-    function toggleVisibility() {
-      var element = document.getElementById("toggleAside");
-      var container = document.querySelector("main.aside-layout");
-      if (element.style.display === "none") {
-        element.style.display = "block"; 
-        container.style.gridTemplateColumns = '1fr 3fr';
-      } else {
-        element.style.display = "none"; 
-        container.style.gridTemplateColumns = '1fr';
-      }
-    }
-  </script>
-  <aside id="toggleAside">
-    <nav id="TableOfContents">
+<div class="main-container">
+  <nav id="TableOfContents">
   <ul>
     <li><a href="#ref">Ref</a></li>
     <li><a href="#todo">TODO</a></li>
@@ -164,20 +148,26 @@
     </li>
   </ul>
 </nav>
-  </aside>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
 
-  <article class="center">
-    
-    <h1 id="go-quick-start">Go quick start</h1>
+<a href="https://github.com/huahuak/huahuak.github.io">
+  <span class="gh-ico"></span>
+</a>
+ </header>
+      <main class="center main-container"> 
+
+
+<h1 id="go-quick-start">Go quick start</h1>
 <h2 id="ref">Ref</h2>
 <blockquote>
-<p>
-
-
-
-
-<a href="https://draveness.me/golang/" 
-  target="_blank" rel="noopener" >Go 语言设计与实现</a></p>
+<p><a href="https://draveness.me/golang/">Go 语言设计与实现</a></p>
 </blockquote>
 <h2 id="todo">TODO</h2>
 <ul>
@@ -363,9 +353,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">delete</span>(<span style="color:#000">hash</span>, <span style="color:#c41a16">&#34;key&#34;</span>)
 </span></span></code></pre></div><p>map 的数据结构如下图所示，map 由 hmap 表示，hmap 持有的 buckets 数组由 $[ ]bmap$ 表示，一般情况下，一个 bmap 结构体中存放 8 个键值对。同时，hmap 还持 overflow 数据结构，overflow 作为溢出桶减少扩容的次数（<em>下图中 buckets 与 overflow 的数量比为 1:1 并不具有适用性</em>）。</p>
 <p>除了 bukets/overflow 此外，hmap 还持有 oldbuckets/oldoverflow，其作为扩容的中间状态而存在。</p>
-<p>
-
-<img src="/go_note/go_note.assets/hmap-and-buckets-20240108121201785.png" alt="https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png"  style="max-width: 100%;"/></p>
+<p><img src="go_note.assets/hmap-and-buckets-20240108121201785.png" alt="https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png"></p>
 <ul>
 <li>
 <p><strong>map 扩容</strong>，当超过负载因子或者溢出桶过多时，会在向 map 赋值时触发 hashGrow() 进行扩容。扩容首先会将当前 buckets/overflow 设置为 oldbuckets/oldoverflow，然后进行渐进式的扩容，每次对 map 进行操作时，会通过 oldbuckets 是否为 nil 判断当前是否在进行扩容。</p>
@@ -939,13 +927,7 @@
 <h3 id="mutex--rwmutex">Mutex &amp; RWMutex</h3>
 <blockquote>
 <p>Golang sync.Mutex分析</p>
-<p>
-
-
-
-
-<a href="https://seekload.net/2021/12/12/sync-mutex.html" 
-  target="_blank" rel="noopener" >Go并发原语-mutex源码解析</a></p>
+<p><a href="https://seekload.net/2021/12/12/sync-mutex.html">Go并发原语-mutex源码解析</a></p>
 </blockquote>
 <p>Mutex 通过 Lock() 和 UnLock() 两个方法实现并发原语，Mutex 的结构为包括 state 和 sema 两个变量。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">Mutex</span> <span style="color:#a90d91">struct</span> {
@@ -1047,13 +1029,7 @@
 <h3 id="waitgroup">WaitGroup</h3>
 <blockquote>
 <p>Golang WaitGroup 原理深度剖析</p>
-<p>
-
-
-
-
-<a href="https://juejin.cn/post/7102881182294999047" 
-  target="_blank" rel="noopener" >Golang | 详解sync.WaitGroup</a></p>
+<p><a href="https://juejin.cn/post/7102881182294999047">Golang | 详解sync.WaitGroup</a></p>
 </blockquote>
 <p>通过 Add() / Done() / Wait() 接口实现某线程等待其他多线程完成任务的并发同步。</p>
 <p>主要结构体如下所示：</p>
@@ -1382,9 +1358,7 @@
 <ul>
 <li>
 <p>G 是指 Goroutine，M 是指线程，P 是指处理器。处理器连接一个线程和若干协程，负责协程的调度。通过调度器，使协程的调度发生在用户态，对比操作系统对线程的调度，降低了切换内核态和线程上下文的开销。</p>
-<p>
-
-<img src="/go_note/go_note.assets/2020-02-05-15808864354595-golang-scheduler-20240108121201784.png" alt="https://img.draveness.me/2020-02-05-15808864354595-golang-scheduler.png"  style="max-width: 100%;"/></p>
+<p><img src="go_note.assets/2020-02-05-15808864354595-golang-scheduler-20240108121201784.png" alt="https://img.draveness.me/2020-02-05-15808864354595-golang-scheduler.png"></p>
 </li>
 </ul>
 <p><strong>初始化</strong>，GMP 调度器会在程序启动时通过 <code>schedinit</code> 方法进行初始化，其中主要流程为确定最大处理器数量 procs，如果没有特殊指定环境变量，procs 默认为 CPU 核数量，即每个 CPU 绑定一个活跃线程，每个活跃线程绑定一个处理器。（注意，最大线程数并非最大处理数）</p>
@@ -1540,9 +1514,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><strong>调度循环</strong>，完成调度器的初始化后，后续对 goroutine 的调度都将借助 <code>schedule</code> 函数进行调度。调度循环基本流程如下图所示，首先进入 <code>schedule</code> 函数，该方法将找到一个合适的 goroutine，接着通过 <code>execute</code> 函数调用 <code>gogo</code> 汇编代码去执行对应的 goroutine，当 goroutine 退出时，将调用 <code>schedule</code> 进入下一轮循环。</p>
 <p>简单的调度循环流程如上所述，但是在<em>系统调用、协作式抢占调度</em>等场景下，也会出发 <code>schedule</code> 函数进行调度。因此 Go 语言中的调度器触发是非常复杂的一个过程。</p>
-<p>
-
-<img src="/go_note/go_note.assets/2020-02-05-15808864354669-golang-scheduler-loop-20240108121201418.png" alt="https://img.draveness.me/2020-02-05-15808864354669-golang-scheduler-loop.png"  style="max-width: 100%;"/></p>
+<p><img src="go_note.assets/2020-02-05-15808864354669-golang-scheduler-loop-20240108121201418.png" alt="https://img.draveness.me/2020-02-05-15808864354669-golang-scheduler-loop.png"></p>
 <p><code>schedule</code> 函数的基本流程是：</p>
 <ol>
 <li>第 10 行代码判断当前的线程 m 是否有锁定的协程 g，如果有则会将当前线程 m 的处理器 p 解绑，并将当前线程 m 阻塞，直到另一个线程的重新调度当前锁定的协程 g 为止。</li>
@@ -1891,11 +1863,107 @@
 <h3 id="panjf2000ants">panjf2000/ants</h3>
 <p><strong>ants</strong> 是一个 golang 语言中的协程池工具。</p>
 
-  </article>
-</main>
 
-  </main>
+ </main>
+      <footer>  </footer>
+    </div>
+  </div>
   
 </body>
+
+
+
+
+<script>
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'go_note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 48,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+
+</script>
 
 </html>

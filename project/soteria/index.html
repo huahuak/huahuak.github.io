@@ -16,24 +16,24 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title> | Hua&#39;s Blogs</title>
+<title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.08bd8dd00cc1c4e864627f1c0d0381ec56ab6abfeb4a32298d3a451553f8ef30.css" integrity="sha256-CL2N0AzBxOhkYn8cDQOB7Farar/rSjIpjTpFFVP47zA=" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/var.min.166df576c80a2cfea7191ca22d361410e76a7b6becdce62142e239a0c4d62f3e.css" integrity="sha256-Fm31dsgKLP6nGRyiLTYUEOdqe2vs3OYhQuI5oMTWLz4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.de9e884262e64227db8aa81699b0e04e6db362221dde03e6a272b7823ffecec2.css" integrity="sha256-3p6IQmLmQifbiqgWmbDgTm2zYiId3gPmonK3gj/&#43;zsI=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
-  <header>
-    <div style="display: flex; flex-wrap: wrap;justify-content: space-between; padding: 0.5em;">
-  <div style="font-size: 2em;">
-    <a href="/home" style="color: #222;"> HUAHUA </a>
-  </div>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
   <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
     <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
   <style>
     ol {
@@ -53,13 +53,15 @@
     }
 
     .breadcrumb li:not(:last-child)::after {
-      content: "»";
+       
+      color: var(--blue);
+      content: "·";
     }
   </style>
   <ol>
     
     <li>
-      <a href="/">Hua&#39;s Blogs</a>
+      <a href="/">Home</a>
     </li>
     
     <li>
@@ -71,60 +73,144 @@
     </li>
   </ol>
 </nav>
-    <button onclick="toggleVisibility()" style="border: 0cap; font-size: 1em; color: var(--blue); background-color:  rgba(0, 0, 0, 0);">Sidebar</button>
   </div>
-</div>
+</header>
 
-  </header>
-  <main>
-    
-<main class="aside-layout">
-  <script>
-    function toggleVisibility() {
-      var element = document.getElementById("toggleAside");
-      var container = document.querySelector("main.aside-layout");
-      if (element.style.display === "none") {
-        element.style.display = "block"; 
-        container.style.gridTemplateColumns = '1fr 3fr';
-      } else {
-        element.style.display = "none"; 
-        container.style.gridTemplateColumns = '1fr';
-      }
-    }
-  </script>
-  <aside id="toggleAside">
-    <nav id="TableOfContents">
+<div class="main-container">
+  <nav id="TableOfContents">
   <ul>
     <li><a href="#overview">Overview</a></li>
   </ul>
 </nav>
-  </aside>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
 
-  <article class="center">
-    
-    <h1 id="soteria">Soteria</h1>
+<a href="https://github.com/huahuak/huahuak.github.io">
+  <span class="gh-ico"></span>
+</a>
+ </header>
+      <main class="center main-container"> 
+
+
+<h1 id="soteria">Soteria</h1>
 <p>Soteria<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> is a secure neural network framework based on trusted hardware.</p>
 <h2 id="overview">Overview</h2>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>
-
-
-
-
-<a href="https://en.wikipedia.org/wiki/Soteria_%28mythology%29#:~:text=In%20Greek%20mythology%2C%20Soteria%20%28Greek,to%20be%20mistaken%20for%20Eleos%29." 
-  target="_blank" rel="noopener" >Soteria Wiki</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Soteria_(mythology)#:~:text=In%20Greek%20mythology%2C%20Soteria%20(Greek,to%20be%20mistaken%20for%20Eleos).">Soteria Wiki</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
 
-  </article>
-</main>
 
-  </main>
+ </main>
+      <footer>  </footer>
+    </div>
+  </div>
   
 </body>
+
+
+
+
+<script>
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'project\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 48,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+
+</script>
 
 </html>

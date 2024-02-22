@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>C&#43;&#43;s on Hua&#39;s Blogs</title>
+    <title>C&#43;&#43;s on Home</title>
     <link>https://example.org/c&#43;&#43;/</link>
-    <description>Recent content in C&#43;&#43;s on Hua&#39;s Blogs</description>
+    <description>Recent content in C&#43;&#43;s on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://example.org/c++/index.xml" rel="self" type="application/rss+xml" />

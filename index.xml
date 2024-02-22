@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hua&#39;s Blogs</title>
+    <title>Home</title>
     <link>https://example.org/</link>
-    <description>Recent content on Hua&#39;s Blogs</description>
+    <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://example.org/big_data/spark/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/big_data/spark/</guid>
+      <description>Spark RDD Programming A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, partitioned collection of elements that can be operated on in parallel.</description>
+    </item>
     <item>
       <title></title>
       <link>https://example.org/c&#43;&#43;/c&#43;&#43;/</link>
@@ -19,7 +26,7 @@
       <link>https://example.org/daily-note/2022-09-15/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/daily-note/2022-09-15/</guid>
-      <description>Daily-Note 09-15 OVERVIEW 在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。&#xA;Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。 背景介绍 Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients.</description>
+      <description>Daily-Note 09-15 OVERVIEW 在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。&#xA;Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。背景介绍 Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients.</description>
     </item>
     <item>
       <title></title>
@@ -47,7 +54,7 @@
       <link>https://example.org/daily-note/2022-11-02/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/daily-note/2022-11-02/</guid>
-      <description>Daily-Note 11-02 OVERVIEW Kafka，分布式高性能事件流式处理平台。 Docker，docker 是一个用于部署、传输、运行应用的开发平台。 Spark Shuffle，分布式环境下重新组织数据使有序的操作。 Kafka Kafka introduction&#xA;Kafka documentation&#xA;Docker docker&#xA;Docker 从入门到实践&#xA;EntryPoint，该命令相比于 CMD 命令而言，可以在 docker run 命令后添加参数。 EntryPoint</description>
+      <description>Daily-Note 11-02 OVERVIEW Kafka，分布式高性能事件流式处理平台。 Docker，docker 是一个用于部署、传输、运行应用的开发平台。 Spark Shuffle，分布式环境下重新组织数据使有序的操作。 Kafka Kafka introduction&#xA;Kafka documentation&#xA;Docker docker&#xA;Docker 从入门到实践&#xA;EntryPoint，该命令相比于 CMD 命令而言，可以在 docker run 命令后添加参数。EntryPoint</description>
     </item>
     <item>
       <title></title>
@@ -75,7 +82,7 @@
       <link>https://example.org/home/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/home/</guid>
-      <description>Home Programming Language Language Note Go go_note.md C++ c++.md Operate Sytem os_note.md&#xA;Machine Learning Field Note Natural Language Generation natural_language_generation.md Research ai_with_tee.</description>
+      <description>Home Programming Language Language Note Go go_note.md C++ c++.md Operate Sytem os_note.md&#xA;Machine Learning Field Note Natural Language Generation natural_language_generation.md Big Data spark.</description>
     </item>
     <item>
       <title></title>
@@ -103,7 +110,7 @@
       <link>https://example.org/research/ai_with_tee/ai_with_tee/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/research/ai_with_tee/ai_with_tee/</guid>
-      <description>AI with TEE Go Back Home&#xA;Paper Paper Comment Source shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf AAAI 2021 slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch compu- tation) and a trusted execution environment (TEE) (for minimizing the use of cryptography).</description>
+      <description>AI with TEE Go Back Home&#xA;Paper Paper Comment Source shadownet_a_secure_and_efficient_on_&#xA;device_model_inference_system_for_&#xA;convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution&#xA;_of_neural_network_training.pdf AAAI 2021 slalom_fast_verifiable_and_private_execution</description>
     </item>
   </channel>
 </rss>
