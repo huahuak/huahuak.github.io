@@ -18,7 +18,7 @@
 <meta name="viewport" content="width=device-width">
 <title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.ef8c018a219e8a2931136fce35837bbe55a39997a8a1e790faa768bd4d2bbff2.css" integrity="sha256-74wBiiGeiikxE2/ONYN7vlWjmZeooeeQ&#43;qdovU0rv/I=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.85747f3ea2bb00073fc90d03d375e6dd1ed89d94c31871fc5bc02517770c2682.css" integrity="sha256-hXR/PqK7AAc/yQ0D03Xm3R7YnZTDGHH8W8AlF3cMJoI=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
@@ -86,6 +86,7 @@
         <li><a href="#compute">Compute</a></li>
         <li><a href="#parallel">Parallel</a></li>
         <li><a href="#distribution">Distribution</a></li>
+        <li><a href="#how-spark-runs-a-job">How Spark runs a Job?</a></li>
       </ul>
     </li>
   </ul>
@@ -151,13 +152,17 @@
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div><h3 id="parallel">Parallel</h3>
 <p>RDD 描述了数据的存在状态，通过 <code>Transformations</code> 算子实现状态之间的转换，构建数据的计算图。RDD 将数据划分为多个分区 (Partition)，分区是进行独立并行计算的基本单位，并通过依赖 (Dependency) 描述分区之间的数据依赖关系。</p>
-<p><img src="spark.assert/1276b9c6-292b-4184-9693-2733be76bdfc.png" alt="1276b9c6-292b-4184-9693-2733be76bdfc"></p>
+<img src="spark.assert/1276b9c6-292b-4184-9693-2733be76bdfc.png" alt="1276b9c6-292b-4184-9693-2733be76bdfc" style="width: 80%; display: block; margin: auto;" />
 <p>RDD 通过 <code>getPartitions</code> 与 <code>getDependencies</code> 方法描述如何获取分区与依赖，分区与依赖是构建 RDD 计算流的基础。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">getPartitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Partition</span><span style="color:#000">]</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">getDependencies</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">Dependency</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#000">deps</span>
-</span></span></code></pre></div><p>RDD <code>compute</code> 方法是执行计算流的入口，<code>split</code> 参数描述了当前 RDD 需要计算的分区，<code>context</code> 是计算任务携带的上下文。<code>compute</code> 所构建的计算模式是根据 <code>split</code> 分区与 RDD 之间的依赖关系进行的反向计算。</p>
+</span></span></code></pre></div><blockquote>
+<p>‼️ <code>getPartitions</code> 与 <code>getDependencies</code> 是子类需要重写的方法，外部调用 API 是 <code>partitions</code> 与 <code>dependencies</code>。</p>
+</blockquote>
+<p>RDD <code>compute</code> 方法是执行计算流的入口，<code>split</code> 参数描述了当前 RDD 需要计算的分区，<code>context</code> 是计算任务携带的上下文。<code>compute</code> 所构建的计算模式是根据 <code>split</code> 分区与 RDD 之间的依赖关系进行的反向计算。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">compute</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span>
 </span></span></code></pre></div><h4 id="partition">Partition</h4>
+<p>To-Do</p>
 <h4 id="dependency">Dependency</h4>
 <blockquote>
 <p>We found it both sufficient and useful to classify dependencies into two types: <em>narrow</em> dependencies, where each partition of the parent RDD is used by at most one partistion of the child RDD, <em>wide</em> dependencies, where multiple child partitions may depend on it. For example, <em>map</em> leads to a narrow dependency, while <em>join</em> leads to to wide dependencies (unless the parents are hash-partitioned).<sup id="fnref2:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
@@ -172,11 +177,40 @@
 <p>把需要进行大量计算的工程数据分割成小块，由多台<a href="https://zh.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E8%A8%88%E7%AE%97%E6%A9%9F">计算机</a>分别计算，再上传运算结果后，将结果统一合并得出数据结论的科学。</p>
 </blockquote>
 <p>Wikipedia 对分布式计算的描述包括两小点，一是将计算数据分割成小块，二是将数据交由多台计算机分别计算与汇总过程，<a href="#parallel">Parallel</a> 小节说明了 RDD 分区划分概念，本节 <a href="#distribution">Distribution</a> 将说明 RDD 分区调度与计算的过程。</p>
-<div class="footnotes" role="doc-endnotes">
+<p>实际上，Spark 计算节点以 <code>Task</code> 为最小基本单位，按线程级别执行并行计算。RDD 所构成的计算图经过切分得到计算的最小基本单位 <code>Task</code>。</p>
+<blockquote>
+<p>Whenever a user runs an action (<em>e.g., count</em> or <em>save</em>) on an RDD, the scheduler examines that RDD’s lineage graph to build a DAG of <em>stages</em> to execute, as illustrated in Figure 5. Each stage contains as many pipelined transformations with narrow dependencies as possible. The boundaries of the stages are the shuffle operations required for wide dependencies, or any already computed partitions that can short-circuit the computation of a parent RDD. The scheduler then launches tasks to compute missing partitions from each stage until it has computed the target RDD.<sup id="fnref3:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>Job-Stage-Task 示意图，</p>
+<img src="spark.assert/5e08a822-497c-4aa6-8149-b5a741dae5a9.png" alt="5e08a822-497c-4aa6-8149-b5a741dae5a9" style="width: 80%; display: block; margin: auto;" />
+</blockquote>
+<p><strong>Job</strong> 是对由 RDD 构成的计算图进行计算的任务单位，Spark <code>DAGScheduler</code> 负责根据 Job 中的数据依赖关系，主要是  wide-dependency 划分为多个 Stage (wide-dependency 处下游 RDD 中的分区计算依赖于多个上游 RDD 的分区结果，即计算不可连续构成 Pipeline)。</p>
+<p><strong>Stage</strong> 包括两种类型 Stage，分别是 <code>ResultStage</code> 与 <code>ShuffleMapStage</code>，前者可以视作是 final Stage，即最后的输出结果的 RDD 及其 narrow-dependency 的 parents RDD 所构成的 Stage；后者即与 final Stage 之间存在 wide-dependency 的上游 Stage。经过 wide-dependency 划分后，<code>ResultStage</code> 与 <code>ShuffleMapStage</code> 内部只存在 narrow-dependency。</p>
+<p><strong>Task</strong> 是对由 Stage 内部依赖约束、相同分区所形成的计算链进行计算的任务单位，Task 是最小的任务单位，Task 经调度单元 (Scheduler) 转发至执行单元 (Executor)，每个 Task 由单独的线程进行计算。</p>
+<img src="spark.assert/e59f57ad-3e99-49aa-8556-33d03868b52a.png" alt="e59f57ad-3e99-49aa-8556-33d03868b52a" style="width: 80%; display: block; margin: auto;" />
+<p><code>DAGScheduler</code> 从 RDD 构成的计算图，经过 Job、Stage、Task 的细化拆分后，最后将需要进行计算的 Task 提交至 <code>TaskScheduler</code>，而后者将跟踪这些 Task 以及空闲的计算节点，按调度策略将 Task 分发至各计算节点，其中一种调度策略是，将空闲的节点先进行混淆，再依次分发待计算的任务到各节点。</p>
+<h4 id="scheduler">Scheduler</h4>
+<p>To-Do</p>
+<h3 id="how-spark-runs-a-job">How Spark runs a Job?</h3>
+<p>To-Do</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// getShuffleDependenciesAndResourceProfiles
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">while</span> <span style="color:#000">(</span><span style="color:#000">waitingForVisit</span><span style="color:#000">.</span><span style="color:#000">nonEmpty</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">toVisit</span> <span style="color:#a90d91">=</span> <span style="color:#000">waitingForVisit</span><span style="color:#000">.</span><span style="color:#000">remove</span><span style="color:#000">(</span><span style="color:#1c01ce">0</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">visited</span><span style="color:#000">(</span><span style="color:#000">toVisit</span><span style="color:#000">))</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">visited</span> <span style="color:#000">+=</span> <span style="color:#000">toVisit</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">toVisit</span><span style="color:#000">.</span><span style="color:#000">getResourceProfile</span><span style="color:#000">()).</span><span style="color:#000">foreach</span><span style="color:#000">(</span><span style="color:#000">resourceProfiles</span> <span style="color:#000">+=</span> <span style="color:#a90d91">_</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">toVisit</span><span style="color:#000">.</span><span style="color:#000">dependencies</span><span style="color:#000">.</span><span style="color:#000">foreach</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">shuffleDep</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ShuffleDependency</span><span style="color:#000">[</span><span style="color:#a90d91">_</span>, <span style="color:#a90d91">_</span>, <span style="color:#a90d91">_</span><span style="color:#000">]</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">parents</span> <span style="color:#000">+=</span> <span style="color:#000">shuffleDep</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">dependency</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">waitingForVisit</span><span style="color:#000">.</span><span style="color:#000">prepend</span><span style="color:#000">(</span><span style="color:#000">dependency</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p><a href="spark.assert/resilient_distributed_datasets_a_fault_tolerant_abstraction_for_in_memory_cluster_computing.pdf">resilient_distributed_datasets_a_fault_tolerant_abstraction_for_in_memory_cluster_computing.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="spark.assert/resilient_distributed_datasets_a_fault_tolerant_abstraction_for_in_memory_cluster_computing.pdf">resilient_distributed_datasets_a_fault_tolerant_abstraction_for_in_memory_cluster_computing.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
