@@ -96,7 +96,7 @@
 </nav>
 </div> </aside>
     <div id="right-board">
-      <header> <div style="display: flex;">
+      <header> <div style="display: flex; align-items: center;">
   <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
   <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
     <span> HUAHUA </span>
@@ -152,7 +152,7 @@
 <h3 id="slalom">SLALOM</h3>
 <p>SlALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</p>
 <h4 id="introduction">Introduction</h4>
-<p>📍<strong>Challenge:</strong> A specific challenge they raised is that of appropriately splitting ML computations between trusted and untrusted components, to increase efficiency as well as security by minimizing the Trusted Computing Base.</p>
+<p><strong>Challenge:</strong> A specific challenge they raised is that of appropriately splitting ML computations between trusted and untrusted components, to increase efficiency as well as security by minimizing the Trusted Computing Base.</p>
 <p><strong>Solution:</strong> This paper explores a novel approach to this challenge, wherein a Deep Neural Network (DNN) execution is <em>partially outsourced from a TEE to a co-located, untrusted but faster device</em>.</p>
 <p><strong>How to check integrity of outsource result?</strong></p>
 <p>Freivalds&rsquo; algorithm is a probabilistic randoized algorithm used to verify matrix multiplication.</p>
@@ -313,7 +313,7 @@
 <p>Gazelle using linearly-homomorphic encryption to compute linear layer, using grabled circuit to compute non-linear layer.</p>
 <p>Delphi using preprocess and secret shares to imporve LHE performance, using using quadratic approximations to imporve the performance of grabled circuits, moreover, delphi design a planner to find appropriate non-linear layer to replace with quadratic approximations.</p>
 <blockquote>
-<p>📍 Attacks</p>
+<p>📌 Attacks</p>
 <p>Indeed, such attacks have been successfully carried out even against systems that “perfectly” hide the model parameters by requiring the client to upload its input to the server [Fre+14; Ate+15; Fre+15; Wu+16b; Tra+16].</p>
 </blockquote>
 <p><strong>workflow</strong>: First, model provider optimize model via planner. Second, client and provider run the pre-processing phase for this model. Third, they run the online inference phase to get result of nerual network.</p>

@@ -93,7 +93,7 @@
 </nav>
 </div> </aside>
     <div id="right-board">
-      <header> <div style="display: flex;">
+      <header> <div style="display: flex; align-items: center;">
   <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
   <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
     <span> HUAHUA </span>
@@ -157,7 +157,7 @@
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">getPartitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Partition</span><span style="color:#000">]</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">getDependencies</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">Dependency</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#000">deps</span>
 </span></span></code></pre></div><blockquote>
-<p>📍 <code>getPartitions</code> 与 <code>getDependencies</code> 是子类需要重写的方法，外部调用 API 是 <code>partitions</code> 与 <code>dependencies</code>。</p>
+<p>📌 <code>getPartitions</code> 与 <code>getDependencies</code> 是子类需要重写的方法，外部调用 API 是 <code>partitions</code> 与 <code>dependencies</code>。</p>
 </blockquote>
 <p>RDD <code>compute</code> 方法是执行计算流的入口，<code>split</code> 参数描述了当前 RDD 需要计算的分区，<code>context</code> 是计算任务携带的上下文。<code>compute</code> 所构建的计算模式是根据 <code>split</code> 分区与 RDD 之间的依赖关系进行的反向计算。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">compute</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span>
@@ -171,7 +171,7 @@
 <p>依赖分为两类基本依赖，即 <code>narrow dependencies</code> 和 <code>wide dependencies</code>。</p>
 <h3 id="distribution">Distribution</h3>
 <p>RDD 之间构成的计算图，描述了数据之间的流转关系，分区为并行计算描述了数据的划分方式，依赖则指明分区之间存在的数据依赖关系。问题在于，Spark 如何基于 RDD 描述构建分布式计算？</p>
-<p>📍 Spark 如何基于 RDD 描述构建分布式计算？</p>
+<p>📌 Spark 如何基于 RDD 描述构建分布式计算？</p>
 <blockquote>
 <p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwjW0_KfgbyEAxXqbmwGHUQHDmoQFnoECBYQAQ&amp;url=https%3A%2F%2Fzh.wikipedia.org%2Fzh-hans%2F%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97&amp;usg=AOvVaw2Mcl2LiIuIBG6Bd4MsukjP&amp;opi=89978449">分布式计算 - Wikipedia</a></p>
 <p>把需要进行大量计算的工程数据分割成小块，由多台<a href="https://zh.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E8%A8%88%E7%AE%97%E6%A9%9F">计算机</a>分别计算，再上传运算结果后，将结果统一合并得出数据结论的科学。</p>
