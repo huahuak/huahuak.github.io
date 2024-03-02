@@ -18,7 +18,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Big_data | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.896644f86579972f70de57ce237b5ec75056216cbb5d5bba6e7555f4796d0271.css" integrity="sha256-iWZE&#43;GV5ly9w3lfOI3tex1BWIWy7XVu6bnVV9HltAnE=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.c530e8e62190f2e89564b671b57ad2127ba4cc604b95dcf9597d7df3e2cfe104.css" integrity="sha256-xTDo5iGQ8uiVZLZxtXrSEnukzGBLldz5WX198&#43;LP4QQ=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
@@ -83,9 +83,12 @@
   </a>
 </div>
 
-<a href="https://github.com/huahuak/huahuak.github.io">
-  <span class="gh-ico"></span>
-</a>
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
  </header>
       <main class="center main-container">
         <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
@@ -95,8 +98,7 @@
     display: none;
   }
 </style>
-
-<div id="search" style="margin-top: 0.5em;"></div>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
         
 <h1 class="center">Big_data</h1>
 
@@ -163,6 +165,20 @@
     }
   }
 
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
   
   var mediaQuery = window.matchMedia('(max-width: 600px)');
   if (mediaQuery.matches) {
@@ -219,7 +235,7 @@
       var targetElement = document.getElementById(targetId);
       if (targetElement) {
         main.scrollTo({
-          top: targetElement.offsetTop - 48,
+          top: targetElement.offsetTop - 54,
           behavior: 'smooth'
         });
       }
