@@ -87,7 +87,17 @@
   <span class="gh-ico"></span>
 </a>
  </header>
-      <main class="center main-container"> 
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+
+<div id="search" style="margin-top: 0.5em;"></div>
+        
 <h1 class="center">Big_data</h1>
 
 <div class="card-container">
@@ -116,7 +126,8 @@
   </div>
   
 </div>
- </main>
+
+      </main>
       <footer>  </footer>
     </div>
   </div>
@@ -220,7 +231,7 @@
   
   main.addEventListener('scroll', function () {
     var sections = document.querySelectorAll('main h2, main h3');
-    var scrollPosition = main.scrollTop + 48;
+    var scrollPosition = main.scrollTop + 54;
     for (var i = 0; i < sections.length; i++) {
       var currentSection = sections[i];
       if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
@@ -230,6 +241,18 @@
       }
 
     }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    console.log("happen")
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
   });
 
 </script>
