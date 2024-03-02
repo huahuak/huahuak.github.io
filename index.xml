@@ -82,14 +82,21 @@
       <link>https://example.org/home/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/home/</guid>
-      <description>Home Programming Language Language Note Go go_note.md C++ c++.md Operate Sytem os_note.md&#xA;Machine Learning Field Note Natural Language Generation natural_language_generation.md Big Data spark.</description>
+      <description>Home Programming Language Language Note Go go_note.md C++ c++.md Operate Sytem os_note.md&#xA;Machine Learning roadmap for AI&#xA;Field Note Machine Learning Theory machine_learning_theory.</description>
     </item>
     <item>
       <title></title>
       <link>https://example.org/machine_learning/machine_learing_theory/machine_learning_theory/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/machine_learning/machine_learing_theory/machine_learning_theory/</guid>
-      <description>Machine Learning Theory </description>
+      <description>Machine Learning Theory Reference CS229 Syllabus&#xA;cs229_lecture_notes.pdf&#xA;Linear Regression §1 prior knowledge Maximum Likelihood Estimation (Maximum Likelihood Estimation，MLE)&#xA;似然函数 Wiki</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/machine_learning/math/probability/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/machine_learning/math/probability/</guid>
+      <description>Probability cs229-probability_review.pdf&#xA;§1 Probability Introduction Element of Probability 样本空间 (Sample Space)&#xA;是指随机现象所有的基本结果组成的集合。&#xA;事件空间 (Event Space)&#xA;是指样本空间所有子集合所构成的集合&#xA;Permutation &amp;amp; Combination Combinatorics -Wiki</description>
     </item>
     <item>
       <title></title>
@@ -118,6 +125,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/research/ai_with_tee/ai_with_tee/</guid>
       <description>AI with TEE Go Back Home&#xA;Paper Paper Comment Source shadownet_a_secure_and_efficient_on_&#xA;device_model_inference_system_for_&#xA;convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution&#xA;_of_neural_network_training.pdf AAAI 2021 slalom_fast_verifiable_and_private_execution</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/research/ai_with_tee/task_for_aitee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/research/ai_with_tee/task_for_aitee/</guid>
+      <description>Task For AI-TEE Confidential Computing Privacy-Preserving Machine Learning 目标： 学习隐私保护的机器学习相关论文方法 (重点)。&#xA;Paper Comment Source Todo shadownet_a_secure_and_efficient_on_&#xA;device_model_inference_system_for_&#xA;convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution</description>
     </item>
   </channel>
 </rss>
