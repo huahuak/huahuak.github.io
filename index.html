@@ -19,12 +19,13 @@
 <meta name="viewport" content="width=device-width">
 <title>Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.d54444c078a096e9758c58a93e9fecff52d86abda6ca5d80ca501c186260c28a.css" integrity="sha256-1UREwHiglul1jFipPp/s/1LYar2myl2AylAcGGJgwoo=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.6c411510b9d53bd609b94e0ee437ad26d0937fe06a99a21d9b0080571eb19d2f.css" integrity="sha256-bEEVELnVO9YJuU4O5DetJtCTf&#43;BqmaIdmwCAVx6xnS8=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
 
+<link rel="icon" type="image/ico" href="/favicon.ico">
 </head>
 
 <body>
@@ -75,7 +76,7 @@
     <div id="right-board">
       <header> <div style="display: flex; align-items: center;">
   <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
-  <a href="/home" style="font-size: 2em; color: #222; text-decoration: none;">
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
     <span> HUAHUA </span>
   </a>
 </div>
@@ -99,11 +100,34 @@
 <div id="search" style="display: none; margin-top: 0.5em;"></div>
         
 
+
+<h1 id="home">Home</h1>
+<p>I am a graduate student and my interests include big data, neural networks, and web development.</p>
+
+
+
+
+<script>
+  section = 'Big_data'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
 <div class="card-container">
   
   <div class="card">
     <div class="card-header">
-      <a href="/big_data/spark/">SPARK </a>
+      <a href="/big_data/spark/">
+        <script>
+          filename = 'spark'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -124,9 +148,29 @@
     </div>
   </div>
   
+</div>
+
+<script>
+  section = 'C\u002b\u002bs'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
+  
   <div class="card">
     <div class="card-header">
-      <a href="/c&#43;&#43;/c&#43;&#43;/">C&#43;&#43; </a>
+      <a href="/c&#43;&#43;/c&#43;&#43;/">
+        <script>
+          filename = 'c\u002b\u002b'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -138,9 +182,29 @@
     </div>
   </div>
   
+</div>
+
+<script>
+  section = 'Daily-Notes'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
+  
   <div class="card">
     <div class="card-header">
-      <a href="/daily-note/2022-09-15/">2022-09-15 </a>
+      <a href="/daily-note/2022-09-15/">
+        <script>
+          filename = '2022-09-15'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -158,7 +222,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/daily-note/2022-09-18/">2022-09-18 </a>
+      <a href="/daily-note/2022-09-18/">
+        <script>
+          filename = '2022-09-18'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -198,7 +269,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/daily-note/2022-10-04/">2022-10-04 </a>
+      <a href="/daily-note/2022-10-04/">
+        <script>
+          filename = '2022-10-04'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -230,7 +308,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/daily-note/2022-10-24/">2022-10-24 </a>
+      <a href="/daily-note/2022-10-24/">
+        <script>
+          filename = '2022-10-24'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -253,7 +338,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/daily-note/2022-11-02/">2022-11-02 </a>
+      <a href="/daily-note/2022-11-02/">
+        <script>
+          filename = '2022-11-02'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -276,7 +368,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/daily-note/2022-11-20/">2022-11-20 </a>
+      <a href="/daily-note/2022-11-20/">
+        <script>
+          filename = '2022-11-20'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -289,25 +388,29 @@
     </div>
   </div>
   
-  <div class="card">
-    <div class="card-header">
-      <a href="/draft/">DRAFT </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#linux-disk-manage">Linux disk manage</a></li>
-    <li><a href="#ubuntu-update-alternatives">Ubuntu update-alternatives</a></li>
-    <li><a href="#blog4hua">blog4hua</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
+</div>
+
+<script>
+  section = 'Go_notes'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
   
   <div class="card">
     <div class="card-header">
-      <a href="/go_note/go_note/">GO_NOTE </a>
+      <a href="/go_note/go_note/">
+        <script>
+          filename = 'go_note'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -385,28 +488,29 @@
     </div>
   </div>
   
-  <div class="card">
-    <div class="card-header">
-      <a href="/home/">HOME </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#programming-language">Programming Language</a></li>
-    <li><a href="#operate-sytem">Operate Sytem</a></li>
-    <li><a href="#machine-learning">Machine Learning</a></li>
-    <li><a href="#big-data">Big Data</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#project">Project</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
+</div>
+
+<script>
+  section = 'Machine_learnings'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
   
   <div class="card">
     <div class="card-header">
-      <a href="/machine_learning/machine_learing_theory/machine_learning_theory/">MACHINE_LEARNING_THEORY </a>
+      <a href="/machine_learning/machine_learing_theory/machine_learning_theory/">
+        <script>
+          filename = 'machine_learning_theory'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -473,7 +577,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/machine_learning/math/probability/">PROBABILITY </a>
+      <a href="/machine_learning/math/probability/">
+        <script>
+          filename = 'probability'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -505,7 +616,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/machine_learning/natural_language_generation/natural_language_generation/">NATURAL_LANGUAGE_GENERATION </a>
+      <a href="/machine_learning/natural_language_generation/natural_language_generation/">
+        <script>
+          filename = 'natural_language_generation'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -519,9 +637,29 @@
     </div>
   </div>
   
+</div>
+
+<script>
+  section = 'Os_notes'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
+  
   <div class="card">
     <div class="card-header">
-      <a href="/os_note/os_note/">OS_NOTE </a>
+      <a href="/os_note/os_note/">
+        <script>
+          filename = 'os_note'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -534,9 +672,29 @@
     </div>
   </div>
   
+</div>
+
+<script>
+  section = 'Projects'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
+  
   <div class="card">
     <div class="card-header">
-      <a href="/project/soteria/">SOTERIA </a>
+      <a href="/project/soteria/">
+        <script>
+          filename = 'soteria'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -548,9 +706,29 @@
     </div>
   </div>
   
+</div>
+
+<script>
+  section = 'Researches'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
+  
   <div class="card">
     <div class="card-header">
-      <a href="/research/ai_with_tee/ai_with_tee/">AI_WITH_TEE </a>
+      <a href="/research/ai_with_tee/ai_with_tee/">
+        <script>
+          filename = 'ai_with_tee'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -576,7 +754,14 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/research/ai_with_tee/task_for_aitee/">TASK_FOR_AITEE </a>
+      <a href="/research/ai_with_tee/task_for_aitee/">
+        <script>
+          filename = 'task_for_aitee'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
     </div>
     <div class="card-summary">
       <nav id="TableOfContents">
@@ -603,6 +788,117 @@
   
 </div>
 
+
+<script>
+  toc = document.createElement("nav")
+  toc.setAttribute('id', "TableOfContents")
+  ul = document.createElement('ul')
+  toc.appendChild(ul)
+</script>
+
+
+<script>
+  section = 'Big_data'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'C\u002b\u002bs'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Daily-Notes'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Go_notes'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Machine_learnings'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Os_notes'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Projects'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Researches'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  });
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+
+<script>
+  document.querySelector('aside > div').appendChild(toc)
+</script>
+
+
         <style>
   .utterances {
     margin-top: 30svh;
@@ -614,7 +910,6 @@
 <script>
   var repo = "huahuak/huahuak.github.io";
   var issueTerm = btoa(location.pathname);
-  console.log(issueTerm)
   var theme = "github-light";
   (function () {
     var container = document.getElementById("utterances-container");
