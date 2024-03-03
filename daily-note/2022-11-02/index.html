@@ -18,7 +18,7 @@
 <meta name="viewport" content="width=device-width">
 <title> | Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.c530e8e62190f2e89564b671b57ad2127ba4cc604b95dcf9597d7df3e2cfe104.css" integrity="sha256-xTDo5iGQ8uiVZLZxtXrSEnukzGBLldz5WX198&#43;LP4QQ=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.d54444c078a096e9758c58a93e9fecff52d86abda6ca5d80ca501c186260c28a.css" integrity="sha256-1UREwHiglul1jFipPp/s/1LYar2myl2AylAcGGJgwoo=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
@@ -101,6 +101,7 @@
 </div>
 
 <div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
   <button onclick="toggleSearch()" class="search-ico"></button>
   <a href="https://github.com/huahuak/huahuak.github.io">
     <span class="gh-ico"></span>
@@ -440,14 +441,33 @@
   }
 </style>
 
-<script src="https://utteranc.es/client.js" repo="huahuak/huahuak.github.io" issue-term="pathname" theme="github-light"
-  crossorigin="anonymous" async>
-  </script>
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  console.log(issueTerm)
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
       </main>
       <footer>  </footer>
     </div>
   </div>
 </body>
+
+
+
 
 
 
@@ -478,6 +498,10 @@
     }
   }
 
+
+  
+  
+  
   var oldScroll = 0
   function toggleSearch() {
     let search = document.getElementById("search")
@@ -490,6 +514,22 @@
       oldScroll = main.scrollTop
       main.scrollTop = 0
     }
+  }
+
+  
+  
+  
+  var path = 'daily-note\/2022-11-02.md'
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) =>
+        document.getElementsByClassName("edit-ico")[0].style.display = "block")
+      .catch(error => console.error('Error:', error));
+
+  }
+  function toggleEdit() {
+    fetch('http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE/' + path)
+      .catch(error => console.error('Error:', error));
   }
 
   
