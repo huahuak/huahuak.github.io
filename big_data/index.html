@@ -212,6 +212,7 @@
       main.scrollTop = oldScroll
     } else {
       search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
       oldScroll = main.scrollTop
       main.scrollTop = 0
     }

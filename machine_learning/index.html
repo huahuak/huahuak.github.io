@@ -113,6 +113,16 @@
   
   <div class="card">
     <div class="card-header">
+      <a href="/machine_learning/deep_learning_theory/deep-learning-theory/">DEEP LEARNING THEORY </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents"></nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
       <a href="/machine_learning/machine_learing_theory/machine_learning_theory/">MACHINE_LEARNING_THEORY </a>
     </div>
     <div class="card-summary">
@@ -304,6 +314,7 @@
       main.scrollTop = oldScroll
     } else {
       search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
       oldScroll = main.scrollTop
       main.scrollTop = 0
     }

@@ -117,7 +117,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -160,7 +160,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -194,7 +194,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -400,7 +400,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -500,11 +500,28 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
 <div class="card-container">
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/machine_learning/deep_learning_theory/deep-learning-theory/">
+        <script>
+          filename = 'Deep Learning Theory'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents"></nav>
+      
+    </div>
+  </div>
   
   <div class="card">
     <div class="card-header">
@@ -649,7 +666,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -684,7 +701,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -718,7 +735,7 @@
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   node.setAttribute('id', section)
   document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
 </script>
@@ -808,7 +825,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -820,7 +837,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -832,7 +849,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -844,7 +861,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -856,7 +873,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -868,7 +885,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -880,7 +897,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -892,7 +909,7 @@
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
     return " " + chr.toUpperCase();
-  });
+  }).toUpperCase();
   a.setAttribute('href', '#' + section)
   li.appendChild(a)
   ul.appendChild(li)
@@ -980,6 +997,7 @@
       main.scrollTop = oldScroll
     } else {
       search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
       oldScroll = main.scrollTop
       main.scrollTop = 0
     }
