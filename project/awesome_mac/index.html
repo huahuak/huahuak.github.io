@@ -16,7 +16,7 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>Projects | Home</title>
+<title> | Home</title>
 
       <link rel="stylesheet" href="/css/main.min.6c411510b9d53bd609b94e0ee437ad26d0937fe06a99a21d9b0080571eb19d2f.css" integrity="sha256-bEEVELnVO9YJuU4O5DetJtCTf&#43;BqmaIdmwCAVx6xnS8=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
@@ -70,8 +70,12 @@
       <a href="/">Home</a>
     </li>
     
+    <li>
+      <a href="/project/">Projects</a>
+    </li>
+    
     <li class="active">
-      <a aria-current="page" href="/project/">Projects</a>
+      <a aria-current="page" href="/project/awesome_mac/"></a>
     </li>
   </ol>
 </nav>
@@ -79,7 +83,16 @@
 </header>
 
 <div class="main-container">
-  
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#for-now">For now</a>
+      <ul>
+        <li><a href="#shortcut">Shortcut</a></li>
+      </ul>
+    </li>
+    <li><a href="#features">Features</a></li>
+  </ul>
+</nav>
 </div> </aside>
     <div id="right-board">
       <header> <div style="display: flex; align-items: center;">
@@ -107,44 +120,35 @@
 </style>
 <div id="search" style="display: none; margin-top: 0.5em;"></div>
         
-<h1 class="center">Projects</h1>
 
-<div class="card-container">
-  
-  <div class="card">
-    <div class="card-header">
-      <a href="/project/awesome_mac/">AWESOME_MAC </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#for-now">For now</a>
-      <ul>
-        <li><a href="#shortcut">Shortcut</a></li>
-      </ul>
-    </li>
-    <li><a href="#features">Features</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <a href="/project/soteria/">SOTERIA </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#overview">Overview</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
-  
-</div>
+<h1 id="awesome-mac">awesome-mac</h1>
+<p><a href="https://github.com/huahuak/awesome-mac">awesome-mac</a> is statusbar-only application, which is used to extend functionality of mac.</p>
+<h2 id="for-now">For now</h2>
+<h3 id="shortcut">Shortcut</h3>
+<ul>
+<li>
+<p><code>cmd+opt+g</code>: to select some text, then call google search in little window. it&rsquo;s work when fullscreen,  so you don&rsquo;t need to switch window when you need to google. you enter <code>cmd+w</code> to close window.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.34.14-9617654.png" alt="Screenshot 2024-03-05 at 13.34.14"></p>
+</li>
+<li>
+<p>&lsquo;opt+,&rsquo;: to translate a text, then show as side-by-side. you just enter <code>\space</code> to close window.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.36.43-9617654.png" alt="Screenshot 2024-03-05 at 13.36.43"></p>
+<blockquote>
+<p>‼️ you must install a shortcut in mac, which named &ldquo;apple-translator&rdquo;, because this function dependency internal apple translate function, which no need to link with internet.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.39.10-9617654.png" alt="Screenshot 2024-03-05 at 13.39.10"></p>
+</blockquote>
+</li>
+<li>
+<p><code>opt+l</code> / <code>opt+;</code> / <code>opt+'</code> / <code>opt+m</code>: adjust window size to small, middle, large, full.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.58.40.png" alt="Screenshot 2024-03-05 at 13.58.40"></p>
+<h2 id="features">Features</h2>
+</li>
+<li>
+<p>menu icon may randomly select.</p>
+</li>
+</ul>
+
+
 
         <style>
   .utterances {
@@ -231,7 +235,7 @@
   
   
   
-  var path = ''
+  var path = 'project\/awesome_mac.md'
   window.onload = () => {
     fetch('http://localhost:8080/ping')
       .then((_1, _2) =>
@@ -260,7 +264,7 @@
   
   
   
-  const prefix = ''
+  const prefix = 'project\/'
   var base = document.getElementsByTagName("main")[0]
 
   const wrapLink = link => {
