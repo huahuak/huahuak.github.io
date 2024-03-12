@@ -157,6 +157,17 @@
   
   
   
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
   function toggleVisibility() {
     let lbtn = document.getElementById("sidebar-lhs-button")
     let rbtn = document.getElementById("sidebar-rhs-button")
@@ -178,7 +189,6 @@
       lbtn.style.display = "none"
     }
   }
-
 
   
   
@@ -202,15 +212,11 @@
   
   
   var path = 'machine_learning\/deep_learning_theory\/Deep Learning Theory.md'
-  window.onload = () => {
-    fetch('http://localhost:8080/ping')
-      .then((_1, _2) =>
-        document.getElementsByClassName("edit-ico")[0].style.display = "block")
-      .catch(error => console.error('Error:', error));
-
-  }
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
   function toggleEdit() {
-    fetch('http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE/' + path)
+    fetch(localPrefix + "/" + path)
       .catch(error => console.error('Error:', error));
   }
 
@@ -256,7 +262,17 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+    let link = wrapLink(item.getAttribute('href'))
+    localFunc.push(() => {
+      item.addEventListener('click', event => {
+        event.preventDefault()
+        if (link.includes(".")) {
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        }
+      })
+    })
+    item.setAttribute('href', link)
   })
 
   

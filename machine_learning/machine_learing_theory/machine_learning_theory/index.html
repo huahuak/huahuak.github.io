@@ -235,8 +235,7 @@ $$
 \theta = (X^TX)^{-1}X^T \overrightarrow{y}
 $$
 <p>💡 <strong>概率解释</strong>，为什么选择 $J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2$ 作为 cost function?</p>
-<p>根据线性模型 $h(x) = \theta^{\mathrm{T}}x + \varepsilon$</p>
-<p>，其中 $\varepsilon$ 是随机噪声，假设 $\varepsilon$ 满足标准正态分布，即 $\varepsilon \sim\mathcal{N}(\mu,\sigma^2), \mu = 0, \sigma = 1$，则有</p>
+<p>根据线性模型 $h(x) = \theta^{\mathrm{T}}x + \varepsilon$，其中 $\varepsilon$ 是随机噪声，假设 $\varepsilon$ 满足标准正态分布，即 $\varepsilon \sim\mathcal{N}(\mu,\sigma^2), \mu = 0, \sigma = 1$，则有</p>
 $$
 p(\varepsilon^{(i)}) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{{\varepsilon^{(i)}}^2}{2\sigma^2}\right) \\
 $$
@@ -270,12 +269,10 @@ p(y|x;\theta)&=(h_\theta(x))^y(1-h_\theta(x))^{1-y} \\
 h_{\theta}(x)&=g(\theta^T x)
 \end{aligned}
 $$
-<p>这里 $g(\cdot)$ 是联系函数(link function)，$g(\cdot)=\frac{1}{1+\exp^{-x}}$，称之为 logistic function (或 sigmod 函数)。</p>
+<p>这里 $g(\cdot)$ 是联系函数(link function)，$g(\cdot)=\frac{1}{1+e^{-x}}$，称之为 logistic function (或 sigmod 函数)。</p>
 <blockquote>
-<p>$g(\cdot)=\frac{1}{1+\exp^{-x}}$ 该函数的导数恰为 $g'(x)=g(x)(1-g(x))$</p>
-$$
-> \begin{aligned}g^{\prime}(z)& =\left.\frac d{dz}\right.\frac1{1+e^{-z}}  \\&=\quad\frac1{(1+e^{-z})^2}\left(e^{-z}\right) \\&=-\frac1{(1+e^{-z})}\cdot\left(1-\frac1{(1+e^{-z})}\right) \\&=\quad g(z)(1-g(z)).\end{aligned}
-> $$
+<p>$g(\cdot)=\frac{1}{1+e^{-x}}$ 该函数的导数恰为 $g'(x)=g(x)(1-g(x))$</p>
+$$\begin{aligned}g^{\prime}(z)& =\frac d{dz}\frac1{1+e^{-z}}\\&=\frac1{(1+e^{-z})^2}(e^{-z}) \\&=-\frac1{(1+e^{-z})}\cdot(1-\frac1{(1+e^{-z})}) \\&=g(z)(1-g(z)).\end{aligned}$$
 </blockquote>
 <p>使 $L(\theta)=p(y|x;\theta)$ 最大，
 </p>
@@ -331,8 +328,8 @@ p(y|x;\theta)
 &=\phi_1^{1\{y=1\}}\phi_2^{1\{y=2\}}\phi_3^{1\{y=3\}}\cdots\phi_k^{1\{y=k\}}\\
 &=\phi_1^{1\{y=1\}}\phi_2^{1\{y=2\}}\phi_3^{1\{y=3\}}\cdots\phi_k^{1-\sum_{i=1}^{k-1}1\{y=i\}}\\
 &=\phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\phi_3^{(T(y))3}\cdots\phi_k^{1-\sum{i=1}^{k-1}(T(y))_k}\\
-&=\exp((T(y))_1log(\phi_1)+(T(y))_2log(\phi_2)+(T(y))3log(\phi_3)+\\
-&\quad\cdots+(1-\sum{i=1}^{k-1}(T(y))_k)log(\phi_k))\\
+&=\exp((T(y))_1log(\phi_1)+(T(y))_2log(\phi_2)+(T(y))_3log(\phi_3)+\\
+&\quad\cdots+(1-\sum_{i=1}^{k-1}(T(y))_k)log(\phi_k))\\
 &=\exp((T(y))_1log(\frac{\phi_1}{\phi_k})+(T(y))_2log(\frac{\phi_2}{\phi_k})+(T(y))_3log(\frac{\phi_3}{\phi_k})+\\
 &\quad\cdots+(T(y))_klog(\phi_k))\\
 &=b(y)\exp(\eta^TT\left(y\right)-a\left(\eta\right))\\
@@ -572,6 +569,17 @@ $$
   
   
   
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
   function toggleVisibility() {
     let lbtn = document.getElementById("sidebar-lhs-button")
     let rbtn = document.getElementById("sidebar-rhs-button")
@@ -593,7 +601,6 @@ $$
       lbtn.style.display = "none"
     }
   }
-
 
   
   
@@ -617,15 +624,11 @@ $$
   
   
   var path = 'machine_learning\/machine_learing_theory\/machine_learning_theory.md'
-  window.onload = () => {
-    fetch('http://localhost:8080/ping')
-      .then((_1, _2) =>
-        document.getElementsByClassName("edit-ico")[0].style.display = "block")
-      .catch(error => console.error('Error:', error));
-
-  }
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
   function toggleEdit() {
-    fetch('http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE/' + path)
+    fetch(localPrefix + "/" + path)
       .catch(error => console.error('Error:', error));
   }
 
@@ -671,7 +674,17 @@ $$
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+    let link = wrapLink(item.getAttribute('href'))
+    localFunc.push(() => {
+      item.addEventListener('click', event => {
+        event.preventDefault()
+        if (link.includes(".")) {
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        }
+      })
+    })
+    item.setAttribute('href', link)
   })
 
   

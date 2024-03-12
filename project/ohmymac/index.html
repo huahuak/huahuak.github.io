@@ -127,14 +127,14 @@
 <h3 id="shortcut">Shortcut</h3>
 <ul>
 <li>
-<p><code>cmd+opt+g</code>: to select some text, then call google search in little window. it&rsquo;s work when fullscreen,  so you don&rsquo;t need to switch window when you need to google. you enter <code>cmd+w</code> to close window.</p>
+<p><code>cmd+opt+g</code>: To select some text, then call google search in little window. it works when in fullscreen, allowing you to avoid switching windows when you need to perform a Google search. You can close the window by pressing <code>Cmd+W</code>. You can open website in the google by pressing <code>Cmd+O</code>.</p>
 <p><img src="README.assets/Screenshot%202024-03-05%20at%2015.58.29.png" alt="Screenshot 2024-03-05 at 15.58.29"></p>
 </li>
 <li>
-<p>&lsquo;opt+,&rsquo;: to translate a text, then show as side-by-side. you just enter <code>\space</code> to close window.</p>
+<p><code>opt+,</code>: To translate a text and display it side-by-side, simply enter <code>\space</code> to close the window.</p>
 <p><img src="README.assets/Screenshot%202024-03-05%20at%2013.36.43-9617654.png" alt="Screenshot 2024-03-05 at 13.36.43"></p>
 <blockquote>
-<p>‼️ you must install a shortcut in mac, which named &ldquo;apple-translator&rdquo;, because this function dependency internal apple translate function, which no need to link with internet.</p>
+<p>‼️ you must install a shortcut in mac, which named &ldquo;apple-translator&rdquo;, because this function relies on the internal Apple Translate feature, it doesn&rsquo;t require an internet connection.</p>
 <p><img src="README.assets/Screenshot%202024-03-05%20at%2013.39.10-9617654.png" alt="Screenshot 2024-03-05 at 13.39.10"></p>
 </blockquote>
 </li>
@@ -144,7 +144,7 @@
 <h2 id="features">Features</h2>
 </li>
 <li>
-<p>menu icon may randomly select.</p>
+<p>The menu icon may be selected randomly.</p>
 </li>
 </ul>
 
@@ -191,6 +191,17 @@
   
   
   
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
   function toggleVisibility() {
     let lbtn = document.getElementById("sidebar-lhs-button")
     let rbtn = document.getElementById("sidebar-rhs-button")
@@ -212,7 +223,6 @@
       lbtn.style.display = "none"
     }
   }
-
 
   
   
@@ -236,15 +246,11 @@
   
   
   var path = 'project\/ohmymac.md'
-  window.onload = () => {
-    fetch('http://localhost:8080/ping')
-      .then((_1, _2) =>
-        document.getElementsByClassName("edit-ico")[0].style.display = "block")
-      .catch(error => console.error('Error:', error));
-
-  }
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
   function toggleEdit() {
-    fetch('http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE/' + path)
+    fetch(localPrefix + "/" + path)
       .catch(error => console.error('Error:', error));
   }
 
@@ -290,7 +296,17 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    item.setAttribute('href', wrapLink(item.getAttribute('href')))
+    let link = wrapLink(item.getAttribute('href'))
+    localFunc.push(() => {
+      item.addEventListener('click', event => {
+        event.preventDefault()
+        if (link.includes(".")) {
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        }
+      })
+    })
+    item.setAttribute('href', link)
   })
 
   
