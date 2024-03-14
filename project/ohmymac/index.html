@@ -87,6 +87,7 @@
   <ul>
     <li><a href="#for-now">For now</a>
       <ul>
+        <li><a href="#window">Window</a></li>
         <li><a href="#shortcut">Shortcut</a></li>
       </ul>
     </li>
@@ -123,7 +124,23 @@
 
 <h1 id="ohmymac">ohmymac</h1>
 <p><a href="https://github.com/huahuak/ohmymac">ohmymac</a> is a statusbar-only application, which is used to extend functionality of mac.</p>
+<p><em>ohmymac is currently under development.</em></p>
 <h2 id="for-now">For now</h2>
+<h3 id="window">Window</h3>
+<ul>
+<li>
+<p>You will find the most recent three windows in the menu bar.</p>
+<p><img src="README.assets/Screenshot%202024-03-14%20at%2023.09.30.png" alt="Screenshot 2024-03-14 at 23.09.30"></p>
+</li>
+<li>
+<p><code>cmd+tab</code> has been overwritten by ohmymac, when you press <code>cmd+tab</code>, the menubar will show a list of all windows, and it will hightlight the selected window.</p>
+<p>(In the fucture, you may be able to choose your custom shortcut instead of <code>cmd+tab</code>)</p>
+<p><img src="README.assets/Screenshot%202024-03-14%20at%2023.12.15-0429150.png" alt="Screenshot 2024-03-14 at 23.12.15"></p>
+</li>
+<li>
+<p>When the mouse enters the menu bar area of ohmymac, the menu bar will show a list of all windows, and it will hide when the mouse exits.</p>
+</li>
+</ul>
 <h3 id="shortcut">Shortcut</h3>
 <ul>
 <li>
@@ -142,9 +159,6 @@
 <p><code>opt+l</code> / <code>opt+;</code> / <code>opt+'</code> / <code>opt+m</code>: adjust window size to small, middle, large, full.</p>
 <p><img src="README.assets/Screenshot%202024-03-05%20at%2013.58.40.png" alt="Screenshot 2024-03-05 at 13.58.40"></p>
 <h2 id="features">Features</h2>
-</li>
-<li>
-<p>The menu icon may be selected randomly.</p>
 </li>
 </ul>
 
@@ -296,7 +310,12 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    let link = wrapLink(item.getAttribute('href'))
+    let oldLink = item.getAttribute('href')
+    let link = wrapLink(oldLink)
+    if (link == oldLink) {
+      return
+    }
+    item.setAttribute('href', link)
     localFunc.push(() => {
       item.addEventListener('click', event => {
         event.preventDefault()
@@ -306,7 +325,7 @@
         }
       })
     })
-    item.setAttribute('href', link)
+
   })
 
   

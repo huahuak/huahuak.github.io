@@ -283,7 +283,12 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    let link = wrapLink(item.getAttribute('href'))
+    let oldLink = item.getAttribute('href')
+    let link = wrapLink(oldLink)
+    if (link == oldLink) {
+      return
+    }
+    item.setAttribute('href', link)
     localFunc.push(() => {
       item.addEventListener('click', event => {
         event.preventDefault()
@@ -293,7 +298,7 @@
         }
       })
     })
-    item.setAttribute('href', link)
+
   })
 
   

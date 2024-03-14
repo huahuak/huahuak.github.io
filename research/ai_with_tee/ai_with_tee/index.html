@@ -128,7 +128,7 @@
 <div id="search" style="display: none; margin-top: 0.5em;"></div>
         
 
-<h1 id="ai-with-tee">AI with TEE</h1>
+<h1 id="privacy-perserving-machine-learning">Privacy-Perserving Machine Learning</h1>
 <h2 id="paper">Paper</h2>
 <table>
 <thead>
@@ -162,6 +162,12 @@
 <td><a href="delphi_a_cryptographic_inference_service_for_neural_networks.pdf">delphi_a_cryptographic_inference_service_<br />for_neural_networks.pdf</a></td>
 <td>Delphi is based on Gazelle and uses homomorphic encryption, grabled circuits, and secret shares to achieve client and server privacy protection in neural network inference. <a href="#delphi">link</a></td>
 <td>Secur. Symp 2019</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="PPML/privacy_preserving_llm_fine_tuning_over_api.pdf">privacy preserving llm fine tuning over api</a></td>
+<td></td>
+<td>ICLR Under Review</td>
 <td></td>
 </tr>
 </tbody>
@@ -531,7 +537,12 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    let link = wrapLink(item.getAttribute('href'))
+    let oldLink = item.getAttribute('href')
+    let link = wrapLink(oldLink)
+    if (link == oldLink) {
+      return
+    }
+    item.setAttribute('href', link)
     localFunc.push(() => {
       item.addEventListener('click', event => {
         event.preventDefault()
@@ -541,7 +552,7 @@
         }
       })
     })
-    item.setAttribute('href', link)
+
   })
 
   
