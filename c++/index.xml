@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>C&#43;&#43;s on Home</title>
-    <link>https://example.org/c&#43;&#43;/</link>
-    <description>Recent content in C&#43;&#43;s on Home</description>
+    <title>C&#43;&#43;s on HUAHUA</title>
+    <link>https://huahuak.github.io/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43;s on HUAHUA</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://example.org/c++/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://huahuak.github.io/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>https://example.org/c&#43;&#43;/c&#43;&#43;/</link>
+      <link>https://huahuak.github.io/c&#43;&#43;/c&#43;&#43;/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.org/c&#43;&#43;/c&#43;&#43;/</guid>
+      <guid>https://huahuak.github.io/c&#43;&#43;/c&#43;&#43;/</guid>
       <description>C++ Note Overload </description>
     </item>
   </channel>

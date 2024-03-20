@@ -16,9 +16,9 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title> | Home</title>
+<title> | HUAHUA</title>
 
-      <link rel="stylesheet" href="/css/main.min.4f2f723392dcc0993716ae8afabe89e49bf91f3c39e01c2c2fd3569169c44fba.css" integrity="sha256-Ty9yM5LcwJk3Fq6K&#43;r6J5Jv5Hzw54BwsL9NWkWnET7o=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.c8425e90c4019f9f6ed52ca61a16aa997e948f078ae35d9406718675baf9e792.css" integrity="sha256-yEJekMQBn59u1SymGhaqmX6UjweK412UBnGGdbr555I=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
@@ -67,7 +67,7 @@
   <ol>
     
     <li>
-      <a href="/">Home</a>
+      <a href="/">HUAHUA</a>
     </li>
     
     <li>
@@ -267,12 +267,7 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    let oldLink = item.getAttribute('href')
-    let link = wrapLink(oldLink)
-    if (link == oldLink) {
-      return
-    }
-    item.setAttribute('href', link)
+    let link = wrapLink(item.getAttribute('href'))
     localFunc.push(() => {
       item.addEventListener('click', event => {
         event.preventDefault()
@@ -282,7 +277,7 @@
         }
       })
     })
-
+    item.setAttribute('href', link)
   })
 
   

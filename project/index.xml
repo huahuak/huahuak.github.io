@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Projects on Home</title>
-    <link>https://example.org/project/</link>
-    <description>Recent content in Projects on Home</description>
+    <title>Projects on HUAHUA</title>
+    <link>https://huahuak.github.io/project/</link>
+    <description>Recent content in Projects on HUAHUA</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://example.org/project/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://huahuak.github.io/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>https://example.org/project/ohmymac/</link>
+      <link>https://huahuak.github.io/project/ohmymac/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.org/project/ohmymac/</guid>
-      <description>ohmymac ohmymac is a statusbar-only application, which is used to extend functionality of mac.&#xA;ohmymac is currently under development.&#xA;For now Window ‼️ WARNNING</description>
+      <guid>https://huahuak.github.io/project/ohmymac/</guid>
+      <description>ohmymac ohmymac is a statusbar-only application, which is used to extend functionality of mac.&#xA;ohmymac is currently under development.&#xA;For now Window ‼️ WARNNING&#xA;Disable the Stage Manager&#xA;You will find the most recent three windows in the menu bar.&#xA;cmd+tab has been overwritten by ohmymac, when you press cmd+tab, the menubar will show a list of all windows, and it will hightlight the selected window.&#xA;(In the fucture, you may be able to choose your custom shortcut instead of cmd+tab)</description>
     </item>
     <item>
       <title></title>
-      <link>https://example.org/project/soteria/</link>
+      <link>https://huahuak.github.io/project/soteria/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.org/project/soteria/</guid>
+      <guid>https://huahuak.github.io/project/soteria/</guid>
       <description>Soteria Soteria1 is a secure neural network framework based on trusted hardware.&#xA;Overview Soteria Wiki&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
     </item>
   </channel>
