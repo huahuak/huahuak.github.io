@@ -19,7 +19,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Home</title>
 
-      <link rel="stylesheet" href="/css/main.min.6c411510b9d53bd609b94e0ee437ad26d0937fe06a99a21d9b0080571eb19d2f.css" integrity="sha256-bEEVELnVO9YJuU4O5DetJtCTf&#43;BqmaIdmwCAVx6xnS8=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.4f2f723392dcc0993716ae8afabe89e49bf91f3c39e01c2c2fd3569169c44fba.css" integrity="sha256-Ty9yM5LcwJk3Fq6K&#43;r6J5Jv5Hzw54BwsL9NWkWnET7o=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
 
 
@@ -770,9 +770,41 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/research/ai_with_tee/ai_with_tee/">
+      <a href="/research/llm/large_language_model/">
         <script>
-          filename = 'ai_with_tee'
+          filename = 'large_language_model'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#peft">PEFT</a>
+      <ul>
+        <li><a href="#lora">LoRA</a></li>
+        <li><a href="#lst">LST</a></li>
+      </ul>
+    </li>
+    <li><a href="#transformer">Transformer</a>
+      <ul>
+        <li><a href="#attention">Attention</a></li>
+      </ul>
+    </li>
+    <li><a href="#benchmark">Benchmark</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/research/ppml/ppml/">
+        <script>
+          filename = 'ppml'
           a = document.currentScript.parentElement
           a.textContent = filename.replace(/_/g, ' ')
             .toUpperCase()
@@ -784,6 +816,8 @@
   <ul>
     <li><a href="#paper">Paper</a>
       <ul>
+        <li><a href="#spf">SPF</a></li>
+        <li><a href="#soter">SOTER</a></li>
         <li><a href="#slalom">SLALOM</a></li>
         <li><a href="#delphi">Delphi</a></li>
       </ul>
@@ -803,9 +837,9 @@
   
   <div class="card">
     <div class="card-header">
-      <a href="/research/ai_with_tee/task_for_aitee/">
+      <a href="/research/ppml/task_for_ppml/">
         <script>
-          filename = 'task_for_aitee'
+          filename = 'task_for_ppml'
           a = document.currentScript.parentElement
           a.textContent = filename.replace(/_/g, ' ')
             .toUpperCase()

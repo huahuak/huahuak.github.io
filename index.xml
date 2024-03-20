@@ -12,7 +12,7 @@
       <link>https://example.org/project/ohmymac/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://example.org/project/ohmymac/</guid>
-      <description>ohmymac ohmymac is a statusbar-only application, which is used to extend functionality of mac.&#xA;ohmymac is currently under development.&#xA;For now Window You will find the most recent three windows in the menu bar.</description>
+      <description>ohmymac ohmymac is a statusbar-only application, which is used to extend functionality of mac.&#xA;ohmymac is currently under development.&#xA;For now Window ‼️ WARNNING</description>
     </item>
     <item>
       <title></title>
@@ -135,16 +135,23 @@
     </item>
     <item>
       <title></title>
-      <link>https://example.org/research/ai_with_tee/ai_with_tee/</link>
+      <link>https://example.org/research/llm/large_language_model/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.org/research/ai_with_tee/ai_with_tee/</guid>
-      <description>Privacy-Perserving Machine Learning Paper Paper Comment Source shadownet_a_secure_and_efficient_on_&#xA;device_model_inference_system_for_&#xA;convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution&#xA;_of_neural_network_training.pdf AAAI 2021 slalom_fast_verifiable_and_private_execution&#xA;_of_neural_networks_in_trusted_hardware.pdf Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch compu- tation) and a trusted execution environment (TEE) (for minimizing the use of cryptography).</description>
+      <guid>https://example.org/research/llm/large_language_model/</guid>
+      <description>Large Language Model PEFT Adapter Layers nips_2017_learning_multiple_visual_domains_with_residual_adapters.pdf&#xA;pmlr_2019_parameter_efficient_transfer_learning_for_nlp.pdf&#xA;prefix tunning prefix_tuning_optimizing_continuous_prompts_for_generation.pdf&#xA;LoRA LORA: LOW-RANK ADAPTATION OF LARGE LAN- GUAGE MODELS arXiv 2021 Abstract: We propose Low-Rank Adaptation, or LoRA, which freezes the pretrained model weights and injects trainable rank decomposition matrices into each layer of the Transformer architecture, greatly reducing the number of trainable parameters for downstream tasks.</description>
     </item>
     <item>
       <title></title>
-      <link>https://example.org/research/ai_with_tee/task_for_aitee/</link>
+      <link>https://example.org/research/ppml/ppml/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.org/research/ai_with_tee/task_for_aitee/</guid>
+      <guid>https://example.org/research/ppml/ppml/</guid>
+      <description>Privacy-Perserving Machine Learning Paper A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM ICASSP 2024 Abstract: The distributed (federated) LLM is an important method for co-training the domain-specific LLM using siloed data.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://example.org/research/ppml/task_for_ppml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/research/ppml/task_for_ppml/</guid>
       <description>Task For Privacy-Preserving Machine Learning Confidential Computing Privacy-Preserving Machine Learning 目标： 学习隐私保护的机器学习相关论文方法 (重点)。&#xA;Paper Comment Source Todo shadownet_a_secure_and_efficient_on_&#xA;device_model_inference_system_for_&#xA;convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution</description>
     </item>
   </channel>

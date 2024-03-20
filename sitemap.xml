@@ -38,9 +38,11 @@
   </url><url>
     <loc>https://example.org/project/soteria/</loc>
   </url><url>
-    <loc>https://example.org/research/ai_with_tee/ai_with_tee/</loc>
+    <loc>https://example.org/research/llm/large_language_model/</loc>
   </url><url>
-    <loc>https://example.org/research/ai_with_tee/task_for_aitee/</loc>
+    <loc>https://example.org/research/ppml/ppml/</loc>
+  </url><url>
+    <loc>https://example.org/research/ppml/task_for_ppml/</loc>
   </url><url>
     <loc>https://example.org/big_data/</loc>
   </url><url>
