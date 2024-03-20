@@ -410,16 +410,17 @@
     item.setAttribute('src', wrapLink(item.getAttribute('src')))
   })
   Array.from(base.getElementsByTagName('a')).forEach(item => {
-    let link = wrapLink(item.getAttribute('href'))
-    localFunc.push(() => {
-      item.addEventListener('click', event => {
-        event.preventDefault()
-        if (link.includes(".")) {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
           fetch(localPrefix + link)
             .catch(error => console.error('Error:', error));
-        }
+        })
       })
-    })
+    }
     item.setAttribute('href', link)
   })
 

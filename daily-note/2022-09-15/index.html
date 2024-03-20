@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | HUAHUA</title>
+
+      <link rel="stylesheet" href="/css/main.min.c8425e90c4019f9f6ed52ca61a16aa997e948f078ae35d9406718675baf9e792.css" integrity="sha256-yEJekMQBn59u1SymGhaqmX6UjweK412UBnGGdbr555I=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
+
+
+      <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/">HUAHUA</a>
+    </li>
+    
+    <li>
+      <a href="/daily-note/">Daily-Notes</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/daily-note/2022-09-15/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#actor-model">Actor Model</a></li>
+    <li><a href="#netty">Netty</a></li>
+    <li><a href="#select--poll信号驱动-ioepoll">select / poll、信号驱动 IO、epoll</a></li>
+    <li><a href="#java-nio">Java NIO</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="daily-note-09-15">Daily-Note 09-15</h1>
+<h2 id="overview">OVERVIEW</h2>
+<p>在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。</p>
+<ol>
+<li><strong>Actor Model</strong>，一种高性能分布式并发编程模型，来自 Erlang 语言。<a href="https://fuzhe1989.github.io/2018/05/17/message-passing-and-the-actor-model/">背景介绍</a></li>
+<li><strong>Netty</strong>, Netty is a NIO client server framework which enables quick and easy  development of network applications such as protocol servers and  clients. It greatly simplifies and streamlines network programming such  as TCP and UDP socket server.</li>
+<li><strong>select / poll、信号驱动 IO、epoll</strong>，多种非阻塞的操作系统 IO 模型。</li>
+<li><strong>Java NIO</strong>，与 java 1.4 之前的 BIO 相比，NIO 提供了非阻塞的 IO 模型，大大提高了 Java 编程语言在大型应用服务器上的 IO 性能。</li>
+</ol>
+<h2 id="actor-model">Actor Model</h2>
+<p><a href="https://github.com/guobinhit/akka-guide/blob/master/articles/getting-started-guide/actors-motivation.md">我们为什么需要 Actor 编程模型？</a></p>
+<blockquote>
+<p><a href="https://guobinhit.github.io/akka-guide/">akka 中文指南</a></p>
+</blockquote>
+<p>学习 akka actor <a href="https://doc.akka.io/docs/akka/current/typed/actors.html">example</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> akka.actor.typed.scaladsl.Behaviors
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> akka.actor.typed.scaladsl.LoggerOps
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> akka.actor.typed.<span style="color:#f92672">{</span><span style="color:#a6e22e">ActorRef</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">ActorSystem</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Behavior</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">HelloWorld</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Greet</span><span style="color:#f92672">(</span>whom<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span><span style="color:#f92672">,</span> replyTo<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">ActorRef</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Greeted</span><span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Greeted</span><span style="color:#f92672">(</span>whom<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span><span style="color:#f92672">,</span> from<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">ActorRef</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Greet</span><span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> apply<span style="color:#f92672">()</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Behavior</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Greet</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>receive <span style="color:#f92672">{</span> <span style="color:#f92672">(</span>context<span style="color:#f92672">,</span> message<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span>
+</span></span><span style="display:flex;"><span>    println<span style="color:#f92672">(</span><span style="color:#e6db74">s&#34;Hello </span><span style="color:#e6db74">${</span>message<span style="color:#f92672">.</span>whom<span style="color:#e6db74">}</span><span style="color:#e6db74">!&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    message<span style="color:#f92672">.</span>replyTo <span style="color:#f92672">!</span> <span style="color:#a6e22e">Greeted</span><span style="color:#f92672">(</span>message<span style="color:#f92672">.</span>whom<span style="color:#f92672">,</span> context<span style="color:#f92672">.</span>self<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>same
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">HelloWorldBot</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> apply<span style="color:#f92672">(</span>max<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Behavior</span><span style="color:#f92672">[</span><span style="color:#66d9ef">HelloWorld.Greeted</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    bot<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> max<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">def</span> bot<span style="color:#f92672">(</span>greetingCounter<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span> max<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Behavior</span><span style="color:#f92672">[</span><span style="color:#66d9ef">HelloWorld.Greeted</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>receive <span style="color:#f92672">{</span> <span style="color:#f92672">(</span>context<span style="color:#f92672">,</span> message<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> n <span style="color:#66d9ef">=</span> greetingCounter <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      println<span style="color:#f92672">(</span><span style="color:#e6db74">s&#34;Greeting </span><span style="color:#e6db74">$n</span><span style="color:#e6db74"> for </span><span style="color:#e6db74">${</span>message<span style="color:#f92672">.</span>whom<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>n <span style="color:#f92672">==</span> max<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>stopped
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        message<span style="color:#f92672">.</span>from <span style="color:#f92672">!</span> <span style="color:#a6e22e">HelloWorld</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Greet</span><span style="color:#f92672">(</span>message<span style="color:#f92672">.</span>whom<span style="color:#f92672">,</span> context<span style="color:#f92672">.</span>self<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        bot<span style="color:#f92672">(</span>n<span style="color:#f92672">,</span> max<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">HelloWorldMain</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SayHello</span><span style="color:#f92672">(</span>name<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> apply<span style="color:#f92672">()</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Behavior</span><span style="color:#f92672">[</span><span style="color:#66d9ef">SayHello</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>setup <span style="color:#f92672">{</span> context <span style="color:#66d9ef">=&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> greeter <span style="color:#66d9ef">=</span> context<span style="color:#f92672">.</span>spawn<span style="color:#f92672">(</span><span style="color:#a6e22e">HelloWorld</span><span style="color:#f92672">(),</span> <span style="color:#e6db74">&#34;greeter&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>receiveMessage <span style="color:#f92672">{</span> message <span style="color:#66d9ef">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> replyTo <span style="color:#66d9ef">=</span> context<span style="color:#f92672">.</span>spawn<span style="color:#f92672">(</span><span style="color:#a6e22e">HelloWorldBot</span><span style="color:#f92672">(</span>max <span style="color:#66d9ef">=</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">),</span> message<span style="color:#f92672">.</span>name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        greeter <span style="color:#f92672">!</span> <span style="color:#a6e22e">HelloWorld</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Greet</span><span style="color:#f92672">(</span>message<span style="color:#f92672">.</span>name<span style="color:#f92672">,</span> replyTo<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Behaviors</span><span style="color:#f92672">.</span>same
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> system<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">ActorSystem</span><span style="color:#f92672">[</span><span style="color:#66d9ef">HelloWorldMain.SayHello</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">ActorSystem</span><span style="color:#f92672">(</span><span style="color:#a6e22e">HelloWorldMain</span><span style="color:#f92672">(),</span> <span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    system <span style="color:#f92672">!</span> <span style="color:#a6e22e">HelloWorldMain</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SayHello</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;World&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    system <span style="color:#f92672">!</span> <span style="color:#a6e22e">HelloWorldMain</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SayHello</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Akka&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This is run by ScalaFiddle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//HelloWorldMain.main(Array.empty)
+</span></span></span></code></pre></div><h2 id="netty">Netty</h2>
+<blockquote>
+<p><a href="https://netty.io/wiki/user-guide-for-4.x.html#wiki-h3-17">Quick Start</a></p>
+</blockquote>
+<p>Netty Server demo, a simple echo server</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NettyServer</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">NettyServer</span>(<span style="color:#66d9ef">int</span> port) {
+</span></span><span style="display:flex;"><span>        NioEventLoopGroup bossG <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NioEventLoopGroup();
+</span></span><span style="display:flex;"><span>        NioEventLoopGroup workerG <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NioEventLoopGroup();
+</span></span><span style="display:flex;"><span>        ServerBootstrap serverBootstrap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ServerBootstrap();
+</span></span><span style="display:flex;"><span>        serverBootstrap.<span style="color:#a6e22e">group</span>(bossG, workerG).<span style="color:#a6e22e">channel</span>(NioServerSocketChannel.<span style="color:#a6e22e">class</span>).<span style="color:#a6e22e">childHandler</span>(
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">new</span> ChannelInitializer<span style="color:#f92672">&lt;</span>SocketChannel<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initChannel</span>(SocketChannel ch) <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>                        ch.<span style="color:#a6e22e">pipeline</span>().<span style="color:#a6e22e">addLast</span>(<span style="color:#66d9ef">new</span> ChannelInboundHandlerAdapter() {
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">channelRead</span>(ChannelHandlerContext ctx, Object msg) <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>                                ByteBuf buf <span style="color:#f92672">=</span> (ByteBuf) msg;
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>buf.<span style="color:#a6e22e">readableBytes</span>()<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>                                buf.<span style="color:#a6e22e">readBytes</span>(bytes);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                                String req <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(bytes, <span style="color:#e6db74">&#34;utf-8&#34;</span>);
+</span></span><span style="display:flex;"><span>                                System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(req);
+</span></span><span style="display:flex;"><span>                                String resp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;echo : &#34;</span> <span style="color:#f92672">+</span> req;
+</span></span><span style="display:flex;"><span>                                ByteBuf outbuf <span style="color:#f92672">=</span> Unpooled.<span style="color:#a6e22e">copiedBuffer</span>(resp.<span style="color:#a6e22e">getBytes</span>());
+</span></span><span style="display:flex;"><span>                                ctx.<span style="color:#a6e22e">write</span>(outbuf);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">channelReadComplete</span>(ChannelHandlerContext ctx) <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>                                ctx.<span style="color:#a6e22e">flush</span>();
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">exceptionCaught</span>(ChannelHandlerContext ctx, Throwable cause) <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>                                cause.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        });
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            ChannelFuture f <span style="color:#f92672">=</span> serverBootstrap.<span style="color:#a6e22e">bind</span>(port).<span style="color:#a6e22e">sync</span>();
+</span></span><span style="display:flex;"><span>            f.<span style="color:#a6e22e">channel</span>().<span style="color:#a6e22e">closeFuture</span>().<span style="color:#a6e22e">sync</span>();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
+</span></span><span style="display:flex;"><span>            bossG.<span style="color:#a6e22e">shutdownGracefully</span>();
+</span></span><span style="display:flex;"><span>            workerG.<span style="color:#a6e22e">shutdownGracefully</span>();
+</span></span><span style="display:flex;"><span>            e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> NettyServer(8082);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="select--poll信号驱动-ioepoll">select / poll、信号驱动 IO、epoll</h2>
+<blockquote>
+<p>Linux-UNIX 系统编程手册</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>水平触发 &amp; 边缘触发</strong>，<strong>水平触发通知</strong>:如果文件描述符上可以非阻塞地执行 I/O 系统调用，此时认为它已经就绪。<strong>边缘触发通知</strong>:如果文件描述符自上次状态检查以来有了新的 I/O 活动(比如新的输入)，此时需要触发通知。</p>
+</li>
+<li>
+<p><strong>select 和 poll 这种 IO 模型</strong>，首先，将感兴趣的文件描述符集合复制到内核空间中，系统通过顺序扫描检查感兴趣的文件描述符中发生的状态，然后设置其状态，然后返回给调用者，可以通过 timeout 参数设置是否阻塞、非阻塞、超时等待等方式，调用者获得结果后顺序检查感兴趣的文件描述符集合，从中找到发生的 IO 事件。</p>
+</li>
+<li>
+<p><strong>信号驱动 IO 这种模型</strong>，首先，需要通过 sigaction 函数调用设置需要监听的文件描述符的 IO 事件以及发生 IO 就绪时唤醒的进程或进程组，并设置对应的回调处理函数，当 IO 就绪时将调用指定的回调函数，该模式下的触发为边缘触发，因此需要尽可能读取输入。与 select / poll 不同的是，该模式下内核空间会记录对应的文件描述符，因此不需要每次查询都复制对应的文件描述符到内核空间中，因此性能有大幅度的提升。</p>
+</li>
+<li>
+<p><strong>epoll 这种 IO 模型下</strong>，首先，通过 epoll_create() 函数调用获取到一个关联到内核空间指定数据结构的文件描述符（但是不适用于 IO），接着，调用 epoll_ctl() 函数设置触发模式，对应的感兴趣文件描述符，最后，通过 epoll_wait() 函数返回一个就绪列表（ready list）该列表中即发生对应 IO 就绪事件的列表。</p>
+<p>与信号驱动的 IO 模型相同，内核空间会记录对应的数据结构，因此不需要每次查询都复制文件描述符到内核空间。与信号驱动模式不同的是，该模式包括两种触发模式，而信号驱动 IO 只有边缘触发模式，此外该模式能够指定触发的 IO 事件为写就绪还是读就绪，并且不需要处理信号驱动 IO 模式下存在的排队信号溢出的问题。</p>
+</li>
+<li>
+<p><strong>OTHER</strong></p>
+<ul>
+<li>epoll 相对于 select 的性能提升来自于系统实现的 callback，使得无需线性扫描所有的文件描述符，而是由文件描述符自身就绪时通知内核。<em>因此如果在大量文件描述符都处于活跃状态时，select 和 epoll 的性能差距并不明显</em>。</li>
+</ul>
+</li>
+</ol>
+<h2 id="java-nio">Java NIO</h2>
+<blockquote>
+<p>Netty 权威指南</p>
+<p><a href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-netpoller/">GoLang 中的 IO 模型</a></p>
+</blockquote>
+<ol>
+<li>NIO 涉及 buffer、channel、selector 等概念，其中 selector 作为复用器能够监听多个 selector 的 IO 事件，因此相对于 socket 编程中传统的 BIO 每一个连接建立一个线程进行处理（或通过线程池处理）其开销更低。NIO 所有的通信都需要通过 buffer 进行传递，buffer 是内存中的缓存区，读写都是直接对缓存区的读写。</li>
+</ol>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 实验：多种 IO 下 socket 编程对比</li>
+</ul>
+<p>NIO 编程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// main</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Hello world!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">App</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">App</span>() {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Says hello to the world.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param args The arguments of the program.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> NIOServer(8081).<span style="color:#a6e22e">run</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// NIO server</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.IOException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.InetSocketAddress;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.ByteBuffer;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.SelectionKey;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.Selector;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.ServerSocketChannel;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.SocketChannel;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Iterator;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Set;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Server</span> <span style="color:#66d9ef">implements</span> Runnable {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Selector selector;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> ServerSocketChannel serverChannel;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">boolean</span> running;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Server</span>(<span style="color:#66d9ef">int</span> port) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            selector <span style="color:#f92672">=</span> Selector.<span style="color:#a6e22e">open</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            serverChannel <span style="color:#f92672">=</span> ServerSocketChannel.<span style="color:#a6e22e">open</span>();
+</span></span><span style="display:flex;"><span>            serverChannel.<span style="color:#a6e22e">socket</span>().<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">new</span> InetSocketAddress(port), 1024);
+</span></span><span style="display:flex;"><span>            serverChannel.<span style="color:#a6e22e">configureBlocking</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>            serverChannel.<span style="color:#a6e22e">register</span>(selector, SelectionKey.<span style="color:#a6e22e">OP_ACCEPT</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            running <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>            e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handle</span>(SelectionKey key) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (key.<span style="color:#a6e22e">isValid</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (key.<span style="color:#a6e22e">isAcceptable</span>()) {
+</span></span><span style="display:flex;"><span>                ServerSocketChannel channel <span style="color:#f92672">=</span> (ServerSocketChannel) key.<span style="color:#a6e22e">channel</span>();
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                    SocketChannel c <span style="color:#f92672">=</span> channel.<span style="color:#a6e22e">accept</span>();
+</span></span><span style="display:flex;"><span>                    c.<span style="color:#a6e22e">configureBlocking</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>                    c.<span style="color:#a6e22e">register</span>(selector, SelectionKey.<span style="color:#a6e22e">OP_READ</span>);
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>                    e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (key.<span style="color:#a6e22e">isReadable</span>()) {
+</span></span><span style="display:flex;"><span>                SocketChannel sc <span style="color:#f92672">=</span> (SocketChannel) key.<span style="color:#a6e22e">channel</span>();
+</span></span><span style="display:flex;"><span>                ByteBuffer buf <span style="color:#f92672">=</span> ByteBuffer.<span style="color:#a6e22e">allocate</span>(4096);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">int</span> read <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">read</span>(buf);
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (read <span style="color:#f92672">&gt;</span> 0) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e">// read</span>
+</span></span><span style="display:flex;"><span>                        buf.<span style="color:#a6e22e">flip</span>();
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>buf.<span style="color:#a6e22e">remaining</span>()<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>                        buf.<span style="color:#a6e22e">get</span>(bytes);
+</span></span><span style="display:flex;"><span>                        String req <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(bytes, <span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span><span style="display:flex;"><span>                        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(req);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e">// write</span>
+</span></span><span style="display:flex;"><span>                        String resp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;echo : &#34;</span> <span style="color:#f92672">+</span> req;
+</span></span><span style="display:flex;"><span>                        buf.<span style="color:#a6e22e">clear</span>();
+</span></span><span style="display:flex;"><span>                        buf.<span style="color:#a6e22e">put</span>(resp.<span style="color:#a6e22e">getBytes</span>());
+</span></span><span style="display:flex;"><span>                        buf.<span style="color:#a6e22e">flip</span>();
+</span></span><span style="display:flex;"><span>                        sc.<span style="color:#a6e22e">write</span>(buf);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>                    e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (running) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                selector.<span style="color:#a6e22e">select</span>(1000);
+</span></span><span style="display:flex;"><span>                Set<span style="color:#f92672">&lt;</span>SelectionKey<span style="color:#f92672">&gt;</span> selectedKeys <span style="color:#f92672">=</span> selector.<span style="color:#a6e22e">selectedKeys</span>();
+</span></span><span style="display:flex;"><span>                Iterator<span style="color:#f92672">&lt;</span>SelectionKey<span style="color:#f92672">&gt;</span> it <span style="color:#f92672">=</span> selectedKeys.<span style="color:#a6e22e">iterator</span>();
+</span></span><span style="display:flex;"><span>                SelectionKey next;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span> (it.<span style="color:#a6e22e">hasNext</span>()) {
+</span></span><span style="display:flex;"><span>                    next <span style="color:#f92672">=</span> it.<span style="color:#a6e22e">next</span>();
+</span></span><span style="display:flex;"><span>                    it.<span style="color:#a6e22e">remove</span>();
+</span></span><span style="display:flex;"><span>                    handle(next);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>                e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>NIO2.0 编程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Hello world!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">App</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">App</span>() {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Says hello to the world.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param args The arguments of the program.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> AIOServer(8081).<span style="color:#a6e22e">run</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.IOException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.UnsupportedEncodingException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.InetSocketAddress;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.ByteBuffer;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.AsynchronousServerSocketChannel;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.AsynchronousSocketChannel;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.channels.CompletionHandler;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AIOServer</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> AsynchronousServerSocketChannel asyncSC;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">AIOServer</span>(<span style="color:#66d9ef">int</span> port) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            asyncSC <span style="color:#f92672">=</span> AsynchronousServerSocketChannel.<span style="color:#a6e22e">open</span>();
+</span></span><span style="display:flex;"><span>            asyncSC.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">new</span> InetSocketAddress(port));
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>            e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        asyncSC.<span style="color:#a6e22e">accept</span>(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">new</span> CompletionHandler<span style="color:#f92672">&lt;</span>AsynchronousSocketChannel, AIOServer<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">completed</span>(AsynchronousSocketChannel result, AIOServer attachment) {
+</span></span><span style="display:flex;"><span>                attachment.<span style="color:#a6e22e">asyncSC</span>.<span style="color:#a6e22e">accept</span>(attachment, <span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>                ByteBuffer buf <span style="color:#f92672">=</span> ByteBuffer.<span style="color:#a6e22e">allocate</span>(1024);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">final</span> AsynchronousSocketChannel ch <span style="color:#f92672">=</span> result;
+</span></span><span style="display:flex;"><span>                result.<span style="color:#a6e22e">read</span>(buf, buf, <span style="color:#66d9ef">new</span> CompletionHandler<span style="color:#f92672">&lt;</span>Integer, ByteBuffer<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">completed</span>(Integer result, ByteBuffer attachment) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> (result <span style="color:#f92672">&gt;</span> 0) {
+</span></span><span style="display:flex;"><span>                            attachment.<span style="color:#a6e22e">flip</span>();
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>attachment.<span style="color:#a6e22e">remaining</span>()<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>                            attachment.<span style="color:#a6e22e">get</span>(bytes);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                                String req <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(bytes, <span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span><span style="display:flex;"><span>                                System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(req);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                                String resp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;echo : &#34;</span> <span style="color:#f92672">+</span> req;
+</span></span><span style="display:flex;"><span>                                buf.<span style="color:#a6e22e">clear</span>();
+</span></span><span style="display:flex;"><span>                                buf.<span style="color:#a6e22e">put</span>(resp.<span style="color:#a6e22e">getBytes</span>());
+</span></span><span style="display:flex;"><span>                                buf.<span style="color:#a6e22e">flip</span>();
+</span></span><span style="display:flex;"><span>                                ch.<span style="color:#a6e22e">write</span>(buf);
+</span></span><span style="display:flex;"><span>                              	
+</span></span><span style="display:flex;"><span>                              	<span style="color:#75715e">// redo </span>
+</span></span><span style="display:flex;"><span>                                buf.<span style="color:#a6e22e">clear</span>();
+</span></span><span style="display:flex;"><span>                                ch.<span style="color:#a6e22e">read</span>(buf, buf, <span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>                            } <span style="color:#66d9ef">catch</span> (UnsupportedEncodingException e) {
+</span></span><span style="display:flex;"><span>                                e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">failed</span>(Throwable exc, ByteBuffer attachment) {
+</span></span><span style="display:flex;"><span>                        exc.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">failed</span>(Throwable exc, AIOServer attachment) {
+</span></span><span style="display:flex;"><span>                exc.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            Thread.<span style="color:#a6e22e">sleep</span>(2000 <span style="color:#f92672">*</span> 1000);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
+</span></span><span style="display:flex;"><span>            e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><input disabled="" type="checkbox"> 性能测试</li>
+<li><input disabled="" type="checkbox"> 对比 Go、Rust 等语言 IO 模型</li>
+</ul>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'daily-note\/2022-09-15.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'daily-note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>
