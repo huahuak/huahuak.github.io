@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Big_data on </title>
-    <link>//localhost:1313/big_data/</link>
+    <link>/big_data/</link>
     <description>Recent content in Big_data on </description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <atom:link href="//localhost:1313/big_data/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/big_data/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>//localhost:1313/big_data/spark/</link>
+      <link>/big_data/spark/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/big_data/spark/</guid>
+      <guid>/big_data/spark/</guid>
       <description>Spark RDD Programming A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, partitioned collection of elements that can be operated on in parallel.&#xA;简单而言，RDD 可以视作分布式环境下的数组，拥有高效、稳定的优点。RDD 通过内存计算、分区策略 (Partition) 与调度优化器 (Scheduler) 以实现高效的并行计算，RDD 不可变性特点便于实现部分缓存备份，容错性使其在分布式环境下具备稳定的优点。&#xA;Example https://github.com/apache/spark/blob/master/examples/src/main/python/wordcount.py&#xA;# word count lines = spark.read.text(sys.argv[1]).rdd.map(lambda r: r[0]) counts = lines.flatMap(lambda x: x.split(&amp;#39; &amp;#39;)) \ .map(lambda x: (x, 1)) \ .reduceByKey(add) output = counts.collect() for (word, count) in output: print(&amp;#34;%s: %i&amp;#34; % (word, count)) Representation In a nutshell, we propose representing each RDD through a common interface that exposes five pieces of information: a set of partitions, which are atomic pieces of the dataset; a set of dependencies on parent RDDs; a function for computing the dataset based on its parents; and metadata about its partitioning scheme and data placement.</description>
     </item>
   </channel>

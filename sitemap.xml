@@ -2,66 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/</loc>
+    <loc>/</loc>
   </url><url>
-    <loc>//localhost:1313/big_data/spark/</loc>
+    <loc>/big_data/spark/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/2022-09-15/</loc>
+    <loc>/daily-note/2022-09-15/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/2022-09-18/</loc>
+    <loc>/daily-note/2022-09-18/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/2022-10-04/</loc>
+    <loc>/daily-note/2022-10-04/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/2022-10-24/</loc>
+    <loc>/daily-note/2022-10-24/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/2022-11-02/</loc>
+    <loc>/daily-note/2022-11-02/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/2022-11-20/</loc>
+    <loc>/daily-note/2022-11-20/</loc>
   </url><url>
-    <loc>//localhost:1313/draft/</loc>
+    <loc>/draft/</loc>
   </url><url>
-    <loc>//localhost:1313/home/</loc>
+    <loc>/home/</loc>
   </url><url>
-    <loc>//localhost:1313/machine_learning/deep_learning_theory/deep-learning-theory/</loc>
+    <loc>/machine_learning/deep_learning_theory/deep-learning-theory/</loc>
   </url><url>
-    <loc>//localhost:1313/machine_learning/machine_learing_theory/machine_learning_theory/</loc>
+    <loc>/machine_learning/machine_learing_theory/machine_learning_theory/</loc>
   </url><url>
-    <loc>//localhost:1313/machine_learning/math/probability/</loc>
+    <loc>/machine_learning/math/probability/</loc>
   </url><url>
-    <loc>//localhost:1313/machine_learning/natural_language_generation/natural_language_generation/</loc>
+    <loc>/machine_learning/natural_language_generation/natural_language_generation/</loc>
   </url><url>
-    <loc>//localhost:1313/os_note/os_note/</loc>
+    <loc>/os_note/os_note/</loc>
   </url><url>
-    <loc>//localhost:1313/programming_languages/algorithm/algorithm/</loc>
+    <loc>/programming_languages/algorithm/algorithm/</loc>
   </url><url>
-    <loc>//localhost:1313/programming_languages/c&#43;&#43;/c&#43;&#43;/</loc>
+    <loc>/programming_languages/c&#43;&#43;/c&#43;&#43;/</loc>
   </url><url>
-    <loc>//localhost:1313/programming_languages/golang/golang/</loc>
+    <loc>/programming_languages/golang/golang/</loc>
   </url><url>
-    <loc>//localhost:1313/project/soteria/</loc>
+    <loc>/project/soteria/</loc>
   </url><url>
-    <loc>//localhost:1313/research/llm/large_language_model/</loc>
+    <loc>/research/llm/large_language_model/</loc>
   </url><url>
-    <loc>//localhost:1313/research/ppml/privacy_perserving_machine_learning/</loc>
+    <loc>/research/ppml/privacy_perserving_machine_learning/</loc>
   </url><url>
-    <loc>//localhost:1313/research/ppml/task_for_ppml/</loc>
+    <loc>/research/ppml/task_for_ppml/</loc>
   </url><url>
-    <loc>//localhost:1313/big_data/</loc>
+    <loc>/big_data/</loc>
   </url><url>
-    <loc>//localhost:1313/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>//localhost:1313/daily-note/</loc>
+    <loc>/daily-note/</loc>
   </url><url>
-    <loc>//localhost:1313/machine_learning/</loc>
+    <loc>/machine_learning/</loc>
   </url><url>
-    <loc>//localhost:1313/os_note/</loc>
+    <loc>/os_note/</loc>
   </url><url>
-    <loc>//localhost:1313/programming_languages/</loc>
+    <loc>/programming_languages/</loc>
   </url><url>
-    <loc>//localhost:1313/project/</loc>
+    <loc>/project/</loc>
   </url><url>
-    <loc>//localhost:1313/research/</loc>
+    <loc>/research/</loc>
   </url><url>
-    <loc>//localhost:1313/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>

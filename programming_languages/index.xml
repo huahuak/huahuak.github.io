@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Programming_languages on </title>
-    <link>//localhost:1313/programming_languages/</link>
+    <link>/programming_languages/</link>
     <description>Recent content in Programming_languages on </description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <atom:link href="//localhost:1313/programming_languages/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/programming_languages/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>//localhost:1313/programming_languages/algorithm/algorithm/</link>
+      <link>/programming_languages/algorithm/algorithm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/programming_languages/algorithm/algorithm/</guid>
+      <guid>/programming_languages/algorithm/algorithm/</guid>
       <description>Algorithm Two Sum Given an array of integers nums&amp;nbsp;and an integer target, return indices of the two numbers such that they add up to target.&#xA;You may assume that each input would have exactly one solution, and you may not use the same element twice.&#xA;You can return the answer in any order.&#xA;Example 1:&#xA;Input: nums = [2,7,11,15], target = 9 Output: [0,1] Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/programming_languages/c&#43;&#43;/c&#43;&#43;/</link>
+      <link>/programming_languages/c&#43;&#43;/c&#43;&#43;/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/programming_languages/c&#43;&#43;/c&#43;&#43;/</guid>
+      <guid>/programming_languages/c&#43;&#43;/c&#43;&#43;/</guid>
       <description>C++ Note Overload </description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/programming_languages/golang/golang/</link>
+      <link>/programming_languages/golang/golang/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/programming_languages/golang/golang/</guid>
+      <guid>/programming_languages/golang/golang/</guid>
       <description>Go quick start Ref Go 语言设计与实现&#xA;TODO select/defer/panic&amp;amp;recover Timer: Go 定时器实现 内存分配器/垃圾收集器/栈内存管理 Json/HTTP/数据库等标准库 同步原语拓展部分 ErrGroup/Semaphore/SingleFlight 深入理解 GMP 模型、网络轮询器 Go Lambda 变量逃逸 nil and &amp;hellip;args? sync.pool 原理 语法基础 for &amp;amp; range for range 是 Go 中常用的范围遍历方法，在 Go 的实现中，会将 for range 转换为普通的 for 循环进行处理。&#xA;数组和切片，数组和切片可以通过 for range 进行遍历，可细分为三种不同的遍历，即是否使用 range 返回的 index 和 value。&#xA;arr := [...]int{1, 2, 3} for range arr {} for _ = range arr {} for _, _ = range arr {} 在 for range 实现中，会先通过 len( ) 方法获取 arr 的长度，作为 for 的遍历次数，因此在 for range 中对 arr 进行修改不能够改变 for range 的遍历次数。如下示例所示。</description>
     </item>
   </channel>

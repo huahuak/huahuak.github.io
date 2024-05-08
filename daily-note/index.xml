@@ -2,51 +2,51 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Daily-Notes on </title>
-    <link>//localhost:1313/daily-note/</link>
+    <link>/daily-note/</link>
     <description>Recent content in Daily-Notes on </description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <atom:link href="//localhost:1313/daily-note/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/daily-note/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>//localhost:1313/daily-note/2022-09-15/</link>
+      <link>/daily-note/2022-09-15/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/daily-note/2022-09-15/</guid>
+      <guid>/daily-note/2022-09-15/</guid>
       <description>Daily-Note 09-15 OVERVIEW 在分布式系统中，分布式高并发编程模型、socket 网络模型、IO 模型等属于了分布式系统的基石。&#xA;Actor Model，一种高性能分布式并发编程模型，来自 Erlang 语言。背景介绍 Netty, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server. select / poll、信号驱动 IO、epoll，多种非阻塞的操作系统 IO 模型。 Java NIO，与 java 1.4 之前的 BIO 相比，NIO 提供了非阻塞的 IO 模型，大大提高了 Java 编程语言在大型应用服务器上的 IO 性能。 Actor Model 我们为什么需要 Actor 编程模型？</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/daily-note/2022-09-18/</link>
+      <link>/daily-note/2022-09-18/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/daily-note/2022-09-18/</guid>
+      <guid>/daily-note/2022-09-18/</guid>
       <description>Daily-Note 09-18 OVERVIEW Gin，go web 框架。 Go MemModel，go 语言内存模型。 Go Sync，Go 并发包，提供 Atomic、cond、once、pool、mutex、rwmutex、waitgroup、map 等线程并发工具。 Go container，提供了 List、Ring、Heap 等容器，此外 go builtin 包括 slice、map 等多种数据结构。 IPC sig，进程通信中 sig 是通过信号的发送，回调处理函数来实现进程间的通信。 Gin Route gin框架路由详解&#xA;LeetCode 208.实现 Trie(前缀树)&#xA;// -- main.go -- // engine := gin.Default() engine.GET(&amp;#34;/test/abc&amp;#34;) // -- routergroup.go -- // // GET is a shortcut for router.Handle(&amp;#34;GET&amp;#34;, path, handle). func (group *RouterGroup) GET(relativePath string, handlers ...HandlerFunc) IRoutes { return group.handle(http.MethodGet, relativePath, handlers) } func (group *RouterGroup) handle(httpMethod, relativePath string, handlers HandlersChain) IRoutes { absolutePath := group.</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/daily-note/2022-10-04/</link>
+      <link>/daily-note/2022-10-04/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/daily-note/2022-10-04/</guid>
+      <guid>/daily-note/2022-10-04/</guid>
       <description>Daily-Note 10-04 OVERVIEW Spark 并发模型，Spark 以 Executor 进程为单元，在 task 上实现多线程并发模型。 线性模型，传统机器学习模型。 字典树，一种前缀树，可用于路由匹配、语法补全等场景。 拉格朗日乘子法，数学最优化问题中求解多元函数在约束条件下局部极值的方法。 Spark 并发模型 RDD RDD 是 Resilient Distrubuted Dataset，弹性分布式数据集，是 Spark 数据的基本组织方式。&#xA;// -- RDD.scala -- // final def iterator(split: Partition, context: TaskContext): Iterator[T] = { if (storageLevel != StorageLevel.NONE) { getOrCompute(split, context) } else { computeOrReadCheckpoint(split, context) } } private[spark] def computeOrReadCheckpoint(split: Partition, context: TaskContext): Iterator[T] = { if (isCheckpointedAndMaterialized) { firstParent[T].iterator(split, context) } else { compute(split, context) } } def compute(split: Partition, context: TaskContext): Iterator[T] 调用 iterator() 方法将触发 RDD 的计算方法，getOrCompute 和 computeOrReadCheckpoint 方法实现了计算结果缓存的机制，其最终的计算方法落在 compute 方法，该方法由 RDD 的子类实现具体的计算方法。</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/daily-note/2022-10-24/</link>
+      <link>/daily-note/2022-10-24/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/daily-note/2022-10-24/</guid>
+      <guid>/daily-note/2022-10-24/</guid>
       <description>Daily-Note 10-24 OVERVIEW Pytorch，机器学习框架 神经网络，由神经元构成的非线性参数模型。 SparkPlanner，将 Logical Plan 转换到 Physics Plan。 Spark Expression， Pytorch TUTORIAL 1: INTRODUCTION TO PYTORCH fsdl-text-recognizer-2021-labs&#xA;神经网络 (Neural Network)&#xA;Tutorial 1: Introduction to PyTorch&#xA;BP (Back Propagation)&#xA;SparkPlanner Spark SQL Query Engine Deep Dive (7) – Spark Planner Overview&#xA;QueryPlan，QueryPlan 继承自 TreeNode，其增加了逻辑图和物理图的一些公共属性和遍历方法。&#xA;LogicalPlan，LogicalPlan 是逻辑图中如 Aggregate/Sort/Join 等节点的基类。其基础自 QueryPlan。&#xA;SparkPlan，SparkPlan 是物理算子的基类，物理算子包括 HashAggregateExec、ShuffleExchangeExec 等。与 LogicalPlan 相同，继承自 QueryPlan。&#xA;QueryExecution 包括一个请求中主要流程的各个阶段，包括 UnresovledPlan Logical Plan/Logical Plan/Optimized Logical Plan/Physical Plan 等阶段。在 QueryExecution 中分别对应为 logical/analyzed/optimized/sparkPlan 等属性。</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/daily-note/2022-11-02/</link>
+      <link>/daily-note/2022-11-02/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/daily-note/2022-11-02/</guid>
+      <guid>/daily-note/2022-11-02/</guid>
       <description>Daily-Note 11-02 OVERVIEW Kafka，分布式高性能事件流式处理平台。 Docker，docker 是一个用于部署、传输、运行应用的开发平台。 Spark Shuffle，分布式环境下重新组织数据使有序的操作。 Kafka Kafka introduction&#xA;Kafka documentation&#xA;Docker docker&#xA;Docker 从入门到实践&#xA;EntryPoint，该命令相比于 CMD 命令而言，可以在 docker run 命令后添加参数。EntryPoint&#xA;Spark Shuffle Spark SQL Query Engine Deep Dive (14) – Partitioning &amp;amp; Ordering&#xA;Spark SQL Query Engine Deep Dive (15) – UnsafeExternalSorter &amp;amp; SortExec&#xA;Spark SQL Query Engine Deep Dive (16) – ShuffleExchangeExec &amp;amp; UnsafeShuffleWriter&#xA;Shuffle 目的在于使 Map 端的输出重新组织，从而使得数据根据 Key 有序，方便后续的 Reduce 端进行数据聚合。在特定情况下，聚合也会提前在 Map 端执行，从而减少数据传输的大小。&#xA;Overview，在物理计划 SparkPlan 由 Optimized 转换完成之后，进入 preparations 阶段，生成最后的 executedPlan，在 preparations 中的 EnsureRequirements 规则被应用，从而在需要 Shuffle 的算子之间插入对应的 SparkPlan，主要是 ShuffleExchangeExec。</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:1313/daily-note/2022-11-20/</link>
+      <link>/daily-note/2022-11-20/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/daily-note/2022-11-20/</guid>
+      <guid>/daily-note/2022-11-20/</guid>
       <description>Daily-Note 11-20 OVERVIEW Apache Arrow，用于高性能大数据处理传输场景。 Apache Arrow https://arrow.apache.org</description>
     </item>
   </channel>
