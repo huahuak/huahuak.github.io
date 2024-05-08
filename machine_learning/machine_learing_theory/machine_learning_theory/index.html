@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/machine_learning/">Machine_learnings</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/machine_learning/machine_learing_theory/machine_learning_theory/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#reference">Reference</a></li>
+    <li><a href="#linear-regression">Linear Regression</a>
+      <ul>
+        <li><a href="#1-prior-knowledge">§1 prior knowledge</a></li>
+        <li><a href="#2-linear-regression">§2 Linear Regression</a></li>
+        <li><a href="#3-logistic-regression">§3 Logistic Regression</a></li>
+        <li><a href="#4-generalized-linear-models">§4 Generalized Linear Models</a></li>
+      </ul>
+    </li>
+    <li><a href="#generative-learning-algorithms">Generative learning algorithms</a>
+      <ul>
+        <li><a href="#what-are-generative-learning-algorithms">What are Generative learning algorithms?</a></li>
+        <li><a href="#1-gaussian-discriminant-analysis">§1 Gaussian discriminant analysis</a></li>
+        <li><a href="#2-naive-bayes">§2 Naive bayes</a></li>
+      </ul>
+    </li>
+    <li><a href="#support-vector-machines">Support vector machines</a>
+      <ul>
+        <li><a href="#margin">Margin</a></li>
+        <li><a href="#the-optimal-margin-classifier">The optimal margin classifier</a></li>
+        <li><a href="#lagrange-duality">Lagrange duality</a></li>
+      </ul>
+    </li>
+    <li><a href="#neural-network">Neural Network</a>
+      <ul>
+        <li><a href="#what-is-neural-network">What is Neural Network?</a></li>
+        <li><a href="#activation-function">Activation Function</a></li>
+        <li><a href="#backpropagation">Backpropagation</a></li>
+        <li><a href="#reference-1">Reference</a></li>
+      </ul>
+    </li>
+    <li><a href="#generalization">Generalization</a>
+      <ul>
+        <li><a href="#bias-variance-of-model">Bias-Variance of Model</a></li>
+        <li><a href="#double-descent-phenomenon">Double descent phenomenon</a></li>
+        <li><a href="#sample-complexity-bound">Sample complexity bound</a></li>
+      </ul>
+    </li>
+    <li><a href="#regularization">Regularization</a>
+      <ul>
+        <li><a href="#regularization-1">Regularization</a></li>
+        <li><a href="#implicit-regularization-effect">Implicit regularization effect</a></li>
+        <li><a href="#bayes-statistics">Bayes statistics</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li></li>
+        <li><a href="#cross-validation">Cross Validation</a></li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#k-means-alogrithm">K-means alogrithm</a></li>
+    <li><a href="#em-algorithm">EM algorithm</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="machine-learning-theory">Machine Learning Theory</h1>
+<h2 id="reference">Reference</h2>
+<blockquote>
+<p><a href="https://docs.google.com/spreadsheets/d/18pHRegyB0XawIdbZbvkr8-jMfi_2ltHVYPjBEOim-6w/edit#gid=0">CS229 Syllabus</a></p>
+<p><a href="cs229_lecture_notes.pdf">cs229_lecture_notes.pdf</a></p>
+</blockquote>
+<h2 id="linear-regression">Linear Regression</h2>
+<h3 id="1-prior-knowledge">§1 prior knowledge</h3>
+<h4 id="maximum-likelihood-estimation"><strong>M</strong>aximum <strong>L</strong>ikelihood <strong>E</strong>stimation</h4>
+<p><em>(<strong>M</strong>aximum <strong>L</strong>ikelihood <strong>E</strong>stimation，MLE)</em></p>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0">似然函数 Wiki</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Likelihood_function">Likelihood function Wiki</a></p>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1">极大似然估计 Wiki</a></p>
+</blockquote>
+<h4 id="matrix-derivatives">Matrix derivatives</h4>
+<h4 id="the-exponential-family">The exponential family</h4>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Exponential_family">Exponential family Wiki</a></p>
+</blockquote>
+<h4 id="multinomial-distribution">Multinomial Distribution</h4>
+<p>多项分布的概率分布函数为：</p>
+$$
+\mathrm{P}\left(\mathrm{X}{1}=\mathrm{k}{1},\mathrm{X}{2}=\mathrm{k}{2},\cdots,\mathrm{X}{\mathrm{n}}=\mathrm{k}{\mathrm{n}}\right)=\dfrac{\mathrm{n}!}{\mathrm{k}{1}!\mathrm{k}{2}!\cdots\mathrm{k}{\mathrm{n}}!}\prod{i=1}^{\mathrm{n}}\mathrm{p}{i}^{\mathrm{k}{i}}\quad,\sum_{i=1}^{\mathrm{n}}\mathrm{k}_{i}=\mathrm{n}
+$$
+<h3 id="2-linear-regression">§2 Linear Regression</h3>
+<p><strong>Object function</strong>:</p>
+$$
+h(x) = \theta^{\mathrm{T}}x;
+$$
+<p><strong>Cost function:</strong></p>
+$$
+J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2
+$$
+<p><strong>方法一</strong>，通过 <em>gradient descent</em> 方法调整参数 $\theta$。</p>
+<p>首先计算梯度方向，</p>
+$$
+\begin{aligned}
+\frac{\partial}{\partial\theta_j}J(\theta)
+&=\frac{\partial}{\partial\theta_j}\frac{1}{2}\left(h_\theta(x)-y\right)^2\\
+&=2\cdot\frac{1}{2}\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(h_\theta(x)-y\right)\\
+&=\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(\sum_{i=0}^{d}\theta_ix_i-y\right)\\
+&=\left(h_\theta(x)-y\right)x_j
+\end{aligned}
+$$
+<p>根据下式迭代调整 $\theta$ 参数。</p>
+$$
+\theta_j:=\theta_j+\alpha\left(y^{(i)}-h_\theta(x^{(i)})\right)x_j^{(i)}.
+$$
+<p><strong>方法二</strong>，通过 <em>closed-form solution</em> 直接求得最优参数，即<strong>最小二乘法</strong>。</p>
+<p>首先计算损失函数 $J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2$  的梯度，</p>
+$$
+\begin{aligned}
+\nabla_\theta J(\theta)
+&=\nabla_\theta\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})\\
+&=\frac{1}{2}\nabla_\theta((X\theta)^T X\theta-(X\theta)^T\vec{y}-\vec{y}^T(X\theta)+\vec{y}^T\vec{y})\\
+&=\frac{1}{2}\nabla_\theta(\theta^T(X^T X)\theta-\vec{y}^T(X\theta)-\vec{y}^T(X\theta))\\
+&=\frac{1}{2}\nabla_\theta\left(\theta^T(X^T X)\theta-2(X^T\vec{y})^T\theta\right)\\ &=\frac{1}{2}\left(2X^T X\theta-2X^T\vec{y}\right)\\
+&=X^T X\theta-X^T\vec{y}\\
+\end{aligned}
+$$
+<p>令 $\nabla_\theta J(\theta) = 0$，得</p>
+$$
+\theta = (X^TX)^{-1}X^T \overrightarrow{y}
+$$
+<p>💡 <strong>概率解释</strong>，为什么选择 $J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2$ 作为 cost function?</p>
+<p>根据线性模型 $h(x) = \theta^{\mathrm{T}}x + \varepsilon$，其中 $\varepsilon$ 是随机噪声，假设 $\varepsilon$ 满足标准正态分布，即 $\varepsilon \sim\mathcal{N}(\mu,\sigma^2), \mu = 0, \sigma = 1$，则有</p>
+$$
+p(\varepsilon^{(i)}) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{{\varepsilon^{(i)}}^2}{2\sigma^2}\right) \\
+$$
+<p>若将标签 $y^{(i)}$ 与 $\theta^{\mathrm{T}}x$ 认为是随机变量，$p(y^{(i)}|x^{(i)};\theta)$ 描述了当特征 $x$ 确定时实际标签 $y^{(i)}$ 的概率分布函数，$\theta^{\mathrm{T}}x$ 表明了特征 $x$ 下的预测值。</p>
+<p>因为随机噪声 $\varepsilon$ 满足标准正态分布，其平均值 $\mu = 0$，即表明实际输出 $y^{(i)}$ 是以 $\theta^{\mathrm{T}}x$ 为平均值的正态分布，则有</p>
+$$
+p(y^{(i)}|x^{(i)};\theta) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
+$$
+<p>从似然的角度考虑 $p(y^{(i)}|x^{(i)};\theta)$，基于已有的数据知识 ($\overrightarrow{y}, X$) 获得 $\mathrm{argmax}_{\theta} p(\theta;\overrightarrow{y}, X)$。根据极大似然法，最大化函数</p>
+$$
+\begin{aligned}L(\theta)&=\prod_{i=1}^np(y^{(i)}\mid x^{(i)};\theta)\\&=\prod_{i=1}^n\frac1{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right).\end{aligned}
+$$
+<p>等价于最大化函数</p>
+$$
+\begin{aligned}
+\ell(\theta)& =\log L(\theta)  \\
+&=\log\prod_{i=1}^n\frac1{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)\\
+&=\sum_{i=1}^n\log\frac1{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right) \\
+&=n\log\frac1{\sqrt{2\pi}\sigma}-\frac1{\sigma^2}\cdot\frac12\sum_{i=1}^n(y^{(i)}-\theta^Tx^{(i)})^2.\end{aligned}
+$$
+<p>等价于最小化</p>
+$$
+\frac12\sum_{i=1}^n(y^{(i)}-\theta^Tx^{(i)})^2.
+$$
+<p>即线性回归模型使用的代价函数。</p>
+<h3 id="3-logistic-regression">§3 Logistic Regression</h3>
+<p>根据极大似然法，逻辑回归中由 $ x $ 给出的 $ y $ 满足二项分布 (Bernoulli distribution)，概率分布为:</p>
+$$
+\begin{aligned}
+p(y|x;\theta)&=(h_\theta(x))^y(1-h_\theta(x))^{1-y} \\ 
+h_{\theta}(x)&=g(\theta^T x)
+\end{aligned}
+$$
+<p>这里 $g(\cdot)$ 是联系函数(link function)，$g(\cdot)=\frac{1}{1+e^{-x}}$，称之为 logistic function (或 sigmoid 函数)。</p>
+<blockquote>
+<p>$g(\cdot)=\frac{1}{1+e^{-x}}$ 该函数的导数恰为 $g'(x)=g(x)(1-g(x))$</p>
+$$\begin{aligned}g^{\prime}(z)& =\frac d{dz}\frac1{1+e^{-z}}\\&=\frac1{(1+e^{-z})^2}(e^{-z}) \\&=-\frac1{(1+e^{-z})}\cdot(1-\frac1{(1+e^{-z})}) \\&=g(z)(1-g(z)).\end{aligned}$$
+</blockquote>
+<p>使 $L(\theta)=p(y|x;\theta)$ 最大，
+</p>
+$$
+\begin{aligned}
+L(\theta)
+&=p(\vec{y}\mid X;\theta)\\
+&=\prod\limits_{i=1}^np(y^{(i)}\mid x^{(i)};\theta)\\
+&=\prod\limits_{i=1}^n\left(h_\theta(x^{(i)})\right)^{y^{(i)}}\left(1-h_\theta(x^{(i)})\right)^{1-y^{(i)}}
+\end{aligned}
+$$
+<p>为求解方便，对 $L(\theta)$ 取对数，</p>
+$$
+\begin{array}{rcl}
+\ell(\theta)
+&=&\log L(\theta)\\
+&=&\sum_{i=1}^n y^{(i)}\log h(x^{(i)})+(1-y^{(i)})\log(1-h(x^{(i)}))
+\end{array}
+$$
+<p>不考虑 $\sum_{i=1}^n$ 时，对 $\ell(\theta)$ 求导，</p>
+$$
+\begin{aligned}
+\frac{\partial}{\partial\theta_j}\ell(\theta)
+&=\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)\frac{\partial}{\partial\theta_j}g(\theta^Tx)\\
+&=\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)g(\theta^Tx)(1-g(\theta^Tx))\frac{\partial}{\partial\theta_j}\theta^Tx\\
+&=\left(y(1-g(\theta^Tx))-(1-y)g(\theta^Tx)\right)x_j\\
+&=(y-g(\theta^Tx))\:x_j\\
+&=(y-h_\theta(x))x_j
+\end{aligned}
+$$
+<p>根据 gradient descent rule 更新参数 $\theta$。</p>
+$$
+\begin{aligned}
+\theta_j&:=\theta_j+\alpha\left(y^{(i)}-h_\theta(x^{(i)})\right)x_j^{(i)}\\
+&=\theta_j+\alpha\left(y^{(i)}-\frac{1}{1+\exp^{-(\omega x+b)}}\right)x_j^{(i)}\\
+\end{aligned}
+$$
+<p>这里形式上与线性模型相同，其中不同在于 $h(\theta)$，线性模型中为  $h(\theta)=\omega x+b$，此处为 $h(\theta)=g(\omega x+b)=\frac{1}{1+\exp^{-(\omega x+b)}}$。</p>
+<p><strong>拓展学习</strong>：</p>
+<ol>
+<li>考虑 $g(z)=\left\{\begin{array}{ll}1&\mathrm{if~}z\geq0\\0&\mathrm{if~}z<0\end{array}\right.$ 时，该模型与线性回归和逻辑回归模型的区别。</li>
+<li>牛顿法是一种逼近极值的方法，参考 <a href="https://zh.wikipedia.org/zh-hans/%E7%89%9B%E9%A1%BF%E6%B3%95">牛顿法 Wiki</a>。</li>
+</ol>
+<h3 id="4-generalized-linear-models">§4 Generalized Linear Models</h3>
+<p><em>(<strong>G</strong>eneralized <strong>L</strong>inear <strong>M</strong>odels, GLMs)</em></p>
+<h4 id="linear-regression-1">Linear Regression</h4>
+<h4 id="logistic-regression">Logistic Regression</h4>
+<h4 id="softmax-regression">Softmax Regression</h4>
+<p>Softmax Regression 用于多分类场景，这里我们假设多分类场景中 $y$ 满足指数族分布，即 $y|x,\theta \sim ExponentialFmaily(\theta$)，且这里的指数族分布为多项分布(Multinomial Distribution)。</p>
+$$
+\begin{aligned}
+p(y|x;\theta)
+&=\phi_1^{1\{y=1\}}\phi_2^{1\{y=2\}}\phi_3^{1\{y=3\}}\cdots\phi_k^{1\{y=k\}}\\
+&=\phi_1^{1\{y=1\}}\phi_2^{1\{y=2\}}\phi_3^{1\{y=3\}}\cdots\phi_k^{1-\sum_{i=1}^{k-1}1\{y=i\}}\\
+&=\phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\phi_3^{(T(y))3}\cdots\phi_k^{1-\sum{i=1}^{k-1}(T(y))_k}\\
+&=\exp((T(y))_1log(\phi_1)+(T(y))_2log(\phi_2)+(T(y))_3log(\phi_3)+\\
+&\quad\cdots+(1-\sum_{i=1}^{k-1}(T(y))_k)log(\phi_k))\\
+&=\exp((T(y))_1log(\frac{\phi_1}{\phi_k})+(T(y))_2log(\frac{\phi_2}{\phi_k})+(T(y))_3log(\frac{\phi_3}{\phi_k})+\\
+&\quad\cdots+(T(y))_klog(\phi_k))\\
+&=b(y)\exp(\eta^TT\left(y\right)-a\left(\eta\right))\\
+\end{aligned}
+$$
+<p>根据指数族分布形式可知，</p>
+$$
+\begin{array}{rcl}
+\eta &=&
+\left[\begin{array}{}
+\log(\frac{\phi_1}{\phi_k})\\ \log(\frac{\phi_2}{\phi_k})\\ \vdots\\ \log(\frac{\phi_k-1}{\phi_k})
+\end{array}\right]\\
+a(\eta)&=&-log(\phi_k)\\
+b(y)&=&1
+\end{array}
+$$
+<p>这里假设 $T(y)=y;h(\theta)=E[y|x]$，则有，</p>
+$$
+\begin{array}{rcl}h_{\theta}(x) &=&\text{E}[T(y)|x;\theta]\\ &=&E\left[\begin{array}{c|c} \begin{matrix} 1\{y=2\}\\ 1\{y=2\}\\ \vdots\\ 1\{y=k-1\} \end{matrix}& x;\theta \end{array}\right]\\ &=&\left[ \begin{matrix} \phi_1\\ \phi_2\\ \vdots\\ \phi_{k-1} \end{matrix} \right]\\ &=&\left[ \begin{matrix} \frac{\exp(\theta_1^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\ \frac{\exp(\theta_2^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\ \vdots\\ \frac{\exp(\theta_{k-1}^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\ \end{matrix} \right]\end{array}
+$$
+<p>根据多项分布的概率分布函数，将 $h(\theta)$ 代入概率分布函数，根据极大似然求对应的 $\theta$。</p>
+$$
+\begin{array}{rcl}\ell(\theta)
+&=&\sum\limits_{i=1}^n\log p(y^{(i)}|x^{(i)};\theta)\\
+&=&\sum\limits_{i=1}^n\log\prod\limits_{l=1}^k\left(\dfrac{e^{\theta_l^Tx^{(i)}}}{\sum\limits_{j=1}^ke^{\theta_j^Tx^{(i)}}}\right)^{1\{y^{(i)}=l\}}\end{array}
+$$
+<p>可以通过 gradient ascent 或 Newton&rsquo;s method 进行求解。</p>
+<h2 id="generative-learning-algorithms">Generative learning algorithms</h2>
+<h3 id="what-are-generative-learning-algorithms">What are Generative learning algorithms?</h3>
+<p>生成式模型和判别式模型的区别在于，判别式模型直接学习 $p(y|x)$ 条件概率模型，而生成式模型先学习 $p(y)$ 先验概率，然后根据贝叶斯定理获得 $p(y|x)$ 的条件概率模型。</p>
+$$
+\begin{aligned}
+p(y|x) &= \frac{p(x|y)p(y)}{p(x)}\\
+argmax p(y|x) &= argmax \frac{p(x|y)p(y)}{p(x)} \\
+&= argmax {p(x|y)p(y)}
+\end{aligned}
+$$
+<h3 id="1-gaussian-discriminant-analysis">§1 Gaussian discriminant analysis</h3>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_42555080/article/details/89508850">GDA -CSDN</a></p>
+<p><a href="https://www.cnblogs.com/jcchen1987/p/4424436.html">GDA -博客园</a></p>
+<p><a href="https://zh.wikipedia.org/zh-hans/%E5%A4%9A%E5%85%83%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83">多元正态分布 -Wiki</a></p>
+</blockquote>
+<p>假设</p>
+$$
+\begin{aligned}
+y&\sim\mathrm{Bernoulli}(\phi)\\
+x|y=0&\sim\mathcal{N}(\mu_0,\Sigma)\\
+x|y=1&\sim\mathcal{N}(\mu_1,\Sigma)\\
+\end{aligned}
+$$
+<h3 id="2-naive-bayes">§2 Naive bayes</h3>
+<h2 id="support-vector-machines">Support vector machines</h2>
+<p>有数据集 $S = \{x_i, y_i\}， x_i \in R^n, y_i \in \{-1, 1\}$，支持向量机的超平面将 $S$ 按照 $y$ 正确的划分为两类。超平面为</p>
+$$
+w^{T}x + b = 0
+$$
+<p>预测函数为</p>
+$$
+h_{w, b}(x) = sign(w^{T}x + b)
+$$
+<h3 id="margin">Margin</h3>
+<p>某一样本点<strong>函数间隔 (function margin)</strong> 定义为</p>
+$$
+\hat{\gamma}^{(i)}=y^{(i)}(w^Tx^{(i)}+b)
+$$
+<p>在 $S$ 上，则有</p>
+$$
+\hat{\gamma} = \min_{S} \hat{\gamma}^{(i)}
+$$
+<p>$|w^Tx^{(i)}+b|$ 可相对地表示样本点到超平面的距离，而 $y^{(i)}$ 则能表示分类是否正确，因此 $\hat{\gamma}^{(i)}$ 能够表示点的函数间隔。</p>
+<p>等比例的放大 $w$ 和 $b$ 不会改变超平面，而 $\hat{\gamma}$ 却会成比例的放大，$\hat{\gamma}$ 不能衡量实际的超平面到最近样本点的间隔，因此有在 $S$ 上的<strong>几何间隔 (geometric margin)</strong></p>
+$$
+\gamma=\min_{S} y^{(i)}\frac{w^Tx^{(i)}+b}{||w||}
+$$
+<p>因此函数间隔和几何间隔之间存在关系</p>
+$$
+\gamma = \frac{\hat{\gamma}}{||w||}
+$$
+<h3 id="the-optimal-margin-classifier">The optimal margin classifier</h3>
+<p>当<strong>间隔 (margin)</strong> 越大时，我们对 SVM 的分类结果更有信心，有</p>
+$$
+\begin{array}{rl}\max_{\gamma,w,b}&\gamma\\
+\mathrm{s.t.}&y^{(i)}(w^Tx^{(i)}+b)\geq\gamma,\quad i=1,\ldots,n\\
+&||w||=1.
+\end{array}
+$$
+<p>其中 $\gamma$ 可以替换为 $\frac{\hat{\gamma}}{||w||}$，则有等价</p>
+$$
+\begin{array}{rl}\min_{w,b}&\frac12||w||^2\\\mathrm{s.t.}&y^{(i)}(w^Tx^{(i)}+b)\geq1,&i=1,\ldots,n\end{array}
+$$
+<h3 id="lagrange-duality">Lagrange duality</h3>
+<h2 id="neural-network">Neural Network</h2>
+<h3 id="what-is-neural-network">What is Neural Network?</h3>
+<p>神经网络是由线性函数和激活函数 (activation function) 组合构成的多层网状函数结构，可表示为</p>
+$$
+a^{[k]}=\text{ReLU}(W^{[k]}a^{[k-1]}+b^{[k]}),\forall k=1,\ldots,r-1
+$$
+<p>其中 ReLu(Recitified linear function) 是一种激活函数，$a^{[k]}$ 是第 $k$ 层的神经元 ( $a^{[0]}$ 为输入)，$W^{[k]}$ 是第 $k$ 层的参数。</p>
+<h3 id="activation-function">Activation Function</h3>
+<p><strong>ReLU</strong> 线性整流函数的定义如下</p>
+$$
+ReLU(x) = \max\{x, 0\}
+$$
+<h3 id="backpropagation">Backpropagation</h3>
+<h3 id="reference-1">Reference</h3>
+<p><a href="http://zh.d2l.ai/index.html">《动手学深度学习》 — 动手学深度学习 2.0.0 documentation</a></p>
+<h2 id="generalization">Generalization</h2>
+<h3 id="bias-variance-of-model">Bias-Variance of Model</h3>
+<p>有 $S = \{x^{(i)}, y^{(i)}\}_i^n, y^{(i)} = h^{\star}(x^{(i)}) + \xi^{(i)}, \xi \sim N(\mu,\sigma^2)$，从 $S$ 中学习到模型 $\hat{h}_{S}(x)$，则</p>
+$$
+\begin{aligned}
+\mathrm{MSE}(x)& =\sigma^2+\mathbb{E}[(h^\star(x)-h_S(x))^2]  \\
+&=\sigma^2+(h^\star(x)-h_{\mathrm{avg}}(x))^2+\mathbb{E}[(h_{\mathrm{avg}}-h_S(x))^2] \\
+&=\underbrace{\sigma^2}_\text{unavoidable}+\underbrace{(h^\star(x)-h_{\mathrm{avg}}(x))^2}_{\triangleq \text{bias}^2\ }+\underbrace{\mathrm{var}(h_S(x))}_\text{ variance}
+\end{aligned}
+$$
+<h3 id="double-descent-phenomenon">Double descent phenomenon</h3>
+<blockquote>
+<p><a href="https://arxiv.org/pdf/1912.02292">Deep Double Descent: Where Bigger Models and More Data Hurt - from arxiv</a></p>
+</blockquote>
+<p>从<strong>模型的角度</strong>出发，双重下降现象是指测试误差随着模型复杂度的提升出现二次降低的现象。</p>
+<p>从<strong>样本的角度</strong>出发，双重下降现象是指，测试误差随着样本数量增加出现二次降低的现象。</p>
+<p><img src="machine_learning_theory.assets/Screenshot_2023-09-13_at_22.02.47.png" alt="Screenshot 2023-09-13 at 22.02.47.png"></p>
+<p>综合上述两种角度，当模型参数的数量 $d$ 与样本数量 $n$ 接近时，即 $n \approx d$，测试误差会达到最大值。</p>
+<h3 id="sample-complexity-bound">Sample complexity bound</h3>
+<h2 id="regularization">Regularization</h2>
+<h3 id="regularization-1">Regularization</h3>
+<h3 id="implicit-regularization-effect">Implicit regularization effect</h3>
+<h3 id="bayes-statistics">Bayes statistics</h3>
+<h2 id="evaluation">Evaluation</h2>
+<h4 id="model-select">Model Select</h4>
+<h3 id="cross-validation">Cross Validation</h3>
+<ol>
+<li>hold-out cross validation</li>
+<li>k-fold cross validation</li>
+<li>levave-one-out cross validation</li>
+</ol>
+<h3 id="performance">Performance</h3>
+<p>有查准率 P(precision) 与查全率  R(recall)，F1 指标是 P 和 R 的调和平均 (harmonic mean)：,</p>
+$$
+\frac1{F1}=\frac12\cdot\left(\frac1P+\frac1R\right)
+$$
+<p>有 真正例率TPR(True Positive Rate)， 假正例率 FPR(False Positive Rate)，</p>
+$$
+\begin{aligned}
+TPR = \frac{TP}{TP + FN}\\
+FPR = \frac{FP}{FP+TN}\\
+\end{aligned}
+$$
+<p>由 FPR 为横坐标，TPR 为纵坐标构成受测者工作特征 ROC(Reciver Operating Characteristic)，曲线下面积即 AUC(Area Under Curve)。</p>
+<p>💡 <strong>如何理解 AUC 的实际意义？</strong></p>
+<p>一般地，在二分类问题中，设正例的数量为 $n^+$，而反例的数量为 $n^-$。</p>
+<p>模型 $h(x^{(i)})$ = $P(y^{(i)}=1|x^{(i)})$，有序集合 $S = \{x|h(x^{(i)}) < h(x^{(i+1)})\}$。假设 $h(x^{(i)})$  为正反例分界阈值，对每一个 $i$ 则有</p>
+$$
+\begin{array}{rcl}
+FPR^{(0)} &=& 0\\
+FPR^{(i)} &=& \left\{\begin{array}{clr}
+FPR^{(i-1)},&,& y_i=1\\
+FPR^{(i-1)}+\frac{1}{n^-} &,& y_i\neq1\\
+\end{array}\right.\\
+TPR^{(0)} &=& 0\\
+TPR^{(i)} &=& \left\{\begin{array}{clr}
+TPR^{(i-1)}+\frac{1}{n^+} &,& y_i=1\\
+TPR^{(i-1)},&,& y_i\neq1\\
+\end{array}\right.\\ 
+\end{array}
+$$
+<p>则 ROC 曲线由点集 $O = \{FPR^{(i)},  TPR^{(i)}\}$ 依次连线构成。简而言之，模型 $h(x)$ 输出的有序集合 $S$ 产生 FPR 和 TPR，ROC 正是 FPR-TRP 曲线。</p>
+<p>样本点为正例时，ROC 曲线沿 y 轴增长，反之沿 x 轴增长。当有序集合 $S$ 排序后的前 $n^+$ 个样本点中正例比例越大时，ROC 曲线优先沿 y 轴增长，后沿 x 轴增长，则此时 AUC 越大。</p>
+<p>因此 AUC 实际反映了模型预测的前 n 个正例是否正确，即预测正例排序是否符合实际数据情况。</p>
+<h2 id="k-means-alogrithm">K-means alogrithm</h2>
+<p>$x$ 为样本点，$\mu$ 为聚簇中心，重复下述步骤直至收敛：</p>
+$$
+\begin{array}{}
+\text{For every i, set}&\\
+&c^{(i)}:=\arg\min_j||x^{(i)}-\mu_j||^2 \\
+\text{For each j, set}&\\
+&\mu_j:=\frac{\sum_{i=1}^n1\{c^{(i)}=j\}x^{(i)}}{\sum_{i=1}^n1\{c^{(i)}=j\}}
+\end{array}
+$$
+<h2 id="em-algorithm">EM algorithm</h2>
+<p>期望极大算法 EM (Expectation-Maximization)</p>
+<p>$x$ 为输出值，$z$  为隐变量 (latent variable)，$p(z;\phi)$ 描述隐变量的概率分布，$p(x|z;\mu,\Sigma)$ 描述 $z$ 条件下的 $x$ 概率分布 ，$p(x,z;\phi,\mu,\Sigma)$ 描述输出值的概率分布。</p>
+<p>E-step:</p>
+$$
+\begin{array}{}
+\text{(E-step) For each }i,j,\mathrm{~set}&\\
+&w_j^{(i)}:=p(z^{(i)}=j|x^{(i)};\phi,\mu,\Sigma)
+\end{array}
+$$
+<p>M-step:</p>
+$$
+\begin{aligned}&\phi_j\quad:=\quad\frac1n\sum_{i=1}^nw_j^{(i)},\\&\mu_j\quad:=\quad\frac{\sum_{i=1}^nw_j^{(i)}x^{(i)}}{\sum_{i=1}^nw_j^{(i)}},\\&\Sigma_j\quad:=\quad\frac{\sum_{i=1}^nw_j^{(i)}(x^{(i)}-\mu_j)(x^{(i)}-\mu_j)^T}{\sum_{i=1}^nw_j^{(i)}}\end{aligned}
+$$
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'machine_learning\/machine_learing_theory\/machine_learning_theory.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'machine_learning\/machine_learing_theory\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

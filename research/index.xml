@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Researches on </title>
+    <link>//localhost:1313/research/</link>
+    <description>Recent content in Researches on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="//localhost:1313/research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>//localhost:1313/research/llm/large_language_model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/research/llm/large_language_model/</guid>
+      <description>Large Language Model PEFT Adapter Layers nips_2017_learning_multiple_visual_domains_with_residual_adapters.pdf&#xA;pmlr_2019_parameter_efficient_transfer_learning_for_nlp.pdf&#xA;prefix tunning prefix_tuning_optimizing_continuous_prompts_for_generation.pdf&#xA;LoRA LORA: LOW-RANK ADAPTATION OF LARGE LAN- GUAGE MODELS arXiv 2021 Abstract: We propose Low-Rank Adaptation, or LoRA, which freezes the pretrained model weights and injects trainable rank decomposition matrices into each layer of the Transformer architecture, greatly reducing the number of trainable parameters for downstream tasks.&#xA;We limit our study to only adapting the attention weights for downstream tasks and freeze the MLP modules (so they are not trained in downstream tasks) both for simplicity and parameter-efficiency.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:1313/research/ppml/privacy_perserving_machine_learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/research/ppml/privacy_perserving_machine_learning/</guid>
+      <description>Privacy-Perserving Machine Learning Paper A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM ICASSP 2024 Abstract: The distributed (federated) LLM is an important method for co-training the domain-specific LLM using siloed data. How- ever, maliciously stealing model parameters and data from the server or client side has become an urgent problem to be solved. In this paper, we propose a secure distributed LLM based on model slicing. In this case, we deploy the Trusted Execution Environment (TEE) on both the client and server side, and put the fine-tuned structure (LoRA or embedding of P-tuning v2) into the TEE.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:1313/research/ppml/task_for_ppml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/research/ppml/task_for_ppml/</guid>
+      <description>Task For Privacy-Preserving Machine Learning Confidential Computing Privacy-Preserving Machine Learning 目标： 学习隐私保护的机器学习相关论文方法 (重点)。&#xA;Paper Comment Source Todo shadownet_a_secure_and_efficient_on_&#xA;device_model_inference_system_for_&#xA;convolutional_neural_networks.pdf SP 2023 goten_gpu_outsourcing_trusted_execution&#xA;_of_neural_network_training.pdf AAAI 2021 oblivious_multi_party_machine_learning_on&#xA;_trusted_processors.pdf 2016 SS slalom_fast_verifiable_and_private_execution&#xA;_of_neural_networks_in_trusted_hardware.pdf Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch computation) and a trusted execution environment (TEE) (for minimizing the use of cryptography). ICLR 2019 ✅ delphi_a_cryptographic_inference_service_&#xA;for_neural_networks.pdf Delphi is based on Gazelle and uses homomorphic encryption, grabled circuits, and secret shares to achieve client and server privacy protection in neural network.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/daily-note/">Daily-Notes</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/daily-note/2022-09-18/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#gin">Gin</a>
+      <ul>
+        <li><a href="#route">Route</a></li>
+        <li><a href="#gin-context">Gin Context</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-memmodel">Go MemModel</a></li>
+    <li><a href="#go-sync">Go Sync</a>
+      <ul>
+        <li><a href="#pool">Pool</a></li>
+        <li><a href="#mutex--rwmutex">Mutex &amp; RWMutex</a></li>
+        <li><a href="#cond">Cond</a></li>
+        <li><a href="#once">Once</a></li>
+        <li><a href="#waitgroup">WaitGroup</a></li>
+        <li><a href="#map">Map</a></li>
+        <li><a href="#atomic">Atomic</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-container">Go container</a>
+      <ul>
+        <li><a href="#list">List</a></li>
+        <li><a href="#ring">Ring</a></li>
+        <li><a href="#heap">Heap</a></li>
+      </ul>
+    </li>
+    <li><a href="#ipc-sig">IPC sig</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="daily-note-09-18">Daily-Note 09-18</h1>
+<h2 id="overview">OVERVIEW</h2>
+<ol>
+<li><strong>Gin</strong>，go web 框架。</li>
+<li><strong>Go MemModel</strong>，go 语言内存模型。</li>
+<li><strong>Go Sync</strong>，Go 并发包，提供 Atomic、cond、once、pool、mutex、rwmutex、waitgroup、map 等线程并发工具。</li>
+<li><strong>Go container</strong>，提供了 List、Ring、Heap 等容器，此外 go builtin 包括 slice、map 等多种数据结构。</li>
+<li><strong>IPC sig</strong>，进程通信中 sig 是通过信号的发送，回调处理函数来实现进程间的通信。</li>
+</ol>
+<h2 id="gin">Gin</h2>
+<h3 id="route">Route</h3>
+<blockquote>
+<p><a href="https://www.liwenzhou.com/posts/Go/read_gin_sourcecode/">gin框架路由详解</a></p>
+<p><a href="https://leetcode.cn/problems/implement-trie-prefix-tree/">LeetCode 208.实现 Trie(前缀树)</a></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// -- main.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">engine</span> <span style="color:#000">:=</span> <span style="color:#000">gin</span>.<span style="color:#000">Default</span>()
+</span></span><span style="display:flex;"><span><span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/abc&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// -- routergroup.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// GET is a shortcut for router.Handle(&#34;GET&#34;, path, handle).
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">group</span> <span style="color:#000">*</span><span style="color:#000">RouterGroup</span>) <span style="color:#000">GET</span>(<span style="color:#000">relativePath</span> <span style="color:#a90d91">string</span>, <span style="color:#000">handlers</span> <span style="color:#000">...</span><span style="color:#000">HandlerFunc</span>) <span style="color:#000">IRoutes</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">return</span> <span style="color:#000">group</span>.<span style="color:#000">handle</span>(<span style="color:#000">http</span>.<span style="color:#000">MethodGet</span>, <span style="color:#000">relativePath</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">group</span> <span style="color:#000">*</span><span style="color:#000">RouterGroup</span>) <span style="color:#000">handle</span>(<span style="color:#000">httpMethod</span>, <span style="color:#000">relativePath</span> <span style="color:#a90d91">string</span>, <span style="color:#000">handlers</span> <span style="color:#000">HandlersChain</span>) <span style="color:#000">IRoutes</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">absolutePath</span> <span style="color:#000">:=</span> <span style="color:#000">group</span>.<span style="color:#000">calculateAbsolutePath</span>(<span style="color:#000">relativePath</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#000">handlers</span> = <span style="color:#000">group</span>.<span style="color:#000">combineHandlers</span>(<span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#000">group</span>.<span style="color:#000">engine</span>.<span style="color:#000">addRoute</span>(<span style="color:#000">httpMethod</span>, <span style="color:#000">absolutePath</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">group</span>.<span style="color:#000">returnObj</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>gin 通过 GET 等方法进行路由的注册，在 routergroup.go 中通过 handle 方法统一处理，首先将 group 下的相对路径转换为绝对路径，将传进来的 handlers 参数与 group 本身的 handlers 合并，最后调用 <code>addRoute</code> 这个方法来注册路由，该方法的核心代码如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// -- gin.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">engine</span> <span style="color:#000">*</span><span style="color:#000">Engine</span>) <span style="color:#000">addRoute</span>(<span style="color:#000">method</span>, <span style="color:#000">path</span> <span style="color:#a90d91">string</span>, <span style="color:#000">handlers</span> <span style="color:#000">HandlersChain</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// ... 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">root</span> <span style="color:#000">:=</span> <span style="color:#000">engine</span>.<span style="color:#000">trees</span>.<span style="color:#000">get</span>(<span style="color:#000">method</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">if</span> <span style="color:#000">root</span> <span style="color:#000">==</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">root</span> = <span style="color:#a90d91">new</span>(<span style="color:#000">node</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#000">root</span>.<span style="color:#000">fullPath</span> = <span style="color:#c41a16">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">engine</span>.<span style="color:#000">trees</span> = <span style="color:#a90d91">append</span>(<span style="color:#000">engine</span>.<span style="color:#000">trees</span>, <span style="color:#000">methodTree</span>{<span style="color:#000">method</span>: <span style="color:#000">method</span>, <span style="color:#000">root</span>: <span style="color:#000">root</span>})
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#000">root</span>.<span style="color:#000">addRoute</span>(<span style="color:#000">path</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span></code></pre></div><p>其中 <code>engine.trees</code> 属性类型是 methodTrees，Gin 将 http 中 GET / POST / &hellip; 每一种方法对应一颗路由树，而 methodTrees 就是对应 http 方法和路由树的数组结构。</p>
+<p>首先 addRoute 方法首先找到对应方法的路由树，然后调用 <code>root.addRoute</code> 将 path 和 handlers 进行注册。</p>
+<p>addRoute 方法实现了一个字典树实现了路由查找，其代码实现如下，代码由于涉及 wildcards 匹配因此较为复杂。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// -- tree.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// addRoute adds a node with the given handle to the path.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// Not concurrency-safe!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">n</span> <span style="color:#000">*</span><span style="color:#000">node</span>) <span style="color:#000">addRoute</span>(<span style="color:#000">path</span> <span style="color:#a90d91">string</span>, <span style="color:#000">handlers</span> <span style="color:#000">HandlersChain</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#000">fullPath</span> <span style="color:#000">:=</span> <span style="color:#000">path</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// Empty tree
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#a90d91">if</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">children</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">insertChild</span>(<span style="color:#000">path</span>, <span style="color:#000">fullPath</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">nType</span> = <span style="color:#000">root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">parentFullPathIndex</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">walk</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">for</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Find the longest common prefix.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// This also implies that the common prefix contains no &#39;:&#39; or &#39;*&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// since the existing key can&#39;t contain those chars.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">i</span> <span style="color:#000">:=</span> <span style="color:#000">longestCommonPrefix</span>(<span style="color:#000">path</span>, <span style="color:#000">n</span>.<span style="color:#000">path</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Split edge
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">i</span> &lt; <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#000">path</span>:      <span style="color:#000">n</span>.<span style="color:#000">path</span>[<span style="color:#000">i</span>:],
+</span></span><span style="display:flex;"><span>    <span style="color:#000">wildChild</span>: <span style="color:#000">n</span>.<span style="color:#000">wildChild</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000">indices</span>:   <span style="color:#000">n</span>.<span style="color:#000">indices</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000">children</span>:  <span style="color:#000">n</span>.<span style="color:#000">children</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000">handlers</span>:  <span style="color:#000">n</span>.<span style="color:#000">handlers</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000">priority</span>:  <span style="color:#000">n</span>.<span style="color:#000">priority</span> <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000">fullPath</span>:  <span style="color:#000">n</span>.<span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">children</span> = []<span style="color:#000">*</span><span style="color:#000">node</span>{<span style="color:#000">&amp;</span><span style="color:#000">child</span>}
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// []byte for proper unicode char conversion, see #65
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">n</span>.<span style="color:#000">indices</span> = <span style="color:#000">bytesconv</span>.<span style="color:#000">BytesToString</span>([]<span style="color:#a90d91">byte</span>{<span style="color:#000">n</span>.<span style="color:#000">path</span>[<span style="color:#000">i</span>]})
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">path</span> = <span style="color:#000">path</span>[:<span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">handlers</span> = <span style="color:#a90d91">nil</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">wildChild</span> = <span style="color:#a90d91">false</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">fullPath</span> = <span style="color:#000">fullPath</span>[:<span style="color:#000">parentFullPathIndex</span><span style="color:#000">+</span><span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Make new node a child of this node
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">i</span> &lt; <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">path</span> = <span style="color:#000">path</span>[<span style="color:#000">i</span>:]
+</span></span><span style="display:flex;"><span>   <span style="color:#000">c</span> <span style="color:#000">:=</span> <span style="color:#000">path</span>[<span style="color:#1c01ce">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// &#39;/&#39; after param
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">==</span> <span style="color:#000">param</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">c</span> <span style="color:#000">==</span> <span style="color:#2300ce">&#39;/&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">children</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">1</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">parentFullPathIndex</span> <span style="color:#000">+=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#1c01ce">0</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// Check if a child with the next path byte exists
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">for</span> <span style="color:#000">i</span>, <span style="color:#000">max</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">0</span>, <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">indices</span>); <span style="color:#000">i</span> &lt; <span style="color:#000">max</span>; <span style="color:#000">i</span><span style="color:#000">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">==</span> <span style="color:#000">n</span>.<span style="color:#000">indices</span>[<span style="color:#000">i</span>] {
+</span></span><span style="display:flex;"><span>     <span style="color:#000">parentFullPathIndex</span> <span style="color:#000">+=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#000">i</span> = <span style="color:#000">n</span>.<span style="color:#000">incrementChildPrio</span>(<span style="color:#000">i</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>     <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// Otherwise insert it
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;:&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;*&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// []byte for proper unicode char conversion, see #65
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">n</span>.<span style="color:#000">indices</span> <span style="color:#000">+=</span> <span style="color:#000">bytesconv</span>.<span style="color:#000">BytesToString</span>([]<span style="color:#a90d91">byte</span>{<span style="color:#000">c</span>})
+</span></span><span style="display:flex;"><span>    <span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>     <span style="color:#000">fullPath</span>: <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">addChild</span>(<span style="color:#000">child</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">incrementChildPrio</span>(<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">indices</span>) <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span> = <span style="color:#000">child</span>
+</span></span><span style="display:flex;"><span>   } <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">wildChild</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// inserting a wildcard node, need to check if it conflicts with the existing wildcard
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">children</span>)<span style="color:#000">-</span><span style="color:#1c01ce">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Check if the wildcard matches
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">if</span> <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) <span style="color:#000">&gt;=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#000">&amp;&amp;</span> <span style="color:#000">n</span>.<span style="color:#000">path</span> <span style="color:#000">==</span> <span style="color:#000">path</span>[:<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)] <span style="color:#000">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#177500">// Adding a child to a catchAll is not possible
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>     <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> <span style="color:#000">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#177500">// Check for longer wildcard, e.g. :name and :names
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>     (<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#000">&gt;=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) <span style="color:#000">||</span> <span style="color:#000">path</span>[<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)] <span style="color:#000">==</span> <span style="color:#2300ce">&#39;/&#39;</span>) {
+</span></span><span style="display:flex;"><span>     <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Wildcard conflict
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">pathSeg</span> <span style="color:#000">:=</span> <span style="color:#000">path</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> {
+</span></span><span style="display:flex;"><span>     <span style="color:#000">pathSeg</span> = <span style="color:#000">strings</span>.<span style="color:#000">SplitN</span>(<span style="color:#000">pathSeg</span>, <span style="color:#c41a16">&#34;/&#34;</span>, <span style="color:#1c01ce">2</span>)[<span style="color:#1c01ce">0</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">prefix</span> <span style="color:#000">:=</span> <span style="color:#000">fullPath</span>[:<span style="color:#000">strings</span>.<span style="color:#000">Index</span>(<span style="color:#000">fullPath</span>, <span style="color:#000">pathSeg</span>)] <span style="color:#000">+</span> <span style="color:#000">n</span>.<span style="color:#000">path</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">panic</span>(<span style="color:#c41a16">&#34;&#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">pathSeg</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#c41a16">&#34;&#39; in new path &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">fullPath</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#c41a16">&#34;&#39; conflicts with existing wildcard &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">n</span>.<span style="color:#000">path</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#c41a16">&#34;&#39; in existing prefix &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">prefix</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#c41a16">&#34;&#39;&#34;</span>)
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">insertChild</span>(<span style="color:#000">path</span>, <span style="color:#000">fullPath</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Otherwise add handle to current node
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">handlers</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">panic</span>(<span style="color:#c41a16">&#34;handlers are already registered for path &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">fullPath</span> <span style="color:#000">+</span> <span style="color:#c41a16">&#34;&#39;&#34;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">handlers</span> = <span style="color:#000">handlers</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">fullPath</span> = <span style="color:#000">fullPath</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>核心数据结构 <em>node</em> 组成如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">node</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">path</span>      <span style="color:#a90d91">string</span> <span style="color:#177500">// 当前自身路径
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">indices</span>   <span style="color:#a90d91">string</span> <span style="color:#177500">// 子节点路由首字母 list
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">wildChild</span> <span style="color:#a90d91">bool</span> <span style="color:#177500">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">nType</span>     <span style="color:#000">nodeType</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">priority</span>  <span style="color:#a90d91">uint32</span> <span style="color:#177500">// 优先级
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">children</span>  []<span style="color:#000">*</span><span style="color:#000">node</span> <span style="color:#177500">// child nodes, at most 1 :param style node at the end of the array
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">handlers</span>  <span style="color:#000">HandlersChain</span> <span style="color:#177500">// 处理链
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">fullPath</span>  <span style="color:#a90d91">string</span> <span style="color:#177500">// 完整路径
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span></code></pre></div><p><strong>首先在不考虑 wildcards 的情况下：</strong></p>
+<p><strong>1）当该树为空时</strong>，第一个路由将通过下面方法直接注册。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// addRoute adds a node with the given handle to the path.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// Not concurrency-safe!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">n</span> <span style="color:#000">*</span><span style="color:#000">node</span>) <span style="color:#000">addRoute</span>(<span style="color:#000">path</span> <span style="color:#a90d91">string</span>, <span style="color:#177500">// 绝对路径
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>                        <span style="color:#000">handlers</span> <span style="color:#000">HandlersChain</span> <span style="color:#177500">//需要注册到目标路径的处理器链
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>                       ) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">fullPath</span> <span style="color:#000">:=</span> <span style="color:#000">path</span> <span style="color:#177500">// 存储绝对路径，path 在后续流程中改变
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span> <span style="color:#177500">// 提升当前节点的优先级，每当有一个路由注册到目标节点下，提升优先级
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// Empty tree 空树的情况
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">children</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// 该方法在不考虑 wildcards 的情况下，直接将对应参数赋值给节点 n
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">n</span>.<span style="color:#000">insertChild</span>(<span style="color:#000">path</span>, <span style="color:#000">fullPath</span>, <span style="color:#000">handlers</span>) 
+</span></span><span style="display:flex;"><span>   <span style="color:#000">n</span>.<span style="color:#000">nType</span> = <span style="color:#000">root</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">return</span> <span style="color:#177500">// 完成注册
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>2）当有相同前缀的两个路由进行注册时</strong>，在有路由 &ldquo;/test/abc&rdquo; 的前提下，注册 &ldquo;/test/def&rdquo; 路由，这里两个路由具有相同的前缀 &ldquo;/test/&quot;，因此会产生分裂。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// -- main.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span> <span style="color:#000">:=</span> <span style="color:#000">gin</span>.<span style="color:#000">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/abc&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/def&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// -- tree.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Find the longest common prefix.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// This also implies that the common prefix contains no &#39;:&#39; or &#39;*&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// since the existing key can&#39;t contain those chars.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">i</span> <span style="color:#000">:=</span> <span style="color:#000">longestCommonPrefix</span>(<span style="color:#000">path</span>, <span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#177500">// 得到最长公共前缀的结束位置
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Split edge
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">i</span> &lt; <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) { <span style="color:#177500">// 这里判断公共前缀是否比自身路径短，如果更短则需要分裂
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">node</span>{ <span style="color:#177500">// 这里将自身节点分裂
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#000">path</span>:      <span style="color:#000">n</span>.<span style="color:#000">path</span>[<span style="color:#000">i</span>:],  <span style="color:#177500">// &#34;abc&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#000">wildChild</span>: <span style="color:#000">n</span>.<span style="color:#000">wildChild</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#000">indices</span>:   <span style="color:#000">n</span>.<span style="color:#000">indices</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#000">children</span>:  <span style="color:#000">n</span>.<span style="color:#000">children</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#000">handlers</span>:  <span style="color:#000">n</span>.<span style="color:#000">handlers</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#000">priority</span>:  <span style="color:#000">n</span>.<span style="color:#000">priority</span> <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#000">fullPath</span>:  <span style="color:#000">n</span>.<span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">children</span> = []<span style="color:#000">*</span><span style="color:#000">node</span>{<span style="color:#000">&amp;</span><span style="color:#000">child</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// []byte for proper unicode char conversion, see #65
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">n</span>.<span style="color:#000">indices</span> = <span style="color:#000">bytesconv</span>.<span style="color:#000">BytesToString</span>([]<span style="color:#a90d91">byte</span>{<span style="color:#000">n</span>.<span style="color:#000">path</span>[<span style="color:#000">i</span>]})
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">path</span> = <span style="color:#000">path</span>[:<span style="color:#000">i</span>] <span style="color:#177500">// &#34;/test/&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">n</span>.<span style="color:#000">handlers</span> = <span style="color:#a90d91">nil</span> <span style="color:#177500">// 释放引用
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">n</span>.<span style="color:#000">wildChild</span> = <span style="color:#a90d91">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span>.<span style="color:#000">fullPath</span> = <span style="color:#000">fullPath</span>[:<span style="color:#000">parentFullPathIndex</span><span style="color:#000">+</span><span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">if</span> <span style="color:#000">i</span> &lt; <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) { <span style="color:#177500">// 在迭代判断剩余的路径是否需要插入新的节点
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">path</span> = <span style="color:#000">path</span>[<span style="color:#000">i</span>:]
+</span></span><span style="display:flex;"><span>    <span style="color:#000">c</span> <span style="color:#000">:=</span> <span style="color:#000">path</span>[<span style="color:#1c01ce">0</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ... 这里判断 wildcards 情况
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// ... 这里判断当前节点的子节点与目标路径有公共前缀
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Otherwise insert it
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;:&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;*&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#177500">// []byte for proper unicode char conversion, see #65
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>				<span style="color:#000">n</span>.<span style="color:#000">indices</span> <span style="color:#000">+=</span> <span style="color:#000">bytesconv</span>.<span style="color:#000">BytesToString</span>([]<span style="color:#a90d91">byte</span>{<span style="color:#000">c</span>})
+</span></span><span style="display:flex;"><span>				<span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>					<span style="color:#000">fullPath</span>: <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#000">n</span>.<span style="color:#000">addChild</span>(<span style="color:#000">child</span>) <span style="color:#177500">// 在这里插入目标路径
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>				<span style="color:#000">n</span>.<span style="color:#000">incrementChildPrio</span>(<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">indices</span>) <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>)
+</span></span><span style="display:flex;"><span>				<span style="color:#000">n</span> = <span style="color:#000">child</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// ... 这里判断 wildcards 情况
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">n</span>.<span style="color:#000">insertChild</span>(<span style="color:#000">path</span>, <span style="color:#000">fullPath</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span>
+</span></span></code></pre></div><p>在有相同前缀的情况下，当前节点首先会分裂出子节点，接着将目标路径加入子节点中。</p>
+<p><strong>3）当子节点中存在与目标路径有公共前缀时</strong>，在 &ldquo;/test/abc&rdquo; 和 &ldquo;/test/def&rdquo; 已经注册的情况下，初始的路由树由 &ldquo;/test/&rdquo; 根节点分别指向 &ldquo;abc&rdquo; 和 &ldquo;def&rdquo; 两个子节点，此时注册 &ldquo;/test/deg&rdquo; 时，&ldquo;deg&rdquo; 子节点与 &ldquo;def&rdquo; 有公共前缀，此时会触发优先级提升，节点 &ldquo;def&rdquo; 的优先级提升，并且将当前节点切换到 &ldquo;def&rdquo; 子节点，继续匹配。</p>
+<p><em>incrementChildPrio()</em> 方法首先将子节点的 <em>priority</em> 优先级属性自增，接着移动 node</p>
+<p><em>n.children</em> 中对应 pos 的子节点在 children slice 中的位置，最后修改 <em>indices</em> string 的顺序，完成子节点优先级的提升。通过提升路由节点更多的子节点的优先级，使得后续匹配时，平衡长路由和短路由之间的权重。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// -- tree.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// ... 这里判断当前节点的子节点与目标路径有公共前缀
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// Check if a child with the next path byte exists
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">for</span> <span style="color:#000">i</span>, <span style="color:#000">max</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">0</span>, <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">indices</span>); <span style="color:#000">i</span> &lt; <span style="color:#000">max</span>; <span style="color:#000">i</span><span style="color:#000">++</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">==</span> <span style="color:#000">n</span>.<span style="color:#000">indices</span>[<span style="color:#000">i</span>] {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">parentFullPathIndex</span> <span style="color:#000">+=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)  <span style="color:#177500">// 公共前缀 &#34;/test/&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">i</span> = <span style="color:#000">n</span>.<span style="color:#000">incrementChildPrio</span>(<span style="color:#000">i</span>) <span style="color:#177500">// 提升子节点的优先级
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#000">i</span>] <span style="color:#177500">// 切换到子节点
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span> <span style="color:#177500">// 继续迭代
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// incrementChildPrio 提升子节点优先级
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">n</span> <span style="color:#000">*</span><span style="color:#000">node</span>) <span style="color:#000">incrementChildPrio</span>(<span style="color:#000">pos</span> <span style="color:#a90d91">int</span>) <span style="color:#a90d91">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">cs</span> <span style="color:#000">:=</span> <span style="color:#000">n</span>.<span style="color:#000">children</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">cs</span>[<span style="color:#000">pos</span>].<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">prio</span> <span style="color:#000">:=</span> <span style="color:#000">cs</span>[<span style="color:#000">pos</span>].<span style="color:#000">priority</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Adjust position (move to front)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">newPos</span> <span style="color:#000">:=</span> <span style="color:#000">pos</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">for</span> ; <span style="color:#000">newPos</span> &gt; <span style="color:#1c01ce">0</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">cs</span>[<span style="color:#000">newPos</span><span style="color:#000">-</span><span style="color:#1c01ce">1</span>].<span style="color:#000">priority</span> &lt; <span style="color:#000">prio</span>; <span style="color:#000">newPos</span><span style="color:#000">--</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Swap node positions
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">cs</span>[<span style="color:#000">newPos</span><span style="color:#000">-</span><span style="color:#1c01ce">1</span>], <span style="color:#000">cs</span>[<span style="color:#000">newPos</span>] = <span style="color:#000">cs</span>[<span style="color:#000">newPos</span>], <span style="color:#000">cs</span>[<span style="color:#000">newPos</span><span style="color:#000">-</span><span style="color:#1c01ce">1</span>]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Build new index char string
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">if</span> <span style="color:#000">newPos</span> <span style="color:#000">!=</span> <span style="color:#000">pos</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span>.<span style="color:#000">indices</span> = <span style="color:#000">n</span>.<span style="color:#000">indices</span>[:<span style="color:#000">newPos</span>] <span style="color:#000">+</span> <span style="color:#177500">// Unchanged prefix, might be empty
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">n</span>.<span style="color:#000">indices</span>[<span style="color:#000">pos</span>:<span style="color:#000">pos</span><span style="color:#000">+</span><span style="color:#1c01ce">1</span>] <span style="color:#000">+</span> <span style="color:#177500">// The index char we move
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">n</span>.<span style="color:#000">indices</span>[<span style="color:#000">newPos</span>:<span style="color:#000">pos</span>] <span style="color:#000">+</span> <span style="color:#000">n</span>.<span style="color:#000">indices</span>[<span style="color:#000">pos</span><span style="color:#000">+</span><span style="color:#1c01ce">1</span>:] <span style="color:#177500">// Rest without char at &#39;pos&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">return</span> <span style="color:#000">newPos</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>下面考虑包括 wildcards 的情况</strong>，通配符包括 <code>:a</code> 和 <code>*b</code> 两类通配符，其中第一类仅匹配一项，而第二类匹配剩余所有路径项，因此第二类仅允许出现在路径末。并且必须在通配符后添加名字，否则将 panic。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:a/ok&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/*b&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/*b/err&#34;</span>) <span style="color:#177500">// err
+</span></span></span></code></pre></div><p><strong><em>insertChild()</em> 方法</strong>在 for 循环中，首先判断当前 path 是否存在 wildcrads，如果没有 wildcrads 情况下仅对当前节点进行赋值，当存在 wildcards 时，考虑 wildcards 时 param 匹配还是 catchAll 匹配，分别对应第一类和第二类通配符。</p>
+<p>如果是存在第一类通配符，则插入 param 子节点，param 子节点的 path 为 <em>wildcards</em>，同时判断改路径是否已经匹配完成，如果还有剩余路径，则取剩余路径并切换到子节点进行迭代。</p>
+<p>如果存在第二类通配符，则首先插入第一个节点，该节点 path 为空，类型为 <em>catchAll</em> 指示该节点为第二类通配符节点，接着插入第二个节点，该节点存储对应的 path 和 handles，需要注意的是该节点的首字符为 &ldquo;/&quot;。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">n</span> <span style="color:#000">*</span><span style="color:#000">node</span>) <span style="color:#000">insertChild</span>(<span style="color:#000">path</span> <span style="color:#a90d91">string</span>, <span style="color:#000">fullPath</span> <span style="color:#a90d91">string</span>, <span style="color:#000">handlers</span> <span style="color:#000">HandlersChain</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">for</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Find prefix until first wildcard
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">wildcard</span>, <span style="color:#000">i</span>, <span style="color:#000">valid</span> <span style="color:#000">:=</span> <span style="color:#000">findWildcard</span>(<span style="color:#000">path</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">i</span> &lt; <span style="color:#1c01ce">0</span> { <span style="color:#177500">// No wildcard found
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">break</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ... 判断通配符是否符合要求，具有名字并且只有一个 : 或 *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">wildcard</span>[<span style="color:#1c01ce">0</span>] <span style="color:#000">==</span> <span style="color:#2300ce">&#39;:&#39;</span> { <span style="color:#177500">// param
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">if</span> <span style="color:#000">i</span> &gt; <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#177500">// Insert prefix before the current wildcard
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>				<span style="color:#000">n</span>.<span style="color:#000">path</span> = <span style="color:#000">path</span>[:<span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>				<span style="color:#000">path</span> = <span style="color:#000">path</span>[<span style="color:#000">i</span>:]
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>				<span style="color:#000">nType</span>:    <span style="color:#000">param</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#000">path</span>:     <span style="color:#000">wildcard</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#000">fullPath</span>: <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#000">n</span>.<span style="color:#000">addChild</span>(<span style="color:#000">child</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#000">n</span>.<span style="color:#000">wildChild</span> = <span style="color:#a90d91">true</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">n</span> = <span style="color:#000">child</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#177500">// if the path doesn&#39;t end with the wildcard, then there
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#177500">// will be another subpath starting with &#39;/&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">if</span> <span style="color:#a90d91">len</span>(<span style="color:#000">wildcard</span>) &lt; <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) {
+</span></span><span style="display:flex;"><span>				<span style="color:#000">path</span> = <span style="color:#000">path</span>[<span style="color:#a90d91">len</span>(<span style="color:#000">wildcard</span>):]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>					<span style="color:#000">priority</span>: <span style="color:#1c01ce">1</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#000">fullPath</span>: <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#000">n</span>.<span style="color:#000">addChild</span>(<span style="color:#000">child</span>)
+</span></span><span style="display:flex;"><span>				<span style="color:#000">n</span> = <span style="color:#000">child</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">continue</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#177500">// Otherwise we&#39;re done. Insert the handle in the new leaf
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">n</span>.<span style="color:#000">handlers</span> = <span style="color:#000">handlers</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// 判断 * 通配符是否为最后位置
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// currently fixed width 1 for &#39;/&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">i</span><span style="color:#000">--</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">path</span>[<span style="color:#000">i</span>] <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;/&#39;</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">panic</span>(<span style="color:#c41a16">&#34;no / before catch-all in path &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">fullPath</span> <span style="color:#000">+</span> <span style="color:#c41a16">&#34;&#39;&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span>.<span style="color:#000">path</span> = <span style="color:#000">path</span>[:<span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// First node: catchAll node with empty path
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#000">wildChild</span>: <span style="color:#a90d91">true</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#000">nType</span>:     <span style="color:#000">catchAll</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#000">fullPath</span>:  <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span>.<span style="color:#000">addChild</span>(<span style="color:#000">child</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span>.<span style="color:#000">indices</span> = <span style="color:#a90d91">string</span>(<span style="color:#2300ce">&#39;/&#39;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span> = <span style="color:#000">child</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// second node: node holding the variable
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">child</span> = <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#000">path</span>:     <span style="color:#000">path</span>[<span style="color:#000">i</span>:],
+</span></span><span style="display:flex;"><span>			<span style="color:#000">nType</span>:    <span style="color:#000">catchAll</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#000">handlers</span>: <span style="color:#000">handlers</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#000">priority</span>: <span style="color:#1c01ce">1</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#000">fullPath</span>: <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#000">n</span>.<span style="color:#000">children</span> = []<span style="color:#000">*</span><span style="color:#000">node</span>{<span style="color:#000">child</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// If no wildcard was found, simply insert the path and handle
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">n</span>.<span style="color:#000">path</span> = <span style="color:#000">path</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">n</span>.<span style="color:#000">handlers</span> = <span style="color:#000">handlers</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">n</span>.<span style="color:#000">fullPath</span> = <span style="color:#000">fullPath</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><em>insertChild()</em> 方法和 <em>addRoute()</em> 方法的职责不同，前者主要负责插入新的节点、分析通配符，后者主要负责加入路由时分析迭代路由树找到指定的插入节点、检查通配符冲突、相同前缀的分裂父节点。</p>
+<p><strong>4）当注册路由包括通配符时</strong>，在 &ldquo;/test&rdquo; 已经注册的条件下，注册 &ldquo;/test/:ok2&rdquo;，此时不需要分裂 &ldquo;test&rdquo; 节点 path 等其他情况，直接调用插入 <em>insertChild()</em> 节点。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// -- main.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">package</span> <span style="color:#000">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#c41a16">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span> <span style="color:#000">:=</span> <span style="color:#000">gin</span>.<span style="color:#000">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:ok2&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// -- tree.go -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// Otherwise insert it
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;:&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;*&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// []byte for proper unicode char conversion, see #65
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">n</span>.<span style="color:#000">indices</span> <span style="color:#000">+=</span> <span style="color:#000">bytesconv</span>.<span style="color:#000">BytesToString</span>([]<span style="color:#a90d91">byte</span>{<span style="color:#000">c</span>})
+</span></span><span style="display:flex;"><span>  <span style="color:#000">child</span> <span style="color:#000">:=</span> <span style="color:#000">&amp;</span><span style="color:#000">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#000">fullPath</span>: <span style="color:#000">fullPath</span>,
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">addChild</span>(<span style="color:#000">child</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">incrementChildPrio</span>(<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">indices</span>) <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span> = <span style="color:#000">child</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#000">n</span>.<span style="color:#000">insertChild</span>(<span style="color:#000">path</span>, <span style="color:#000">fullPath</span>, <span style="color:#000">handlers</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// ...
+</span></span></span></code></pre></div><p><strong>5）在存在通配符情况下，注册路由</strong>，在 &ldquo;/test&rdquo; 和 &ldquo;/test/:ok&rdquo; 已经注册的情况下，注册子路由 &ldquo;/test/:ok/ok2&rdquo;。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#c41a16">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span> <span style="color:#000">:=</span> <span style="color:#000">gin</span>.<span style="color:#000">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:ok&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:ok/ok2&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>首先路由树根节点 &ldquo;/test&rdquo; 下由 <em>insertChild()</em> 插入 &ldquo;/test/:ok&rdquo; 时生成一个 wildcard 节点，&quot;/test/:ok/ok2&rdquo; 匹配到 &ldquo;/test&rdquo; 后根据 <em>indices</em> 匹配到 wildcard 节点，对应以下代码。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// Check if a child with the next path byte exists
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">for</span> <span style="color:#000">i</span>, <span style="color:#000">max</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">0</span>, <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">indices</span>); <span style="color:#000">i</span> &lt; <span style="color:#000">max</span>; <span style="color:#000">i</span><span style="color:#000">++</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">==</span> <span style="color:#000">n</span>.<span style="color:#000">indices</span>[<span style="color:#000">i</span>] {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">parentFullPathIndex</span> <span style="color:#000">+=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">i</span> = <span style="color:#000">n</span>.<span style="color:#000">incrementChildPrio</span>(<span style="color:#000">i</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#000">i</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>接着 &ldquo;:ok/ok2&rdquo; path 在插入时，发现 &ldquo;:&rdquo; 满足通配符路径，首先检查通配符是否存在冲突，要求 &ldquo;:&rdquo; 只能有一个相同的参数，&rdquo;*&quot; 后不能匹配其他路径。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#177500">// Otherwise insert it
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">if</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;:&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">c</span> <span style="color:#000">!=</span> <span style="color:#2300ce">&#39;*&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>} <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">wildChild</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// inserting a wildcard node, need to check if it conflicts with the existing wildcard
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">children</span>)<span style="color:#000">-</span><span style="color:#1c01ce">1</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Check if the wildcard matches
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) <span style="color:#000">&gt;=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#000">&amp;&amp;</span> <span style="color:#000">n</span>.<span style="color:#000">path</span> <span style="color:#000">==</span> <span style="color:#000">path</span>[:<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)] <span style="color:#000">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Adding a child to a catchAll is not possible
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> <span style="color:#000">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Check for longer wildcard, e.g. :name and :names
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  (<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>) <span style="color:#000">&gt;=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">path</span>) <span style="color:#000">||</span> <span style="color:#000">path</span>[<span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)] <span style="color:#000">==</span> <span style="color:#2300ce">&#39;/&#39;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Wildcard conflict
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">pathSeg</span> <span style="color:#000">:=</span> <span style="color:#000">path</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">!=</span> <span style="color:#000">catchAll</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">pathSeg</span> = <span style="color:#000">strings</span>.<span style="color:#000">SplitN</span>(<span style="color:#000">pathSeg</span>, <span style="color:#c41a16">&#34;/&#34;</span>, <span style="color:#1c01ce">2</span>)[<span style="color:#1c01ce">0</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">prefix</span> <span style="color:#000">:=</span> <span style="color:#000">fullPath</span>[:<span style="color:#000">strings</span>.<span style="color:#000">Index</span>(<span style="color:#000">fullPath</span>, <span style="color:#000">pathSeg</span>)] <span style="color:#000">+</span> <span style="color:#000">n</span>.<span style="color:#000">path</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">panic</span>(<span style="color:#c41a16">&#34;&#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">pathSeg</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">&#34;&#39; in new path &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">fullPath</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">&#34;&#39; conflicts with existing wildcard &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">n</span>.<span style="color:#000">path</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">&#34;&#39; in existing prefix &#39;&#34;</span> <span style="color:#000">+</span> <span style="color:#000">prefix</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">&#34;&#39;&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>接着进行迭代，最后匹配 &ldquo;/ok2&rdquo;，调用 <em>insertChild()</em> 完成普通 path 的插入。</p>
+<p><strong>6）在已经注册了一个子路径的通配符路径下再注册一个子路径</strong>，在**情况 5）**下再注册路由 &ldquo;/test/:ok/ko2&rdquo;。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#c41a16">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span> <span style="color:#000">:=</span> <span style="color:#000">gin</span>.<span style="color:#000">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:ok&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:ok/ok2&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">GET</span>(<span style="color:#c41a16">&#34;/test/:ok/ko2&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>&ldquo;/test/:ok/ko2&rdquo; 注册路由与 &ldquo;/test/:ok/ok2&rdquo; 相似，但是在最后插入前，需要指定插入节点到 &ldquo;/ok2&rdquo;，并进行迭代，此时会分裂 &ldquo;/ok2&rdquo; 节点，生成 &ldquo;/&rdquo; 节点且子节点包括 &ldquo;ok2&rdquo; 和 &ldquo;ko2&rdquo;。对应的寻找插入节点逻辑如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// &#39;/&#39; after param
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// 发现当前节点为 param 且已经存在子路径，移动到子路径对应节点上进行插入。
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">if</span> <span style="color:#000">n</span>.<span style="color:#000">nType</span> <span style="color:#000">==</span> <span style="color:#000">param</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">c</span> <span style="color:#000">==</span> <span style="color:#2300ce">&#39;/&#39;</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">children</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">1</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">parentFullPathIndex</span> <span style="color:#000">+=</span> <span style="color:#a90d91">len</span>(<span style="color:#000">n</span>.<span style="color:#000">path</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span> = <span style="color:#000">n</span>.<span style="color:#000">children</span>[<span style="color:#1c01ce">0</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">priority</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">continue</span> <span style="color:#000">walk</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#177500">// ...
+</span></span></span></code></pre></div><p>至此，Gin <em>addRoute()</em> 注册路由的逻辑完成。</p>
+<h3 id="gin-context">Gin Context</h3>
+<p><strong>http2 &amp; http3</strong>，</p>
+<h2 id="go-memmodel">Go MemModel</h2>
+<p><strong>Happen Before</strong>，规定了各种行为之间的发生顺序。</p>
+<blockquote>
+<p><a href="https://studygolang.com/articles/30706">introduction</a></p>
+</blockquote>
+<ul>
+<li>
+<p>同步问题</p>
+<ol>
+<li>init() 会在 package 的其他函数被调用之前调用。main() 函数会在所有需要调用的 init() 完成后执行。</li>
+<li>goroutine 的创建会先于指定函数的执行，退出时不能保证指定函数执行完成。</li>
+<li>channel 的发送操作先于对应的接受操作，channel 的关闭操作先于接受操作。</li>
+<li>……</li>
+</ol>
+</li>
+<li>
+<p>可能问题</p>
+<p>在下面这个示例中，f() 初始化不保证在 g() 之前发生，因此可能会出现 a, b 尚未初始化已经打印的问题。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">a</span>, <span style="color:#000">b</span> <span style="color:#a90d91">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">f</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">a</span> = <span style="color:#1c01ce">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">b</span> = <span style="color:#1c01ce">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">g</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">print</span>(<span style="color:#000">b</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">print</span>(<span style="color:#000">a</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">for</span> <span style="color:#000">i</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">0</span>; <span style="color:#000">i</span> &lt; <span style="color:#1c01ce">100</span>; <span style="color:#000">i</span><span style="color:#000">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">go</span> <span style="color:#000">f</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#000">g</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// init
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">a</span>, <span style="color:#000">b</span> = <span style="color:#1c01ce">0</span>, <span style="color:#1c01ce">0</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">println</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// 随机输出 00 01 21
+</span></span></span></code></pre></div><p>在下面的这个示例中，在 setup() 中赋值可能是乱序的，因此不能保证 doprint() 函数中 done 为 true 时 a 已经初始化，因此可能打印空字符串。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#c41a16">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">a</span> <span style="color:#a90d91">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">done</span> <span style="color:#a90d91">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">once</span> <span style="color:#000">sync</span>.<span style="color:#000">Once</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">twoprint</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#000">time</span>.<span style="color:#000">Sleep</span>(<span style="color:#1c01ce">1</span> <span style="color:#000">*</span> <span style="color:#000">time</span>.<span style="color:#000">Second</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">setup</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">a</span> = <span style="color:#c41a16">&#34;hello, world&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">done</span> = <span style="color:#a90d91">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">doprint</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">if</span> !<span style="color:#000">done</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">once</span>.<span style="color:#000">Do</span>(<span style="color:#000">setup</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">print</span>(<span style="color:#000">a</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">twoprint</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">go</span> <span style="color:#000">doprint</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">go</span> <span style="color:#000">doprint</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="go-sync">Go Sync</h2>
+<blockquote>
+<p><a href="https://www.cyhone.com/articles/think-in-sync-pool/">深度分析 Golang sync.Pool 底层原理</a></p>
+</blockquote>
+<h3 id="pool">Pool</h3>
+<p>通过 Put() / Get() 管理缓存对象，使用 New() 生成默认缓存对象，从而减少 GC 压力，数据结构方面涉及 <strong>Dequeue、RingBuffer</strong> 等方面，难点涉及 <strong>P 的 LocalPool、Pin 等关于调度器内存结构及调度器抢占</strong>等内容。</p>
+<p>下面是 Gin 中的实践：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// ServeHTTP conforms to the http.Handler interface.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">engine</span> <span style="color:#000">*</span><span style="color:#000">Engine</span>) <span style="color:#000">ServeHTTP</span>(<span style="color:#000">w</span> <span style="color:#000">http</span>.<span style="color:#000">ResponseWriter</span>, <span style="color:#000">req</span> <span style="color:#000">*</span><span style="color:#000">http</span>.<span style="color:#000">Request</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">c</span> <span style="color:#000">:=</span> <span style="color:#000">engine</span>.<span style="color:#000">pool</span>.<span style="color:#000">Get</span>().(<span style="color:#000">*</span><span style="color:#000">Context</span>) <span style="color:#177500">// get
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">c</span>.<span style="color:#000">writermem</span>.<span style="color:#000">reset</span>(<span style="color:#000">w</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">c</span>.<span style="color:#000">Request</span> = <span style="color:#000">req</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">c</span>.<span style="color:#000">reset</span>() <span style="color:#177500">// clean !!!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">handleHTTPRequest</span>(<span style="color:#000">c</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">engine</span>.<span style="color:#000">pool</span>.<span style="color:#000">Put</span>(<span style="color:#000">c</span>) <span style="color:#177500">// put
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span></code></pre></div><blockquote>
+<p><a href="https://blog.csdn.net/qq_45463438/article/details/125453726">Golang sync.Mutex分析</a></p>
+<p><a href="https://seekload.net/2021/12/12/sync-mutex.html">Go并发原语-mutex源码解析</a></p>
+</blockquote>
+<h3 id="mutex--rwmutex">Mutex &amp; RWMutex</h3>
+<p>Mutex 通过 Lock() 和 UnLock() 两个方法实现并发原语，Mutex 的结构为包括 state 和 sema 两个变量。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">Mutex</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">state</span> <span style="color:#a90d91">int32</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">sema</span>  <span style="color:#a90d91">uint32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在加锁和解锁的主要对 state 变量进行操作，state 变量结构如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000">mutexLocked</span> = <span style="color:#1c01ce">1</span> <span style="color:#000">&lt;&lt;</span> <span style="color:#a90d91">iota</span> <span style="color:#177500">// mutex is locked 1 表示锁已经上锁
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">mutexWoken</span> <span style="color:#177500">// 1 表示当前的锁已被唤醒
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">mutexStarving</span> <span style="color:#177500">// 1 表示当前的锁处于饥饿状态
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">mutexWaiterShift</span> = <span style="color:#a90d91">iota</span> <span style="color:#177500">// 3 代表等待该锁的 goroutine 数量，占3 至 31 位
+</span></span></span></code></pre></div><blockquote>
+<p><a href="https://www.cyhone.com/articles/golang-sync-cond/">Golang sync.Cond 条件变量源码分析</a></p>
+</blockquote>
+<h3 id="cond">Cond</h3>
+<p>通过调用 Wait() / Signal() / Broadcast() 等方法来实现 goroutine 等待某一事件发生的并发同步。</p>
+<h3 id="once">Once</h3>
+<p>提供了只运行一次指定函数的保证。下面是实现逻辑：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">o</span> <span style="color:#000">*</span><span style="color:#000">Once</span>) <span style="color:#000">Do</span>(<span style="color:#000">f</span> <span style="color:#a90d91">func</span>()) {
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// Note: Here is an incorrect implementation of Do:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">//
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// if atomic.CompareAndSwapUint32(&amp;o.done, 0, 1) {
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">//  f()
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">//
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// Do guarantees that when it returns, f has finished.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// This implementation would not implement that guarantee:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// given two simultaneous calls, the winner of the cas would
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// call f, and the second would return immediately, without
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// waiting for the first&#39;s call to f to complete.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// This is why the slow path falls back to a mutex, and why
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// the atomic.StoreUint32 must be delayed until after f returns.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">atomic</span>.<span style="color:#000">LoadUint32</span>(<span style="color:#000">&amp;</span><span style="color:#000">o</span>.<span style="color:#000">done</span>) <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Outlined slow-path to allow inlining of the fast-path.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">o</span>.<span style="color:#000">doSlow</span>(<span style="color:#000">f</span>)
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">o</span> <span style="color:#000">*</span><span style="color:#000">Once</span>) <span style="color:#000">doSlow</span>(<span style="color:#000">f</span> <span style="color:#a90d91">func</span>()) {
+</span></span><span style="display:flex;"><span> <span style="color:#000">o</span>.<span style="color:#000">m</span>.<span style="color:#000">Lock</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">defer</span> <span style="color:#000">o</span>.<span style="color:#000">m</span>.<span style="color:#000">Unlock</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">o</span>.<span style="color:#000">done</span> <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">defer</span> <span style="color:#000">atomic</span>.<span style="color:#000">StoreUint32</span>(<span style="color:#000">&amp;</span><span style="color:#000">o</span>.<span style="color:#000">done</span>, <span style="color:#1c01ce">1</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">f</span>()
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中 comment 也指出，不能简单的通过 CAS 操作保证 f() 执行一次，因为 CAS 操作不能保证 f() 返回，两个线程同时进行 CAS 第二个线程可能在第一个线程 f() 调用未返回之前返回。而通过 mutex 能够保证所有线程都在 f() 完成一次且仅完成一次的情况下返回，在未返回之前阻塞。</p>
+<blockquote>
+<p><a href="https://www.cyhone.com/articles/golang-waitgroup/">Golang WaitGroup 原理深度剖析</a></p>
+<p><a href="https://juejin.cn/post/7102881182294999047">Golang | 详解sync.WaitGroup</a></p>
+</blockquote>
+<h3 id="waitgroup">WaitGroup</h3>
+<p>通过 Add() / Done() / Wait() 接口实现某线程等待其他多线程完成任务的并发同步。</p>
+<p>主要结构体如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">WaitGroup</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">noCopy</span> <span style="color:#000">noCopy</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// 64-bit value: high 32 bits are counter, low 32 bits are waiter count.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// 64-bit atomic operations require 64-bit alignment, but 32-bit
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// compilers only guarantee that 64-bit fields are 32-bit aligned.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// For this reason on 32 bit architectures we need to check in state()
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// if state1 is aligned or not, and dynamically &#34;swap&#34; the field order if
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// needed.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">state1</span> <span style="color:#a90d91">uint64</span> <span style="color:#177500">// 高 32 位存储 counter 数目，低 32 位存储 waiter 数目。
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">state2</span> <span style="color:#a90d91">uint32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中 Done() 通过调用 Add(1) 实现</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// Done decrements the WaitGroup counter by one.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">wg</span> <span style="color:#000">*</span><span style="color:#000">WaitGroup</span>) <span style="color:#000">Done</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#000">wg</span>.<span style="color:#000">Add</span>(<span style="color:#000">-</span><span style="color:#1c01ce">1</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Add() 主要逻辑如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">wg</span> <span style="color:#000">*</span><span style="color:#000">WaitGroup</span>) <span style="color:#000">Add</span>(<span style="color:#000">delta</span> <span style="color:#a90d91">int</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#000">statep</span>, <span style="color:#000">semap</span> <span style="color:#000">:=</span> <span style="color:#000">wg</span>.<span style="color:#000">state</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#000">state</span> <span style="color:#000">:=</span> <span style="color:#000">atomic</span>.<span style="color:#000">AddUint64</span>(<span style="color:#000">statep</span>, <span style="color:#a90d91">uint64</span>(<span style="color:#000">delta</span>)<span style="color:#000">&lt;&lt;</span><span style="color:#1c01ce">32</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#000">v</span> <span style="color:#000">:=</span> <span style="color:#a90d91">int32</span>(<span style="color:#000">state</span> <span style="color:#000">&gt;&gt;</span> <span style="color:#1c01ce">32</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#000">w</span> <span style="color:#000">:=</span> <span style="color:#a90d91">uint32</span>(<span style="color:#000">state</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// 如果 v(counter) 大于零并且 w(waiter) 等于零
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// 说明阻塞的 goroutine，此时直接返回
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#a90d91">if</span> <span style="color:#000">v</span> &gt; <span style="color:#1c01ce">0</span> <span style="color:#000">||</span> <span style="color:#000">w</span> <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> { 
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">return</span>  
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// counter 等于零此时，需要唤醒所有阻塞的 goroutine
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// Reset waiters count to 0.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">*</span><span style="color:#000">statep</span> = <span style="color:#1c01ce">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// 唤醒所有阻塞的 goroutine
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#a90d91">for</span> ; <span style="color:#000">w</span> <span style="color:#000">!=</span> <span style="color:#1c01ce">0</span>; <span style="color:#000">w</span><span style="color:#000">--</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">runtime_Semrelease</span>(<span style="color:#000">semap</span>, <span style="color:#a90d91">false</span>, <span style="color:#1c01ce">0</span>)
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Wait() 逻辑如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">wg</span> <span style="color:#000">*</span><span style="color:#000">WaitGroup</span>) <span style="color:#000">Wait</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#000">statep</span>, <span style="color:#000">semap</span> <span style="color:#000">:=</span> <span style="color:#000">wg</span>.<span style="color:#000">state</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">for</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">state</span> <span style="color:#000">:=</span> <span style="color:#000">atomic</span>.<span style="color:#000">LoadUint64</span>(<span style="color:#000">statep</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">v</span> <span style="color:#000">:=</span> <span style="color:#a90d91">int32</span>(<span style="color:#000">state</span> <span style="color:#000">&gt;&gt;</span> <span style="color:#1c01ce">32</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">w</span> <span style="color:#000">:=</span> <span style="color:#a90d91">uint32</span>(<span style="color:#000">state</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">v</span> <span style="color:#000">==</span> <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// Counter is 0, no need to wait.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Increment waiters count.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">atomic</span>.<span style="color:#000">CompareAndSwapUint64</span>(<span style="color:#000">statep</span>, <span style="color:#000">state</span>, <span style="color:#000">state</span><span style="color:#000">+</span><span style="color:#1c01ce">1</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">runtime_Semacquire</span>(<span style="color:#000">semap</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span> 	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="map">Map</h3>
+<blockquote>
+<p><a href="https://juejin.cn/post/7083505897154019336#heading-0">【Go】sync.Map 源码分析</a></p>
+<p><a href="https://www.haohongfan.com/docs/gohandbook/sync-chapter/2021-05-10-sync-map/">看过这篇剖析，你还不懂 Go sync.Map 吗</a></p>
+</blockquote>
+<p>sync.Map 利用 atomic.Value 字段来实现只读部分并发，通过 dirty 字段实现加锁写部分并发，从而提高 Map 的并发性能。Map 的数据结构如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">Map</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">mu</span> <span style="color:#000">sync</span>.<span style="color:#000">Mutex</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">read</span> <span style="color:#000">atomic</span>.<span style="color:#000">Value</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">dirty</span> <span style="color:#a90d91">map</span>[<span style="color:#a90d91">interface</span>{}]<span style="color:#000">*</span><span style="color:#000">entry</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">misses</span> <span style="color:#a90d91">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Map 的 <strong>Load()</strong> 实现逻辑如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">m</span> <span style="color:#000">*</span><span style="color:#000">Map</span>) <span style="color:#000">Load</span>(<span style="color:#000">key</span> <span style="color:#000">any</span>) (<span style="color:#000">value</span> <span style="color:#000">any</span>, <span style="color:#000">ok</span> <span style="color:#a90d91">bool</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#000">read</span>, <span style="color:#000">_</span> <span style="color:#000">:=</span> <span style="color:#000">m</span>.<span style="color:#000">read</span>.<span style="color:#000">Load</span>().(<span style="color:#000">readOnly</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>, <span style="color:#000">ok</span> <span style="color:#000">:=</span> <span style="color:#000">read</span>.<span style="color:#000">m</span>[<span style="color:#000">key</span>] <span style="color:#177500">// 从只读部分读取数据
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#a90d91">if</span> !<span style="color:#000">ok</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">read</span>.<span style="color:#000">amended</span> { <span style="color:#177500">// 如果没有命中，从 dirty 部分读取数据
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">m</span>.<span style="color:#000">mu</span>.<span style="color:#000">Lock</span>()  <span style="color:#177500">// 此时读取 dirty 数据需要进行加锁
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// Avoid reporting a spurious miss if m.dirty got promoted while we were
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// blocked on m.mu. (If further loads of the same key will not miss, it&#39;s
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// not worth copying the dirty map for this key.)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">read</span>, <span style="color:#000">_</span> = <span style="color:#000">m</span>.<span style="color:#000">read</span>.<span style="color:#000">Load</span>().(<span style="color:#000">readOnly</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span>, <span style="color:#000">ok</span> = <span style="color:#000">read</span>.<span style="color:#000">m</span>[<span style="color:#000">key</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// 进行双重检查，可能在加锁之前 dirty 提升为 reed，而被初始化为 nil
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> !<span style="color:#000">ok</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">read</span>.<span style="color:#000">amended</span> { 
+</span></span><span style="display:flex;"><span>   <span style="color:#000">e</span>, <span style="color:#000">ok</span> = <span style="color:#000">m</span>.<span style="color:#000">dirty</span>[<span style="color:#000">key</span>]
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// Regardless of whether the entry was present, record a miss: this key
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#177500">// will take the slow path until the dirty map is promoted to the read
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#177500">// map.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#177500">// 检查是否需要进行提升，每次没有在 read 中命中，都会提升 missed 值
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// 当 missed &gt; len(dirty) 时，会发生提升
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">m</span>.<span style="color:#000">missLocked</span>() 
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">m</span>.<span style="color:#000">mu</span>.<span style="color:#000">Unlock</span>()
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> !<span style="color:#000">ok</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span> <span style="color:#a90d91">nil</span>, <span style="color:#a90d91">false</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">e</span>.<span style="color:#000">load</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中 <strong>Store()</strong> 的实现逻辑如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">m</span> <span style="color:#000">*</span><span style="color:#000">Map</span>) <span style="color:#000">Store</span>(<span style="color:#000">key</span>, <span style="color:#000">value</span> <span style="color:#000">any</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#000">read</span>, <span style="color:#000">_</span> <span style="color:#000">:=</span> <span style="color:#000">m</span>.<span style="color:#000">read</span>.<span style="color:#000">Load</span>().(<span style="color:#000">readOnly</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// 如果 read 中存在值，尝试通过 CAS 更新值
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#a90d91">if</span> <span style="color:#000">e</span>, <span style="color:#000">ok</span> <span style="color:#000">:=</span> <span style="color:#000">read</span>.<span style="color:#000">m</span>[<span style="color:#000">key</span>]; <span style="color:#000">ok</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">e</span>.<span style="color:#000">tryStore</span>(<span style="color:#000">&amp;</span><span style="color:#000">value</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">m</span>.<span style="color:#000">mu</span>.<span style="color:#000">Lock</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#000">read</span>, <span style="color:#000">_</span> = <span style="color:#000">m</span>.<span style="color:#000">read</span>.<span style="color:#000">Load</span>().(<span style="color:#000">readOnly</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">e</span>, <span style="color:#000">ok</span> <span style="color:#000">:=</span> <span style="color:#000">read</span>.<span style="color:#000">m</span>[<span style="color:#000">key</span>]; <span style="color:#000">ok</span> { 
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">e</span>.<span style="color:#000">unexpungeLocked</span>() {
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// The entry was previously expunged, which implies that there is a
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#177500">// non-nil dirty map and this entry is not in it.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">m</span>.<span style="color:#000">dirty</span>[<span style="color:#000">key</span>] = <span style="color:#000">e</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span>.<span style="color:#000">storeLocked</span>(<span style="color:#000">&amp;</span><span style="color:#000">value</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// 插入值并在 read 但在 dirty 中，更新 dirty
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> } <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> <span style="color:#000">e</span>, <span style="color:#000">ok</span> <span style="color:#000">:=</span> <span style="color:#000">m</span>.<span style="color:#000">dirty</span>[<span style="color:#000">key</span>]; <span style="color:#000">ok</span> { 
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span>.<span style="color:#000">storeLocked</span>(<span style="color:#000">&amp;</span><span style="color:#000">value</span>)
+</span></span><span style="display:flex;"><span> } <span style="color:#a90d91">else</span> { <span style="color:#177500">// 插入新值
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> !<span style="color:#000">read</span>.<span style="color:#000">amended</span> {  <span style="color:#177500">// 如果 dirty 中没有数据
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#177500">// We&#39;re adding the first new key to the dirty map.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#177500">// Make sure it is allocated and mark the read-only map as incomplete.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">m</span>.<span style="color:#000">dirtyLocked</span>()
+</span></span><span style="display:flex;"><span>   <span style="color:#000">m</span>.<span style="color:#000">read</span>.<span style="color:#000">Store</span>(<span style="color:#000">readOnly</span>{<span style="color:#000">m</span>: <span style="color:#000">read</span>.<span style="color:#000">m</span>, <span style="color:#000">amended</span>: <span style="color:#a90d91">true</span>})
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">m</span>.<span style="color:#000">dirty</span>[<span style="color:#000">key</span>] = <span style="color:#000">newEntry</span>(<span style="color:#000">value</span>)
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#000">m</span>.<span style="color:#000">mu</span>.<span style="color:#000">Unlock</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Other……</strong></p>
+<h3 id="atomic">Atomic</h3>
+<h2 id="go-container">Go container</h2>
+<h3 id="list">List</h3>
+<p>是一个双向链表。使用 List 结构体存储头节点和链表长度。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// List represents a doubly linked list.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// The zero value for List is an empty list ready to use.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">type</span> <span style="color:#000">List</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">root</span> <span style="color:#000">Element</span> <span style="color:#177500">// sentinel list element, only &amp;root, root.prev, and root.next are used
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">len</span>  <span style="color:#a90d91">int</span>     <span style="color:#177500">// current list length excluding (this) sentinel element
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span></code></pre></div><p>节点为 Element 元素。包括前后指针，和指向所属的 list 的指针，使用 any 存储任意值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// Element is an element of a linked list.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">type</span> <span style="color:#000">Element</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// Next and previous pointers in the doubly-linked list of elements.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// To simplify the implementation, internally a list l is implemented
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// as a ring, such that &amp;l.root is both the next element of the last
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// list element (l.Back()) and the previous element of the first list
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#177500">// element (l.Front()).
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">next</span>, <span style="color:#000">prev</span> <span style="color:#000">*</span><span style="color:#000">Element</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// The list to which this element belongs.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">list</span> <span style="color:#000">*</span><span style="color:#000">List</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// The value stored with this element.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">Value</span> <span style="color:#000">any</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>内部实现 insert() / remove() / move() 等基本 API 操作，衍生出暴露的诸如 InsertBefore() 等 API。</p>
+<p><strong>insert()</strong> 实现如下，首先确定插入节点 e 的前后指针，接着更新 e 的前后节点的 next 和 prev 指针。此外赋值所属 list 指针和增加 list 表示长度。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// insert inserts e after at, increments l.len, and returns e.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">l</span> <span style="color:#000">*</span><span style="color:#000">List</span>) <span style="color:#000">insert</span>(<span style="color:#000">e</span>, <span style="color:#000">at</span> <span style="color:#000">*</span><span style="color:#000">Element</span>) <span style="color:#000">*</span><span style="color:#000">Element</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">prev</span> = <span style="color:#000">at</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span> = <span style="color:#000">at</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">prev</span>.<span style="color:#000">next</span> = <span style="color:#000">e</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span>.<span style="color:#000">prev</span> = <span style="color:#000">e</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">list</span> = <span style="color:#000">l</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">l</span>.<span style="color:#000">len</span><span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">e</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>remove()</strong> 实现如下，更新前后节点的 next 和 prev 指针，然后释放当前节点的引用。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// remove removes e from its list, decrements l.len
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">l</span> <span style="color:#000">*</span><span style="color:#000">List</span>) <span style="color:#000">remove</span>(<span style="color:#000">e</span> <span style="color:#000">*</span><span style="color:#000">Element</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">prev</span>.<span style="color:#000">next</span> = <span style="color:#000">e</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span>.<span style="color:#000">prev</span> = <span style="color:#000">e</span>.<span style="color:#000">prev</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span> = <span style="color:#a90d91">nil</span> <span style="color:#177500">// avoid memory leaks
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">e</span>.<span style="color:#000">prev</span> = <span style="color:#a90d91">nil</span> <span style="color:#177500">// avoid memory leaks
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">e</span>.<span style="color:#000">list</span> = <span style="color:#a90d91">nil</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">l</span>.<span style="color:#000">len</span><span style="color:#000">--</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>move()</strong> 的实现如下，首先判断是否需要移动，接着更新当前节点的前后节点指针，进行删除，最后更新插入位置的指针和插入位置前后节点的指针。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// move moves e to next to at.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">l</span> <span style="color:#000">*</span><span style="color:#000">List</span>) <span style="color:#000">move</span>(<span style="color:#000">e</span>, <span style="color:#000">at</span> <span style="color:#000">*</span><span style="color:#000">Element</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">e</span> <span style="color:#000">==</span> <span style="color:#000">at</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">prev</span>.<span style="color:#000">next</span> = <span style="color:#000">e</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span>.<span style="color:#000">prev</span> = <span style="color:#000">e</span>.<span style="color:#000">prev</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">prev</span> = <span style="color:#000">at</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span> = <span style="color:#000">at</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">prev</span>.<span style="color:#000">next</span> = <span style="color:#000">e</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">e</span>.<span style="color:#000">next</span>.<span style="color:#000">prev</span> = <span style="color:#000">e</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="ring">Ring</h3>
+<p>是一个环形链表。环中的每一个元素由 Ring 构成。Ring 的组成如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// A Ring is an element of a circular list, or ring.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// Rings do not have a beginning or end; a pointer to any ring element
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// serves as reference to the entire ring. Empty rings are represented
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// as nil Ring pointers. The zero value for a Ring is a one-element
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// ring with a nil Value.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">type</span> <span style="color:#000">Ring</span> <span style="color:#a90d91">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">next</span>, <span style="color:#000">prev</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">Value</span>      <span style="color:#000">any</span> <span style="color:#177500">// for use by client; untouched by this library
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span></code></pre></div><p>Ring 主要包括三类操作，1)、New() / Link() / Unlink() 等初始化及链接和断开环的操作。2)、Next() / Prev() / Move() 等移动节点的操作。3)、Do() 遍历环中节点的操作。</p>
+<p><strong>New()</strong> 用来初始化环，New() 主要逻辑如下，首先判断长度是否大于零，然后初始化一个 Ring 指针，然后根据长度增加节点，最后链接头尾节点。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// New creates a ring of n elements.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> <span style="color:#000">New</span>(<span style="color:#000">n</span> <span style="color:#a90d91">int</span>) <span style="color:#000">*</span><span style="color:#000">Ring</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">n</span> <span style="color:#000">&lt;=</span> <span style="color:#1c01ce">0</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span> <span style="color:#a90d91">nil</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#000">r</span> <span style="color:#000">:=</span> <span style="color:#a90d91">new</span>(<span style="color:#000">Ring</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#000">p</span> <span style="color:#000">:=</span> <span style="color:#000">r</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">for</span> <span style="color:#000">i</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">1</span>; <span style="color:#000">i</span> &lt; <span style="color:#000">n</span>; <span style="color:#000">i</span><span style="color:#000">++</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">p</span>.<span style="color:#000">next</span> = <span style="color:#000">&amp;</span><span style="color:#000">Ring</span>{<span style="color:#000">prev</span>: <span style="color:#000">p</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#000">p</span> = <span style="color:#000">p</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#000">p</span>.<span style="color:#000">next</span> = <span style="color:#000">r</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">r</span>.<span style="color:#000">prev</span> = <span style="color:#000">p</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">r</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Link()</strong> 用于链接两个环，Link() 的实现如下，源码中强调了不能使用多重赋值，是因为多重赋值是不能保证赋值顺序的，而这里我们需要强调赋值的顺序。</p>
+<p>首先获取当前节点 r 的下一个节点及目标节点 s 的最后一个节点，在节点 s 的头部进行链接，即 r.next = s 和 s.prev = r，接着在节点 s 的尾部进行链接，即 p.next() = n 和 n.prev = p。</p>
+<p>如果 r 和 s 是同一个环中的节点，那么 r 和 s 中间的节点将会移除，r 和 s 链接在一起，剩下的部分链接在一起。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> (<span style="color:#000">r</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>) <span style="color:#000">Link</span>(<span style="color:#000">s</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>) <span style="color:#000">*</span><span style="color:#000">Ring</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">n</span> <span style="color:#000">:=</span> <span style="color:#000">r</span>.<span style="color:#000">Next</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">s</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">p</span> <span style="color:#000">:=</span> <span style="color:#000">s</span>.<span style="color:#000">Prev</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Note: Cannot use multiple assignment because
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// evaluation order of LHS is not specified.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">r</span>.<span style="color:#000">next</span> = <span style="color:#000">s</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">s</span>.<span style="color:#000">prev</span> = <span style="color:#000">r</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span>.<span style="color:#000">prev</span> = <span style="color:#000">p</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">p</span>.<span style="color:#000">next</span> = <span style="color:#000">n</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">n</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Next() / Move() / Prev()</strong> 逻辑相近，其实现如下。</p>
+<p><em>其中 if r.next == nil 的判断可能是用户自己初始化的 Ring 结构体没有成环的检查 🤔️。</em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// Next returns the next ring element. r must not be empty.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">r</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>) <span style="color:#000">Next</span>() <span style="color:#000">*</span><span style="color:#000">Ring</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">r</span>.<span style="color:#000">next</span> <span style="color:#000">==</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span> <span style="color:#000">r</span>.<span style="color:#000">init</span>()
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">r</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// Prev returns the previous ring element. r must not be empty.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">r</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>) <span style="color:#000">Prev</span>() <span style="color:#000">*</span><span style="color:#000">Ring</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">r</span>.<span style="color:#000">next</span> <span style="color:#000">==</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span> <span style="color:#000">r</span>.<span style="color:#000">init</span>()
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">r</span>.<span style="color:#000">prev</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// Move moves n % r.Len() elements backward (n &lt; 0) or forward (n &gt;= 0)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// in the ring and returns that ring element. r must not be empty.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">r</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>) <span style="color:#000">Move</span>(<span style="color:#000">n</span> <span style="color:#a90d91">int</span>) <span style="color:#000">*</span><span style="color:#000">Ring</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">r</span>.<span style="color:#000">next</span> <span style="color:#000">==</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">return</span> <span style="color:#000">r</span>.<span style="color:#000">init</span>()
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">switch</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">case</span> <span style="color:#000">n</span> &lt; <span style="color:#1c01ce">0</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">for</span> ; <span style="color:#000">n</span> &lt; <span style="color:#1c01ce">0</span>; <span style="color:#000">n</span><span style="color:#000">++</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">r</span> = <span style="color:#000">r</span>.<span style="color:#000">prev</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">case</span> <span style="color:#000">n</span> &gt; <span style="color:#1c01ce">0</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">for</span> ; <span style="color:#000">n</span> &gt; <span style="color:#1c01ce">0</span>; <span style="color:#000">n</span><span style="color:#000">--</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">r</span> = <span style="color:#000">r</span>.<span style="color:#000">next</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">r</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Do()</strong> 函数逻辑即遍历环，并对每个节点应用 f()。<em>这种设计模式有一定的局限，如果 Do 能够传入可变参数列表，并将可变参数列表传入 f 中，这样可以将外部变量代入处理函数 f 中，这样在某些统计函数时带来便利性，如 Do(f(len), len) 这种模式。</em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#177500">// Do calls function f on each element of the ring, in forward order.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">// The behavior of Do is undefined if f changes *r.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">func</span> (<span style="color:#000">r</span> <span style="color:#000">*</span><span style="color:#000">Ring</span>) <span style="color:#000">Do</span>(<span style="color:#000">f</span> <span style="color:#a90d91">func</span>(<span style="color:#000">any</span>)) {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">if</span> <span style="color:#000">r</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">f</span>(<span style="color:#000">r</span>.<span style="color:#000">Value</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">for</span> <span style="color:#000">p</span> <span style="color:#000">:=</span> <span style="color:#000">r</span>.<span style="color:#000">Next</span>(); <span style="color:#000">p</span> <span style="color:#000">!=</span> <span style="color:#000">r</span>; <span style="color:#000">p</span> = <span style="color:#000">p</span>.<span style="color:#000">next</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">f</span>(<span style="color:#000">p</span>.<span style="color:#000">Value</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>相比于 List 的双向链表，Ring 是有限制的双向链表，Ring 有以下特点。</p>
+<ol>
+<li>无法在 O(1) 时间复杂度内确定环的长度。</li>
+<li>不能直接调用 Insert、Remove 等传统链表操作。</li>
+</ol>
+<h3 id="heap">Heap</h3>
+<blockquote>
+<p><a href="http://cngolib.com/container-heap.html">container/heap</a></p>
+</blockquote>
+<p>实现了堆的数据结构，这里采用 interface 的模式描述堆的特性，并不直接实现堆的容器。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">Interface</span> <span style="color:#a90d91">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">sort</span>.<span style="color:#000">Interface</span>
+</span></span><span style="display:flex;"><span> <span style="color:#000">Push</span>(<span style="color:#000">x</span> <span style="color:#000">any</span>) <span style="color:#177500">// add x as element Len()
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">Pop</span>() <span style="color:#000">any</span>   <span style="color:#177500">// remove and return element Len() - 1.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">type</span> <span style="color:#000">Interface</span> <span style="color:#a90d91">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">Len</span>() <span style="color:#a90d91">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">Less</span>(<span style="color:#000">i</span>, <span style="color:#000">j</span> <span style="color:#a90d91">int</span>) <span style="color:#a90d91">bool</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">Swap</span>(<span style="color:#000">i</span>, <span style="color:#000">j</span> <span style="color:#a90d91">int</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Heap 的核心方法为 up() / down()，在《算法》一书中为 swim() / sink()，意为上浮和下沉。</p>
+<p><strong>up()</strong> 的实现如下，首先 i := (j - 1) / 2 找到对应节点的父节点，<em>这里是从 0 开始计算节点</em>，接着判断节点是否为堆顶，判断是否需要进行交换，不满足条件退出循环，否则，交换父节点于子节点，并对父节点迭代操作。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">up</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>, <span style="color:#000">j</span> <span style="color:#a90d91">int</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">for</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">i</span> <span style="color:#000">:=</span> (<span style="color:#000">j</span> <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>) <span style="color:#000">/</span> <span style="color:#1c01ce">2</span> <span style="color:#177500">// parent
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">i</span> <span style="color:#000">==</span> <span style="color:#000">j</span> <span style="color:#000">||</span> !<span style="color:#000">h</span>.<span style="color:#000">Less</span>(<span style="color:#000">j</span>, <span style="color:#000">i</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">break</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">h</span>.<span style="color:#000">Swap</span>(<span style="color:#000">i</span>, <span style="color:#000">j</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">j</span> = <span style="color:#000">i</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>down()</strong> 的实现如下，首先用 j1 := 2*i + 1计算对应子节点的索引，这里从 0 开始计算节点，并判断该索引是否超出长度 n，此外源码这里考虑到了可能溢出的问题，判断 j1 &lt; 0。</p>
+<p>接着判断子节点中左节点和右节点的大小，选取更小者，最后判断更小者与父节点的大小关系，如果不满足交换则退出，否则交换子节点和父节点，并对子节点进行迭代。</p>
+<p>最后返回结果时，根据初始索引和最后的索引值判断是否能够下沉。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">down</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>, <span style="color:#000">i0</span>, <span style="color:#000">n</span> <span style="color:#a90d91">int</span>) <span style="color:#a90d91">bool</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#000">i</span> <span style="color:#000">:=</span> <span style="color:#000">i0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">for</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">j1</span> <span style="color:#000">:=</span> <span style="color:#1c01ce">2</span><span style="color:#000">*</span><span style="color:#000">i</span> <span style="color:#000">+</span> <span style="color:#1c01ce">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">j1</span> <span style="color:#000">&gt;=</span> <span style="color:#000">n</span> <span style="color:#000">||</span> <span style="color:#000">j1</span> &lt; <span style="color:#1c01ce">0</span> { <span style="color:#177500">// j1 &lt; 0 after int overflow
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">break</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">j</span> <span style="color:#000">:=</span> <span style="color:#000">j1</span> <span style="color:#177500">// left child
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">if</span> <span style="color:#000">j2</span> <span style="color:#000">:=</span> <span style="color:#000">j1</span> <span style="color:#000">+</span> <span style="color:#1c01ce">1</span>; <span style="color:#000">j2</span> &lt; <span style="color:#000">n</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">h</span>.<span style="color:#000">Less</span>(<span style="color:#000">j2</span>, <span style="color:#000">j1</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#000">j</span> = <span style="color:#000">j2</span> <span style="color:#177500">// = 2*i + 2  // right child
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> !<span style="color:#000">h</span>.<span style="color:#000">Less</span>(<span style="color:#000">j</span>, <span style="color:#000">i</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">break</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000">h</span>.<span style="color:#000">Swap</span>(<span style="color:#000">i</span>, <span style="color:#000">j</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#000">i</span> = <span style="color:#000">j</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">return</span> <span style="color:#000">i</span> &gt; <span style="color:#000">i0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Heap 根据 up() / down() 方法实现了其他暴露出来的 API。</p>
+<p><strong>Init()</strong> 方法对堆进行初始化，<strong>Push() / Pop()</strong> 方法分别实现向堆中有序加入元素和弹出堆顶的操作，这两个操作依赖于 Interface 中实现的 Push 和 Pop。<strong>Remove()</strong> 方法将目标索引替换至队尾并重新有序化堆，最后调用 interface 中的 Pop 实现删除目标索引的元素。<strong>Fix()</strong> 方法用于堆指定元素重新有序化，这可以运用于直接修改堆中指定索引的元素后，调用 Fix 方法保证堆的有序化。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">Init</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// heapify
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span> <span style="color:#000">n</span> <span style="color:#000">:=</span> <span style="color:#000">h</span>.<span style="color:#000">Len</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">for</span> <span style="color:#000">i</span> <span style="color:#000">:=</span> <span style="color:#000">n</span><span style="color:#000">/</span><span style="color:#1c01ce">2</span> <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>; <span style="color:#000">i</span> <span style="color:#000">&gt;=</span> <span style="color:#1c01ce">0</span>; <span style="color:#000">i</span><span style="color:#000">--</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">down</span>(<span style="color:#000">h</span>, <span style="color:#000">i</span>, <span style="color:#000">n</span>)
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">Push</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>, <span style="color:#000">x</span> <span style="color:#000">any</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">h</span>.<span style="color:#000">Push</span>(<span style="color:#000">x</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">up</span>(<span style="color:#000">h</span>, <span style="color:#000">h</span>.<span style="color:#000">Len</span>()<span style="color:#000">-</span><span style="color:#1c01ce">1</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">Pop</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>) <span style="color:#000">any</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">n</span> <span style="color:#000">:=</span> <span style="color:#000">h</span>.<span style="color:#000">Len</span>() <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">h</span>.<span style="color:#000">Swap</span>(<span style="color:#1c01ce">0</span>, <span style="color:#000">n</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#000">down</span>(<span style="color:#000">h</span>, <span style="color:#1c01ce">0</span>, <span style="color:#000">n</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">return</span> <span style="color:#000">h</span>.<span style="color:#000">Pop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">Remove</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>, <span style="color:#000">i</span> <span style="color:#a90d91">int</span>) <span style="color:#000">any</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">n</span> <span style="color:#000">:=</span> <span style="color:#000">h</span>.<span style="color:#000">Len</span>() <span style="color:#000">-</span> <span style="color:#1c01ce">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">if</span> <span style="color:#000">n</span> <span style="color:#000">!=</span> <span style="color:#000">i</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">h</span>.<span style="color:#000">Swap</span>(<span style="color:#000">i</span>, <span style="color:#000">n</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> !<span style="color:#000">down</span>(<span style="color:#000">h</span>, <span style="color:#000">i</span>, <span style="color:#000">n</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#000">up</span>(<span style="color:#000">h</span>, <span style="color:#000">i</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">return</span> <span style="color:#000">h</span>.<span style="color:#000">Pop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">func</span> <span style="color:#000">Fix</span>(<span style="color:#000">h</span> <span style="color:#000">Interface</span>, <span style="color:#000">i</span> <span style="color:#a90d91">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">if</span> !<span style="color:#000">down</span>(<span style="color:#000">h</span>, <span style="color:#000">i</span>, <span style="color:#000">h</span>.<span style="color:#000">Len</span>()) {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">up</span>(<span style="color:#000">h</span>, <span style="color:#000">i</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="ipc-sig">IPC sig</h2>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/f445bfeea40a">Linux 信号（signal）</a></p>
+<p>Linux/UNIX系统编程手册</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#633820">#include</span> <span style="color:#633820">&lt;signal.h&gt;</span><span style="color:#633820">
+</span></span></span><span style="display:flex;"><span><span style="color:#633820">#include</span> <span style="color:#633820">&lt;unistd.h&gt;</span><span style="color:#633820">
+</span></span></span><span style="display:flex;"><span><span style="color:#633820">#include</span> <span style="color:#633820">&lt;stdio.h&gt;</span><span style="color:#633820">
+</span></span></span><span style="display:flex;"><span><span style="color:#633820">#include</span> <span style="color:#633820">&lt;stdlib.h&gt;</span><span style="color:#633820">
+</span></span></span><span style="display:flex;"><span><span style="color:#633820"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">handler</span>(<span style="color:#a90d91">int</span> <span style="color:#000">sig</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">printf</span>(<span style="color:#c41a16">&#34;hello SIGIO, exit ...&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">exit</span>(<span style="color:#1c01ce">0</span>);
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">main</span>(<span style="color:#a90d91">int</span> <span style="color:#000">argc</span>, <span style="color:#a90d91">char</span> <span style="color:#a90d91">const</span> <span style="color:#000">*</span><span style="color:#000">argv</span>[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#000">signal</span>(<span style="color:#000">SIGIO</span>, <span style="color:#000">handler</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">sleep</span>(<span style="color:#1c01ce">20</span> <span style="color:#000">*</span> <span style="color:#1c01ce">1000</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'daily-note\/2022-09-18.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'daily-note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

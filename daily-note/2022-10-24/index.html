@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/daily-note/">Daily-Notes</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/daily-note/2022-10-24/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#pytorch">Pytorch</a></li>
+    <li><a href="#神经网络">神经网络</a></li>
+    <li><a href="#sparkplanner">SparkPlanner</a>
+      <ul>
+        <li><a href="#aggregation">Aggregation</a></li>
+        <li><a href="#join">Join</a></li>
+      </ul>
+    </li>
+    <li><a href="#spark-expression">Spark Expression</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="daily-note-10-24">Daily-Note 10-24</h1>
+<h2 id="overview">OVERVIEW</h2>
+<ol>
+<li><strong>Pytorch</strong>，机器学习框架</li>
+<li><strong>神经网络</strong>，由神经元构成的非线性参数模型。</li>
+<li><strong>SparkPlanner</strong>，将 Logical Plan 转换到 Physics Plan。</li>
+<li><strong>Spark Expression</strong>，</li>
+</ol>
+<h2 id="pytorch">Pytorch</h2>
+<blockquote>
+<p><a href="https://pytorch-lightning.readthedocs.io/en/latest/notebooks/course_UvA-DL/01-introduction-to-pytorch.html">TUTORIAL 1: INTRODUCTION TO PYTORCH</a>
+<a href="https://github.com/full-stack-deep-learning/fsdl-text-recognizer-2021-labs/tree/main">fsdl-text-recognizer-2021-labs</a></p>
+</blockquote>
+<h2 id="神经网络">神经网络</h2>
+<p><em>(Neural Network)</em></p>
+<blockquote>
+<p><a href="https://pytorch-lightning.readthedocs.io/en/latest/notebooks/course_UvA-DL/01-introduction-to-pytorch.html#The-data-loader-class">Tutorial 1: Introduction to PyTorch</a></p>
+</blockquote>
+<p><strong>BP (Back Propagation)</strong></p>
+<h2 id="sparkplanner">SparkPlanner</h2>
+<blockquote>
+<p><a href="https://dataninjago.com/2022/01/02/spark-deep-dive-11-spark-planner-overview/">Spark SQL Query Engine Deep Dive (7) – Spark Planner Overview</a></p>
+</blockquote>
+<p><strong>QueryPlan</strong>，QueryPlan 继承自 TreeNode，其增加了逻辑图和物理图的一些公共属性和遍历方法。</p>
+<p><strong>LogicalPlan</strong>，LogicalPlan 是逻辑图中如 Aggregate/Sort/Join 等节点的基类。其基础自 <font color=green>QueryPlan</font>。</p>
+<p><strong>SparkPlan</strong>，SparkPlan 是物理算子的基类，物理算子包括 HashAggregateExec、ShuffleExchangeExec 等。与 LogicalPlan 相同，继承自 <font color=green>QueryPlan</font>。</p>
+<p><strong>QueryExecution</strong> 包括一个请求中主要流程的各个阶段，包括 UnresovledPlan Logical Plan/Logical Plan/Optimized Logical Plan/Physical Plan 等阶段。在 QueryExecution 中分别对应为 logical/analyzed/optimized/sparkPlan 等属性。</p>
+<p><em>QueryExecution.createSparkPlan()</em> 方法将 optimized 转换为 sparkPlan。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>  <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   * Transform a [[LogicalPlan]] into a [[SparkPlan]].
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   * Note that the returned physical plan still needs to be prepared for execution.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">def</span> <span style="color:#000">createSparkPlan</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">sparkSession</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">SparkSession</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">planner</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">SparkPlanner</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">plan</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">LogicalPlan</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">SparkPlan</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// TODO: We use next(), i.e. take the first plan returned by the planner, here for now,
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//       but we will implement to choose the best plan.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">planner</span><span style="color:#000">.</span><span style="color:#000">plan</span><span style="color:#000">(</span><span style="color:#3f6e75">ReturnAnswer</span><span style="color:#000">(</span><span style="color:#000">plan</span><span style="color:#000">)).</span><span style="color:#000">next</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span></code></pre></div><p>这里 <em>plan()</em> 方法根据对应的 strategies 策略迭代地转换 optimized plan。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">plan</span><span style="color:#000">(</span><span style="color:#000">plan</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">LogicalPlan</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">PhysicalPlan</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Obviously a lot to do here still...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Collect physical plan candidates.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">val</span> <span style="color:#000">candidates</span> <span style="color:#a90d91">=</span> <span style="color:#000">strategies</span><span style="color:#000">.</span><span style="color:#000">iterator</span><span style="color:#000">.</span><span style="color:#000">flatMap</span><span style="color:#000">(</span><span style="color:#a90d91">_</span><span style="color:#000">(</span><span style="color:#000">plan</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// The candidates may contain placeholders marked as [[planLater]],
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// so try to replace them by their child plans.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">val</span> <span style="color:#000">plans</span> <span style="color:#a90d91">=</span> <span style="color:#000">candidates</span><span style="color:#000">.</span><span style="color:#000">flatMap</span> <span style="color:#000">{</span> <span style="color:#000">candidate</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">val</span> <span style="color:#000">placeholders</span> <span style="color:#a90d91">=</span> <span style="color:#000">collectPlaceholders</span><span style="color:#000">(</span><span style="color:#000">candidate</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">placeholders</span><span style="color:#000">.</span><span style="color:#000">isEmpty</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Take the candidate as is because it does not contain placeholders.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#3f6e75">Iterator</span><span style="color:#000">(</span><span style="color:#000">candidate</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Plan the logical plan marked as [[planLater]] and replace the placeholders.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">placeholders</span><span style="color:#000">.</span><span style="color:#000">iterator</span><span style="color:#000">.</span><span style="color:#000">foldLeft</span><span style="color:#000">(</span><span style="color:#3f6e75">Iterator</span><span style="color:#000">(</span><span style="color:#000">candidate</span><span style="color:#000">))</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">case</span> <span style="color:#000">(</span><span style="color:#000">candidatesWithPlaceholders</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">placeholder</span><span style="color:#000">,</span> <span style="color:#000">logicalPlan</span><span style="color:#000">))</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#177500">// Plan the logical plan for the placeholder.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>            <span style="color:#a90d91">val</span> <span style="color:#000">childPlans</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#000">plan</span><span style="color:#000">(</span><span style="color:#000">logicalPlan</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">candidatesWithPlaceholders</span><span style="color:#000">.</span><span style="color:#000">flatMap</span> <span style="color:#000">{</span> <span style="color:#000">candidateWithPlaceholders</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#000">childPlans</span><span style="color:#000">.</span><span style="color:#000">map</span> <span style="color:#000">{</span> <span style="color:#000">childPlan</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#177500">// Replace the placeholder by the child plan
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>                <span style="color:#000">candidateWithPlaceholders</span><span style="color:#000">.</span><span style="color:#000">transformUp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#a90d91">case</span> <span style="color:#000">p</span> <span style="color:#a90d91">if</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#000">eq</span><span style="color:#000">(</span><span style="color:#000">placeholder</span><span style="color:#000">)</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">childPlan</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span></code></pre></div><p>下面是 SparkPlanner 提供的策略：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">override</span> <span style="color:#a90d91">def</span> <span style="color:#000">strategies</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">Strategy</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">experimentalMethods</span><span style="color:#000">.</span><span style="color:#000">extraStrategies</span> <span style="color:#000">++</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">extraPlanningStrategies</span> <span style="color:#000">++</span> <span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">LogicalQueryStageStrategy</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">PythonEvals</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">new</span> <span style="color:#3f6e75">DataSourceV2Strategy</span><span style="color:#000">(</span><span style="color:#000">session</span><span style="color:#000">)</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">FileSourceStrategy</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">DataSourceStrategy</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">SpecialLimits</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">Aggregation</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">Window</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">JoinSelection</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">InMemoryScans</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">BasicOperators</span> <span style="color:#a90d91">:</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Nil</span><span style="color:#000">)</span>
+</span></span></code></pre></div><p>Strategies 包括 Join/Aggregation 等策略，分别负责转换相关的 logical plan 节点。</p>
+<h3 id="aggregation">Aggregation</h3>
+<blockquote>
+<p><a href="https://dataninjago.com/2022/01/04/spark-deep-dive-12-aggregation-strategy/">Spark SQL Query Engine Deep Dive (8) – Aggregation Strategy</a></p>
+</blockquote>
+<p>在应用 Aggregation 到 logical plan 时，首先匹配是否为 PhysicalAggregation 模式，并分别判断是 AggregateExpression 或 PythonUDF。</p>
+<p>1）当为 AggregateExpression 时，当不存在 Distinct 情况下，将直接调用 <em>AggUtils.planAggregateWithoutDistinct()</em> 方法返回对应的 HashAggregateExec 物理算子结构并替换原 logical plan 中的 aggregation 节点。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">case</span> <span style="color:#3f6e75">PhysicalAggregation</span><span style="color:#000">(</span><span style="color:#000">groupingExpressions</span><span style="color:#000">,</span> <span style="color:#000">aggExpressions</span><span style="color:#000">,</span> <span style="color:#000">resultExpressions</span><span style="color:#000">,</span> <span style="color:#000">child</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span> <span style="color:#000">aggExpressions</span><span style="color:#000">.</span><span style="color:#000">forall</span><span style="color:#000">(</span><span style="color:#000">expr</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">expr</span><span style="color:#000">.</span><span style="color:#000">isInstanceOf</span><span style="color:#000">[</span><span style="color:#a90d91">AggregateExpression</span><span style="color:#000">])</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">aggregateOperator</span> <span style="color:#a90d91">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">functionsWithDistinct</span><span style="color:#000">.</span><span style="color:#000">isEmpty</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">AggUtils</span><span style="color:#000">.</span><span style="color:#000">planAggregateWithoutDistinct</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">normalizedGroupingExpressions</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">aggregateExpressions</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">resultExpressions</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">planLater</span><span style="color:#000">(</span><span style="color:#000">child</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">aggregateOperator</span>
+</span></span></code></pre></div><h3 id="join">Join</h3>
+<blockquote>
+<p><a href="https://dataninjago.com/2022/01/11/spark-sql-query-engine-deep-dive-11-join-strategies/">Spark SQL Query Engine Deep Dive (11) – Join Strategies</a></p>
+</blockquote>
+<p><strong>Spark Join Strategy</strong>，Spark 提供多种 Join Strategy，包括常见的 Hash、Sort、NestedLoop 等。</p>
+<p><strong>JoinSelection</strong> 用于选择对应的 Join Strategy，join 主要分为 equi-join 和 not equi-join，前者即使用 == 作为判断条件，后者包括 &lt;&gt;, &lt;, &gt; 等。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">object</span> <span style="color:#3f6e75">JoinSelection</span> <span style="color:#a90d91">extends</span> <span style="color:#3f6e75">Strategy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">with</span> <span style="color:#3f6e75">PredicateHelper</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">with</span> <span style="color:#3f6e75">JoinSelectionHelper</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">def</span> <span style="color:#000">apply</span><span style="color:#000">(</span><span style="color:#000">plan</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">LogicalPlan</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">SparkPlan</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">plan</span> <span style="color:#a90d91">match</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// If it is an equi-join, we first look at the join hints w.r.t. the following order:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   1. broadcast hint: pick broadcast hash join if the join type is supported. If both sides
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      have the broadcast hints, choose the smaller side (based on stats) to broadcast.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   2. sort merge hint: pick sort merge join if join keys are sortable.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   3. shuffle hash hint: We pick shuffle hash join if the join type is supported. If both
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      sides have the shuffle hash hints, choose the smaller side (based on stats) as the
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      build side.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   4. shuffle replicate NL hint: pick cartesian product if join type is inner like.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// If there is no hint or the hints are not applicable, we follow these rules one by one:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   1. Pick broadcast hash join if one side is small enough to broadcast, and the join type
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      is supported. If both sides are small, choose the smaller side (based on stats)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      to broadcast.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   2. Pick shuffle hash join if one side is small enough to build local hash map, and is
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      much smaller than the other side, and `spark.sql.join.preferSortMergeJoin` is false.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   3. Pick sort merge join if the join keys are sortable.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   4. Pick cartesian product if join type is inner like.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   5. Pick broadcast nested loop join as the final solution. It may OOM but we don&#39;t have
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      other choice.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#a90d91">case</span> <span style="color:#000">j</span> <span style="color:#a90d91">@</span> <span style="color:#3f6e75">ExtractEquiJoinKeys</span><span style="color:#000">(</span><span style="color:#000">joinType</span><span style="color:#000">,</span> <span style="color:#000">leftKeys</span><span style="color:#000">,</span> <span style="color:#000">rightKeys</span><span style="color:#000">,</span> <span style="color:#000">nonEquiCond</span><span style="color:#000">,</span> <span style="color:#000">left</span><span style="color:#000">,</span> <span style="color:#000">right</span><span style="color:#000">,</span> <span style="color:#000">hint</span><span style="color:#000">)</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// If it is not an equi-join, we first look at the join hints w.r.t. the following order:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   1. broadcast hint: pick broadcast nested loop join. If both sides have the broadcast
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      hints, choose the smaller side (based on stats) to broadcast for inner and full joins,
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      choose the left side for right join, and choose right side for left join.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   2. shuffle replicate NL hint: pick cartesian product if join type is inner like.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// If there is no hint or the hints are not applicable, we follow these rules one by one:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   1. Pick broadcast nested loop join if one side is small enough to broadcast. If only left
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      side is broadcast-able and it&#39;s left join, or only right side is broadcast-able and
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      it&#39;s right join, we skip this rule. If both sides are small, broadcasts the smaller
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      side for inner and full joins, broadcasts the left side for right join, and broadcasts
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      right side for left join.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   2. Pick cartesian product if join type is inner like.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//   3. Pick broadcast nested loop join as the final solution. It may OOM but we don&#39;t have
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      other choice. It broadcasts the smaller side for inner and full joins, broadcasts the
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">//      left side for right join, and broadcasts right side for left join.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#a90d91">case</span> <span style="color:#000">logical</span><span style="color:#000">.</span><span style="color:#3f6e75">Join</span><span style="color:#000">(</span><span style="color:#000">left</span><span style="color:#000">,</span> <span style="color:#000">right</span><span style="color:#000">,</span> <span style="color:#000">joinType</span><span style="color:#000">,</span> <span style="color:#000">condition</span><span style="color:#000">,</span> <span style="color:#000">hint</span><span style="color:#000">)</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">}</span>
+</span></span></code></pre></div><p><strong>1）考虑 join type 为 equi-join 时</strong>，</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#000">createBroadcastHashJoin</span><span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">.</span><span style="color:#000">orElse</span> <span style="color:#000">{</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">hintToSortMergeJoin</span><span style="color:#000">(</span><span style="color:#000">hint</span><span style="color:#000">))</span> <span style="color:#000">createSortMergeJoin</span><span style="color:#000">()</span> <span style="color:#a90d91">else</span> <span style="color:#3f6e75">None</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">.</span><span style="color:#000">orElse</span><span style="color:#000">(</span><span style="color:#000">createShuffleHashJoin</span><span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">.</span><span style="color:#000">orElse</span> <span style="color:#000">{</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">hintToShuffleReplicateNL</span><span style="color:#000">(</span><span style="color:#000">hint</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#000">createCartesianProduct</span><span style="color:#000">()</span> <span style="color:#a90d91">else</span> <span style="color:#3f6e75">None</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">.</span><span style="color:#000">getOrElse</span><span style="color:#000">(</span><span style="color:#000">createJoinWithoutHint</span><span style="color:#000">())</span>
+</span></span></code></pre></div><blockquote>
+<p><a href="https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-hints.html">sql syntax: hints</a></p>
+</blockquote>
+<p>createBroadcastHashJoin() 方法判断 join 的 left side 和 right side 是否有用户指定的 hint，如果有返回 buildSide，从而构建对应的 BroadcastHashJoinExec。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">createBroadcastHashJoin</span><span style="color:#000">(</span><span style="color:#000">onlyLookingAtHint</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Boolean</span><span style="color:#000">)</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">getBroadcastBuildSide</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">left</span><span style="color:#000">,</span> <span style="color:#000">right</span><span style="color:#000">,</span> <span style="color:#000">joinType</span><span style="color:#000">,</span> <span style="color:#000">hint</span><span style="color:#000">,</span> <span style="color:#000">onlyLookingAtHint</span><span style="color:#000">,</span> <span style="color:#000">conf</span><span style="color:#000">).</span><span style="color:#000">map</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">buildSide</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#3f6e75">Seq</span><span style="color:#000">(</span><span style="color:#000">joins</span><span style="color:#000">.</span><span style="color:#3f6e75">BroadcastHashJoinExec</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">leftKeys</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">rightKeys</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">joinType</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">buildSide</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">nonEquiCond</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">planLater</span><span style="color:#000">(</span><span style="color:#000">left</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">planLater</span><span style="color:#000">(</span><span style="color:#000">right</span><span style="color:#000">)))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>如若没有，则依次完成剩下的逻辑判断。判断是否有 SortMerge、ShuffleReplicateNL 等 hint。最后如果上述流程都没变构建得到对应的 JoinExec，则调用 createJoinWithoutHint() 方法根据默认的逻辑创建对应的 JoinExec。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">createJoinWithoutHint</span><span style="color:#000">()</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">createBroadcastHashJoin</span><span style="color:#000">(</span><span style="color:#a90d91">false</span><span style="color:#000">)</span> <span style="color:#177500">// 没有 hint 条件下创建 BroadHashJoin
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">.</span><span style="color:#000">orElse</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">conf</span><span style="color:#000">.</span><span style="color:#000">preferSortMergeJoin</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// prefer 是否指定 SortMerge 优先
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">createShuffleHashJoin</span><span style="color:#000">(</span><span style="color:#a90d91">false</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#3f6e75">None</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">.</span><span style="color:#000">orElse</span><span style="color:#000">(</span><span style="color:#000">createSortMergeJoin</span><span style="color:#000">())</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">.</span><span style="color:#000">orElse</span><span style="color:#000">(</span><span style="color:#000">createCartesianProduct</span><span style="color:#000">())</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">.</span><span style="color:#000">getOrElse</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// This join could be very slow or OOM
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#a90d91">val</span> <span style="color:#000">buildSide</span> <span style="color:#a90d91">=</span> <span style="color:#000">getSmallerSide</span><span style="color:#000">(</span><span style="color:#000">left</span><span style="color:#000">,</span> <span style="color:#000">right</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#3f6e75">Seq</span><span style="color:#000">(</span><span style="color:#000">joins</span><span style="color:#000">.</span><span style="color:#3f6e75">BroadcastNestedLoopJoinExec</span><span style="color:#000">(</span> <span style="color:#177500">// NestedLoopJoin 策略为兜底
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">planLater</span><span style="color:#000">(</span><span style="color:#000">left</span><span style="color:#000">),</span> <span style="color:#000">planLater</span><span style="color:#000">(</span><span style="color:#000">right</span><span style="color:#000">),</span> <span style="color:#000">buildSide</span><span style="color:#000">,</span> <span style="color:#000">joinType</span><span style="color:#000">,</span> <span style="color:#000">nonEquiCond</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>在没有用户指定的 hint 的情况下，根据 BroadcastHashJoin/ShuffleHashJoin(需要 preferSortMergeJoin 指定为 false)/SortMergeJoin/CartesianProduct/BroadcastNestedLoopJoin的递补顺序选择特定的 Join Strategy。</p>
+<p><strong>Broadcast Hash Join</strong>，最优先策略，但要求 relation size 小于 autoBroadcastJoinThreshold。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// joins.scala
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">val</span> <span style="color:#000">buildLeft</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">hintOnly</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">hintToBroadcastLeft</span><span style="color:#000">(</span><span style="color:#000">hint</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">canBroadcastBySize</span><span style="color:#000">(</span><span style="color:#000">left</span><span style="color:#000">,</span> <span style="color:#000">conf</span><span style="color:#000">)</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#000">hintToNotBroadcastLeft</span><span style="color:#000">(</span><span style="color:#000">hint</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">canBroadcastBySize</span><span style="color:#000">(</span><span style="color:#000">plan</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">LogicalPlan</span><span style="color:#000">,</span> <span style="color:#000">conf</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">SQLConf</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Boolean</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">plan</span><span style="color:#000">.</span><span style="color:#000">stats</span><span style="color:#000">.</span><span style="color:#000">sizeInBytes</span> <span style="color:#000">&gt;=</span> <span style="color:#1c01ce">0</span> <span style="color:#000">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">plan</span><span style="color:#000">.</span><span style="color:#000">stats</span><span style="color:#000">.</span><span style="color:#000">sizeInBytes</span> <span style="color:#000">&lt;=</span> <span style="color:#000">conf</span><span style="color:#000">.</span><span style="color:#000">autoBroadcastJoinThreshold</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p><strong>ShuffleHashJoin</strong>，限制条件在于 relation size 小于 autoBroadcastJoinThreshold 与 numShufflePartitions 之乘积。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">private</span> <span style="color:#a90d91">def</span> <span style="color:#000">canBuildLocalHashMapBySize</span><span style="color:#000">(</span><span style="color:#000">plan</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">LogicalPlan</span><span style="color:#000">,</span> <span style="color:#000">conf</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">SQLConf</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Boolean</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">plan</span><span style="color:#000">.</span><span style="color:#000">stats</span><span style="color:#000">.</span><span style="color:#000">sizeInBytes</span> <span style="color:#000">&lt;</span> <span style="color:#000">conf</span><span style="color:#000">.</span><span style="color:#000">autoBroadcastJoinThreshold</span> <span style="color:#000">*</span> <span style="color:#000">conf</span><span style="color:#000">.</span><span style="color:#000">numShufflePartitions</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p><strong>SortMergeJoin</strong>，如果使用 SortMergeJoin 则要求对应的属性类型是可排序的。</p>
+<p><strong>CartesianProduct</strong>，笛卡尔积  Join 的性能极差。</p>
+<p><strong>BroadcastNestedLoopJoin</strong>，兜底策略，嵌套循环 Join 性能极差。</p>
+<h2 id="spark-expression">Spark Expression</h2>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'daily-note\/2022-10-24.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'daily-note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

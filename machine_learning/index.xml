@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine_learnings on </title>
+    <link>//localhost:1313/machine_learning/</link>
+    <description>Recent content in Machine_learnings on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="//localhost:1313/machine_learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>//localhost:1313/machine_learning/deep_learning_theory/deep-learning-theory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/machine_learning/deep_learning_theory/deep-learning-theory/</guid>
+      <description>Deep Learning Theory Scratch </description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:1313/machine_learning/machine_learing_theory/machine_learning_theory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/machine_learning/machine_learing_theory/machine_learning_theory/</guid>
+      <description>Machine Learning Theory Reference CS229 Syllabus&#xA;cs229_lecture_notes.pdf&#xA;Linear Regression §1 prior knowledge Maximum Likelihood Estimation (Maximum Likelihood Estimation，MLE)&#xA;似然函数 Wiki&#xA;Likelihood function Wiki&#xA;极大似然估计 Wiki&#xA;Matrix derivatives The exponential family Exponential family Wiki&#xA;Multinomial Distribution 多项分布的概率分布函数为：&#xA;$$ \mathrm{P}\left(\mathrm{X}{1}=\mathrm{k}{1},\mathrm{X}{2}=\mathrm{k}{2},\cdots,\mathrm{X}{\mathrm{n}}=\mathrm{k}{\mathrm{n}}\right)=\dfrac{\mathrm{n}!}{\mathrm{k}{1}!\mathrm{k}{2}!\cdots\mathrm{k}{\mathrm{n}}!}\prod{i=1}^{\mathrm{n}}\mathrm{p}{i}^{\mathrm{k}{i}}\quad,\sum_{i=1}^{\mathrm{n}}\mathrm{k}_{i}=\mathrm{n} $$ §2 Linear Regression Object function:&#xA;$$ h(x) = \theta^{\mathrm{T}}x; $$ Cost function:&#xA;$$ J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2 $$ 方法一，通过 gradient descent 方法调整参数 $\theta$。&#xA;首先计算梯度方向，&#xA;$$ \begin{aligned} \frac{\partial}{\partial\theta_j}J(\theta) &amp;=\frac{\partial}{\partial\theta_j}\frac{1}{2}\left(h_\theta(x)-y\right)^2\\ &amp;=2\cdot\frac{1}{2}\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(h_\theta(x)-y\right)\\ &amp;=\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(\sum_{i=0}^{d}\theta_ix_i-y\right)\\ &amp;=\left(h_\theta(x)-y\right)x_j \end{aligned} $$ 根据下式迭代调整 $\theta$ 参数。</description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:1313/machine_learning/math/probability/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/machine_learning/math/probability/</guid>
+      <description>Probability cs229-probability_review.pdf&#xA;§1 Probability Introduction Element of Probability 样本空间 (Sample Space)&#xA;是指随机现象所有的基本结果组成的集合。&#xA;事件空间 (Event Space)&#xA;是指样本空间所有子集合所构成的集合&#xA;Permutation &amp;amp; Combination Combinatorics -Wiki&#xA;排列 (permutation) 指从 n 个元素按次序选取 r 个元素组成一组，定义为&#xA;$$ P_n^r=n\times(n-1)\times\cdots\times(n-r+1)=\frac{n!}{(n-r!)}. $$ 组合 (combination) 指从 n 个不同的元素中任意抽取 r 个元素组成一组，定义为&#xA;$$ C_n^r = \binom nr=\frac{P_n^r}{r!}=\frac{n(n-1)\cdots(n-r+1)}{r!}=\frac{n!}{r!(n-r)!}. $$ Conditional Probability $$ P(A|B)\triangleq\frac{P(A\cap B)}{P(B)} $$ 条件概率即已知事件 B 发生的情况下，事件 A 发生的概率。&#xA;Law of total probability 假设 $S = \{1, 2, ..., k\}$ ，若有&#xA;$$ A_i, i \in S, P(\bigcap_{i \in S&#39;}A_i) = \varnothing \\ B \subseteq \bigcup_{i \in S} A_i $$ 则有</description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:1313/machine_learning/natural_language_generation/natural_language_generation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/machine_learning/natural_language_generation/natural_language_generation/</guid>
+      <description>Natural Language Generation Recurrent Neural Network Milestone papers Paper Comments Source serial_order_a_parallel_distrmuted_processing_approach.pdf Jordan RNN 1986 finding_structure_in_time.pdf Elman RNN 1990 long_short_term_memory.pdf LSTM 1997 NIPS-2014-sequence-to-sequence-learning-with-neural-networks-Paper.pdf Seq2Seq NIPS-2014 learning_phrase_representations_using_rnn_encoder&#xA;_decoder_for_statistical_machine_translation.pdf Encoder-Decoder neural_machine_translation_by_jointly_learning&#xA;_to_align_and_translate.pdf Attention attention_is_all_you_need.pdf Transformer improving_language_understanding_&#xA;by_generative_pre_training.pdf Generative Pre Traning Paper Reading Paper Comments A Survey of Natural Language Generation Techniques with a Focus on Dialogue Systems - Past, Present and Future Directions.pdf 自然语言生成综述.pdf Building applied natural language generation systems.pdf Forest-Based Statistical Sentence Generation.</description>
+    </item>
+  </channel>
+</rss>

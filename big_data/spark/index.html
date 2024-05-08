@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/big_data/">Big_data</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/big_data/spark/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rdd-programming">RDD Programming</a>
+      <ul>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#representation">Representation</a></li>
+        <li><a href="#compute">Compute</a></li>
+        <li><a href="#parallel">Parallel</a></li>
+        <li><a href="#distribution">Distribution</a></li>
+        <li><a href="#how-spark-runs-a-job">How Spark runs a Job?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="spark">Spark</h1>
+<h2 id="rdd-programming">RDD Programming</h2>
+<blockquote>
+<p>A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, partitioned collection of elements that can be operated on in parallel.</p>
+</blockquote>
+<p>简单而言，RDD 可以视作分布式环境下的数组，拥有高效、稳定的优点。RDD 通过内存计算、分区策略 (Partition) 与调度优化器 (Scheduler) 以实现高效的并行计算，RDD 不可变性特点便于实现部分缓存备份，容错性使其在分布式环境下具备稳定的优点。</p>
+<h3 id="example">Example</h3>
+<blockquote>
+<p><a href="https://github.com/apache/spark/blob/master/examples/src/main/python/wordcount.py">https://github.com/apache/spark/blob/master/examples/src/main/python/wordcount.py</a></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#177500"># word count</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">lines</span> <span style="color:#000">=</span> <span style="color:#000">spark</span><span style="color:#000">.</span><span style="color:#000">read</span><span style="color:#000">.</span><span style="color:#000">text</span>(<span style="color:#000">sys</span><span style="color:#000">.</span><span style="color:#000">argv</span>[<span style="color:#1c01ce">1</span>])<span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">.</span><span style="color:#000">map</span>(<span style="color:#a90d91">lambda</span> <span style="color:#000">r</span>: <span style="color:#000">r</span>[<span style="color:#1c01ce">0</span>])
+</span></span><span style="display:flex;"><span><span style="color:#000">counts</span> <span style="color:#000">=</span> <span style="color:#000">lines</span><span style="color:#000">.</span><span style="color:#000">flatMap</span>(<span style="color:#a90d91">lambda</span> <span style="color:#000">x</span>: <span style="color:#000">x</span><span style="color:#000">.</span><span style="color:#000">split</span>(<span style="color:#c41a16">&#39; &#39;</span>)) \
+</span></span><span style="display:flex;"><span>              <span style="color:#000">.</span><span style="color:#000">map</span>(<span style="color:#a90d91">lambda</span> <span style="color:#000">x</span>: (<span style="color:#000">x</span>, <span style="color:#1c01ce">1</span>)) \
+</span></span><span style="display:flex;"><span>              <span style="color:#000">.</span><span style="color:#000">reduceByKey</span>(<span style="color:#000">add</span>)
+</span></span><span style="display:flex;"><span><span style="color:#000">output</span> <span style="color:#000">=</span> <span style="color:#000">counts</span><span style="color:#000">.</span><span style="color:#000">collect</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#000">word</span>, <span style="color:#000">count</span>) <span style="color:#000">in</span> <span style="color:#000">output</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">print</span>(<span style="color:#c41a16">&#34;</span><span style="color:#c41a16">%s</span><span style="color:#c41a16">: </span><span style="color:#c41a16">%i</span><span style="color:#c41a16">&#34;</span> <span style="color:#000">%</span> (<span style="color:#000">word</span>, <span style="color:#000">count</span>))
+</span></span></code></pre></div><h3 id="representation">Representation</h3>
+<blockquote>
+<p>In a nutshell, we propose representing each RDD through a common interface that exposes five pieces of information: a set of partitions, which are atomic pieces of the dataset; a set of dependencies on parent RDDs; a function for computing the dataset based on its parents; and metadata about its partitioning scheme and data placement.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+</blockquote>
+<p>RDD 由分区、依赖、计算函数、元数据构成，通过分区、依赖、计算函数构建 RDD 之间的计算图，元数据是各节点组成分布式系统的上下文信息。</p>
+<h3 id="compute">Compute</h3>
+<p>RDD 包括两类基本函数，一类为 Transformations (return a new RDD)，另一类为 Actions (launch a job to return a value to the user program)。</p>
+<blockquote>
+<p>Table 2: Transformations and actions available on RDDs in Spark. Seq[T] denotes a sequence of elements of type T.<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><img src="spark.assert/0c823c4b-3281-45b2-89b0-39e8eb3127cc.png?lastModify=1708517546" alt="0c823c4b-3281-45b2-89b0-39e8eb3127cc"></p>
+</blockquote>
+<ul>
+<li><code>map</code> 是 Transformations 中的基本函数，按 <code>f</code> 函数功能描述实现 RDD 的转换。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">map</span><span style="color:#000">[</span><span style="color:#a90d91">U:</span> <span style="color:#a90d91">ClassTag</span><span style="color:#000">](</span><span style="color:#000">f</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">T</span> <span style="color:#000">=&gt;</span> <span style="color:#000">U</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">U</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">withScope</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">cleanF</span> <span style="color:#a90d91">=</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">clean</span><span style="color:#000">(</span><span style="color:#000">f</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">new</span> <span style="color:#3f6e75">MapPartitionsRDD</span><span style="color:#000">[</span><span style="color:#a90d91">U</span>, <span style="color:#a90d91">T</span><span style="color:#000">](</span><span style="color:#a90d91">this</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#a90d91">_</span><span style="color:#000">,</span> <span style="color:#a90d91">_</span><span style="color:#000">,</span> <span style="color:#000">iter</span><span style="color:#000">)</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">iter</span><span style="color:#000">.</span><span style="color:#000">map</span><span style="color:#000">(</span><span style="color:#000">cleanF</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><ul>
+<li><code>colect</code> 是 Actions 中的函数之一，其功能是将 RDD 各分区元素收集至 <code>driver</code>。由 <code>sc.runJob</code> 将计算任务提交并真正执行。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">collect</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">withScope</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">results</span> <span style="color:#a90d91">=</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">runJob</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">iter</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">])</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">iter</span><span style="color:#000">.</span><span style="color:#000">toArray</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">Array</span><span style="color:#000">.</span><span style="color:#000">concat</span><span style="color:#000">(</span><span style="color:#000">results</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">_</span><span style="color:#a90d91">*</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="parallel">Parallel</h3>
+<p>RDD 描述了数据的存在状态，通过 <code>Transformations</code> 算子实现状态之间的转换，构建数据的计算图。RDD 将数据划分为多个分区 (Partition)，分区是进行独立并行计算的基本单位，并通过依赖 (Dependency) 描述分区之间的数据依赖关系。</p>
+<img src="spark.assert/1276b9c6-292b-4184-9693-2733be76bdfc.png" alt="1276b9c6-292b-4184-9693-2733be76bdfc" style="width: 80%; display: block; margin: auto;" />
+<p>RDD 通过 <code>getPartitions</code> 与 <code>getDependencies</code> 方法描述如何获取分区与依赖，分区与依赖是构建 RDD 计算流的基础。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">getPartitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Partition</span><span style="color:#000">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">getDependencies</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">Dependency</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#000">deps</span>
+</span></span></code></pre></div><blockquote>
+<p>📌 <code>getPartitions</code> 与 <code>getDependencies</code> 是子类需要重写的方法，外部调用 API 是 <code>partitions</code> 与 <code>dependencies</code>。</p>
+</blockquote>
+<p>RDD <code>compute</code> 方法是执行计算流的入口，<code>split</code> 参数描述了当前 RDD 需要计算的分区，<code>context</code> 是计算任务携带的上下文。<code>compute</code> 所构建的计算模式是根据 <code>split</code> 分区与 RDD 之间的依赖关系进行的反向计算。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">compute</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span>
+</span></span></code></pre></div><h4 id="partition">Partition</h4>
+<p>To-Do</p>
+<h4 id="dependency">Dependency</h4>
+<blockquote>
+<p>We found it both sufficient and useful to classify dependencies into two types: <em>narrow</em> dependencies, where each partition of the parent RDD is used by at most one partistion of the child RDD, <em>wide</em> dependencies, where multiple child partitions may depend on it. For example, <em>map</em> leads to a narrow dependency, while <em>join</em> leads to to wide dependencies (unless the parents are hash-partitioned).<sup id="fnref2:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<img src="spark.assert/e44e3985-f2a9-4c68-a656-966fe4dc4f6a.png" style="width: 80%; display: block; margin: auto;">
+</blockquote>
+<p>依赖分为两类基本依赖，即 <code>narrow dependencies</code> 和 <code>wide dependencies</code>。</p>
+<h3 id="distribution">Distribution</h3>
+<p>RDD 之间构成的计算图，描述了数据之间的流转关系，分区为并行计算描述了数据的划分方式，依赖则指明分区之间存在的数据依赖关系。问题在于，Spark 如何基于 RDD 描述构建分布式计算？</p>
+<p>📌 Spark 如何基于 RDD 描述构建分布式计算？</p>
+<blockquote>
+<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwjW0_KfgbyEAxXqbmwGHUQHDmoQFnoECBYQAQ&amp;url=https%3A%2F%2Fzh.wikipedia.org%2Fzh-hans%2F%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97&amp;usg=AOvVaw2Mcl2LiIuIBG6Bd4MsukjP&amp;opi=89978449">分布式计算 - Wikipedia</a></p>
+<p>把需要进行大量计算的工程数据分割成小块，由多台<a href="https://zh.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E8%A8%88%E7%AE%97%E6%A9%9F">计算机</a>分别计算，再上传运算结果后，将结果统一合并得出数据结论的科学。</p>
+</blockquote>
+<p>Wikipedia 对分布式计算的描述包括两小点，一是将计算数据分割成小块，二是将数据交由多台计算机分别计算与汇总过程，<a href="#parallel">Parallel</a> 小节说明了 RDD 分区划分概念，本节 <a href="#distribution">Distribution</a> 将说明 RDD 分区调度与计算的过程。</p>
+<p>实际上，Spark 计算节点以 <code>Task</code> 为最小基本单位，按线程级别执行并行计算。RDD 所构成的计算图经过切分得到计算的最小基本单位 <code>Task</code>。</p>
+<blockquote>
+<p>Whenever a user runs an action (<em>e.g., count</em> or <em>save</em>) on an RDD, the scheduler examines that RDD’s lineage graph to build a DAG of <em>stages</em> to execute, as illustrated in Figure 5. Each stage contains as many pipelined transformations with narrow dependencies as possible. The boundaries of the stages are the shuffle operations required for wide dependencies, or any already computed partitions that can short-circuit the computation of a parent RDD. The scheduler then launches tasks to compute missing partitions from each stage until it has computed the target RDD.<sup id="fnref3:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>Job-Stage-Task 示意图，</p>
+<img src="spark.assert/5e08a822-497c-4aa6-8149-b5a741dae5a9.png" alt="5e08a822-497c-4aa6-8149-b5a741dae5a9" style="width: 80%; display: block; margin: auto;" />
+</blockquote>
+<p><strong>Job</strong> 是对由 RDD 构成的计算图进行计算的任务单位，Spark <code>DAGScheduler</code> 负责根据 Job 中的数据依赖关系，主要是  wide-dependency 划分为多个 Stage (wide-dependency 处下游 RDD 中的分区计算依赖于多个上游 RDD 的分区结果，即计算不可连续构成 Pipeline)。</p>
+<p><strong>Stage</strong> 包括两种类型 Stage，分别是 <code>ResultStage</code> 与 <code>ShuffleMapStage</code>，前者可以视作是 final Stage，即最后的输出结果的 RDD 及其 narrow-dependency 的 parents RDD 所构成的 Stage；后者即与 final Stage 之间存在 wide-dependency 的上游 Stage。经过 wide-dependency 划分后，<code>ResultStage</code> 与 <code>ShuffleMapStage</code> 内部只存在 narrow-dependency。</p>
+<p><strong>Task</strong> 是对由 Stage 内部依赖约束、相同分区所形成的计算链进行计算的任务单位，Task 是最小的任务单位，Task 经调度单元 (Scheduler) 转发至执行单元 (Executor)，每个 Task 由单独的线程进行计算。</p>
+<img src="spark.assert/e59f57ad-3e99-49aa-8556-33d03868b52a.png" alt="e59f57ad-3e99-49aa-8556-33d03868b52a" style="width: 80%; display: block; margin: auto;" />
+<p><code>DAGScheduler</code> 从 RDD 构成的计算图，经过 Job、Stage、Task 的细化拆分后，最后将需要进行计算的 Task 提交至 <code>TaskScheduler</code>，而后者将跟踪这些 Task 以及空闲的计算节点，按调度策略将 Task 分发至各计算节点，其中一种调度策略是，将空闲的节点先进行混淆，再依次分发待计算的任务到各节点。</p>
+<h4 id="scheduler">Scheduler</h4>
+<p>To-Do</p>
+<h3 id="how-spark-runs-a-job">How Spark runs a Job?</h3>
+<p>To-Do</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// getShuffleDependenciesAndResourceProfiles
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">while</span> <span style="color:#000">(</span><span style="color:#000">waitingForVisit</span><span style="color:#000">.</span><span style="color:#000">nonEmpty</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">toVisit</span> <span style="color:#a90d91">=</span> <span style="color:#000">waitingForVisit</span><span style="color:#000">.</span><span style="color:#000">remove</span><span style="color:#000">(</span><span style="color:#1c01ce">0</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">visited</span><span style="color:#000">(</span><span style="color:#000">toVisit</span><span style="color:#000">))</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">visited</span> <span style="color:#000">+=</span> <span style="color:#000">toVisit</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">toVisit</span><span style="color:#000">.</span><span style="color:#000">getResourceProfile</span><span style="color:#000">()).</span><span style="color:#000">foreach</span><span style="color:#000">(</span><span style="color:#000">resourceProfiles</span> <span style="color:#000">+=</span> <span style="color:#a90d91">_</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">toVisit</span><span style="color:#000">.</span><span style="color:#000">dependencies</span><span style="color:#000">.</span><span style="color:#000">foreach</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">shuffleDep</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ShuffleDependency</span><span style="color:#000">[</span><span style="color:#a90d91">_</span>, <span style="color:#a90d91">_</span>, <span style="color:#a90d91">_</span><span style="color:#000">]</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">parents</span> <span style="color:#000">+=</span> <span style="color:#000">shuffleDep</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">dependency</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">waitingForVisit</span><span style="color:#000">.</span><span style="color:#000">prepend</span><span style="color:#000">(</span><span style="color:#000">dependency</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="spark.assert/resilient_distributed_datasets_a_fault_tolerant_abstraction_for_in_memory_cluster_computing.pdf">resilient_distributed_datasets_a_fault_tolerant_abstraction_for_in_memory_cluster_computing.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'big_data\/spark.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'big_data\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

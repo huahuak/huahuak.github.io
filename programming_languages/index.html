@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Programming_languages | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/programming_languages/">Programming_languages</a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents"></nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+<h1 class="center">Programming_languages</h1>
+
+<div class="card-container">
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/programming_languages/algorithm/algorithm/">ALGORITHM </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#two-sum">Two Sum</a></li>
+    <li><a href="#add-two-sum">Add Two Sum</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/programming_languages/c&#43;&#43;/c&#43;&#43;/">C&#43;&#43; </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overload">Overload</a></li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/programming_languages/golang/golang/">GOLANG </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ref">Ref</a></li>
+    <li><a href="#todo">TODO</a></li>
+    <li><a href="#语法基础">语法基础</a>
+      <ul>
+        <li><a href="#for--range">for &amp; range</a></li>
+        <li><a href="#select">select</a></li>
+        <li><a href="#defer">defer</a></li>
+        <li><a href="#panic--recover">panic &amp; recover</a></li>
+        <li><a href="#make--new">make &amp; new</a></li>
+      </ul>
+    </li>
+    <li><a href="#面向对象编程">面向对象编程</a>
+      <ul>
+        <li><a href="#interface--struct">interface &amp; struct</a></li>
+        <li><a href="#反射">反射</a></li>
+      </ul>
+    </li>
+    <li><a href="#标准容器">标准容器</a>
+      <ul>
+        <li><a href="#数组">数组</a></li>
+        <li><a href="#slice">slice</a></li>
+        <li><a href="#map">map</a></li>
+        <li><a href="#list">List</a></li>
+        <li><a href="#ring">Ring</a></li>
+        <li><a href="#heap">Heap</a></li>
+      </ul>
+    </li>
+    <li><a href="#并发编程">并发编程</a>
+      <ul>
+        <li><a href="#channel">Channel</a></li>
+        <li><a href="#go-sync">Go Sync</a></li>
+        <li><a href="#pool">Pool</a></li>
+        <li><a href="#mutex--rwmutex">Mutex &amp; RWMutex</a></li>
+        <li><a href="#cond">Cond</a></li>
+        <li><a href="#once">Once</a></li>
+        <li><a href="#waitgroup">WaitGroup</a></li>
+        <li><a href="#map-1">Map</a></li>
+        <li><a href="#context--定时器">Context &amp; 定时器</a></li>
+        <li><a href="#context">Context</a></li>
+        <li><a href="#timer">Timer</a></li>
+      </ul>
+    </li>
+    <li><a href="#go内部实现机制">Go内部实现机制</a>
+      <ul>
+        <li><a href="#gmp-调度器">GMP 调度器</a></li>
+        <li><a href="#网络轮询器">网络轮询器</a></li>
+        <li><a href="#系统监控">系统监控</a></li>
+        <li><a href="#内存分配器">内存分配器</a></li>
+        <li><a href="#垃圾收集器">垃圾收集器</a></li>
+        <li><a href="#gc-算法">GC 算法</a></li>
+        <li><a href="#栈内存管理">栈内存管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#标准库">标准库</a>
+      <ul>
+        <li><a href="#go-container">Go container</a></li>
+        <li><a href="#list-1">List</a></li>
+        <li><a href="#ring-1">Ring</a></li>
+        <li><a href="#heap-1">Heap</a></li>
+        <li><a href="#nethttp">net/http</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用库">常用库</a>
+      <ul>
+        <li><a href="#panjf2000ants">panjf2000/ants</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+</div>
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = ''
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = ''
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

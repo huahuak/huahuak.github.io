@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/research/">Researches</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/research/ppml/privacy_perserving_machine_learning/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#paper">Paper</a>
+      <ul>
+        <li><a href="#spf">SPF</a></li>
+        <li><a href="#soter">SOTER</a></li>
+        <li><a href="#slalom">SLALOM</a></li>
+        <li><a href="#delphi">Delphi</a></li>
+      </ul>
+    </li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#baseline">Baseline</a></li>
+    <li><a href="#homomorphic-encryption">Homomorphic Encryption</a></li>
+    <li><a href="#verifiable-execution">Verifiable Execution</a></li>
+    <li><a href="#quantization">Quantization</a></li>
+    <li><a href="#slide">Slide</a></li>
+    <li><a href="#experiment">Experiment</a></li>
+    <li><a href="#related-paper">Related Paper</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="privacy-perserving-machine-learning">Privacy-Perserving Machine Learning</h1>
+<h2 id="paper">Paper</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="PPML/icassp_2024_a_fast_performant_secure_distributed_training_framework_for_llm.pdf">A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM</a></th>
+<th style="text-align:right">ICASSP 2024</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract:</strong> The distributed (federated) LLM is an important method for co-training the domain-specific LLM using siloed data. How- ever, maliciously stealing model parameters and data from the server or client side has become an urgent problem to be solved. In this paper, we propose a secure distributed LLM based on model slicing. In this case, we deploy the Trusted Execution Environment (TEE) on both the client and server side, and <font style="background-color: yellow;">put the fine-tuned structure (LoRA or embedding of P-tuning v2) into the TEE.</font> Then, secure communication is executed in the TEE and general environments through lightweight encryption. In order to further reduce the equipment cost as well as increase the model performance and accuracy, we propose a split fine-tuning scheme. In particular, we split the LLM by layers and place the latter layers in a server-side TEE (the client does not need a TEE). <font style="background-color: yellow;">We then combine the proposed Sparsification Parameter Fine-tuning (SPF) with the LoRA part to improve the accuracy of the downstream task. </font>Numerous experiments have shown that our method guarantees accuracy while maintaining security. <a href="#spf">link</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf">ShadowNet: A Secure and Efficient On-device Model Inference System for Convolutional Neural Networks</a></th>
+<th style="text-align:right"><em>SP 2023</em></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="PPML/atc22_soter_guarding_black_box_inference_for_general_neural_networks_at_the_edge.pdf">Soter: Guarding Black-box Inference for General Neural Networks at the Edge</a></th>
+<th style="text-align:right"><em>ATC 2022</em></th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract:</strong> The prosperity of AI and edge computing has pushed more and more well-trained DNN models to be deployed on third- party edge devices to compose mission-critical applications. This necessitates protecting model confidentiality at untrusted devices, and using a co-located accelerator (e.g., GPU) to speed up model inference locally. Recently, the community has sought to improve the security with CPU trusted execu- tion environments (TEE). However, existing solutions either run an entire model in TEE, suffering from extremely high inference latency, or take a partition-based approach to hand- craft partial model via parameter obfuscation techniques to run on an untrusted GPU, achieving lower inference latency at the expense of both the integrity of partitioned computations outside TEE and accuracy of obfuscated parameters.</p>
+<p>We propose SOTER, the first system that can achieve model confidentiality, integrity, low inference latency and high accuracy in the partition-based approach. Our key observation is that there is often an <em>associativity</em> property among many inference operators in DNN models. Therefore, SOTER automatically transforms a major fraction of associative operators into <em>parameter-morphed</em>, thus <em>confidentiality-preserved</em> op- erators to execute on untrusted GPU, and fully restores the execution results to accurate results with associativity in TEE. Based on these steps, SOTER further designs an <em>oblivious fingerprinting</em> technique to safely detect integrity breaches of morphed operators outside TEE to ensure correct executions of inferences. Experimental results on six prevalent models in the three most popular categories show that, even with stronger model protection, <font style="background-color: yellow;">SOTER achieves comparable performance with partition-based baselines while retaining the same high accuracy as insecure inference.</font> <a href="#soter">link</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf">Goten: GPU-Outsourcing Trusted Execution of Neural Network Training</a></th>
+<th style="text-align:right"><em>AAAI 2020</em></th>
+</tr>
+</thead>
+</table>
+<p>Goten is based on the work of SLALOM</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf">SLALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</a></th>
+<th style="text-align:right"><em>ICLR 2019</em></th>
+</tr>
+</thead>
+</table>
+<p>Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch computation) and a trusted execution environment (TEE) (for minimizing the use of cryptography). <a href="#slalom">link</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="delphi_a_cryptographic_inference_service_for_neural_networks.pdf">Delphi: A Cryptographic Inference Service for Neural Networks</a></th>
+<th style="text-align:right"><em>Secur. Symp 2019</em></th>
+</tr>
+</thead>
+</table>
+<p>Delphi is based on Gazelle, using homomorphic encryption, grabled circuits, and secret shares to achieve client and server privacy protection in neural network inference. <a href="#delphi">link</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="GPUTEE/osdi18_graviton_trusted_execution_environments_on_gpus.pdf">Graviton: Trusted Execution Environments on GPUs</a></th>
+<th style="text-align:right"><em>OSDI 2020</em></th>
+</tr>
+</thead>
+</table>
+<h3 id="spf">SPF</h3>
+<img src="ppml.assets/Screenshot%202024-03-20%20at%2021.32.19.png" alt="Screenshot 2024-03-20 at 21.32.19" style="zoom:50%;" />
+<h3 id="soter">SOTER</h3>
+<img src="ppml.assets/Screenshot%202024-03-20%20at%2020.43.42-0938664.png" alt="Screenshot 2024-03-20 at 20.43.42" style="zoom: 50%;" />
+<h3 id="slalom">SLALOM</h3>
+<p>SlALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</p>
+<h4 id="introduction">Introduction</h4>
+<p><strong>Challenge:</strong> A specific challenge they raised is that of appropriately splitting ML computations between trusted and untrusted components, to increase efficiency as well as security by minimizing the Trusted Computing Base.</p>
+<p><strong>Solution:</strong> This paper explores a novel approach to this challenge, wherein a Deep Neural Network (DNN) execution is <em>partially outsourced from a TEE to a co-located, untrusted but faster device</em>.</p>
+<p><strong>How to check integrity of outsource result?</strong></p>
+<p>Freivalds&rsquo; algorithm is a probabilistic randoized algorithm used to verify matrix multiplication.</p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Freivalds'_algorithm">Freivalds&rsquo; algorithm - Wikipedia</a></p>
+<p><b>Freivalds' algorithm</b> (named after <a href="/wiki/R%C5%ABsi%C5%86%C5%A1_M%C4%81rti%C5%86%C5%A1_Freivalds" title="Rūsiņš Mārtiņš Freivalds">Rūsiņš Mārtiņš Freivalds</a>) is a probabilistic <a href="/wiki/Randomized_algorithm" title="Randomized algorithm">randomized algorithm</a> used to verify <a href="/wiki/Matrix_multiplication" title="Matrix multiplication">matrix multiplication</a>. Given three <i>n</i>&nbsp;×&nbsp;<i>n</i> <a href="/wiki/Matrix_(mathematics)" title="Matrix (mathematics)">matrices</a> <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle A}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>A</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle A}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7daff47fa58cdfd29dc333def748ff5fa4c923e3" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.743ex; height:2.176ex;" alt="{\displaystyle A}"></span>, <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle B}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>B</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle B}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/47136aad860d145f75f3eed3022df827cee94d7a" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.764ex; height:2.176ex;" alt="{\displaystyle B}"></span>, and <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle C}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>C</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle C}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4fc55753007cd3c18576f7933f6f089196732029" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.766ex; height:2.176ex;" alt="{\displaystyle C}"></span>, a general problem is to verify whether <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle A\times B=C}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>A</mi>
+   <mo>×<!-- × --></mo>
+   <mi>B</mi>
+   <mo>=</mo>
+   <mi>C</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle A\times B=C}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/6cfec2929c0c42a7dee59545916c8ea52a98a38b" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:11.212ex; height:2.176ex;" alt="{\displaystyle A\times B=C}"></span>. A naïve <a href="/wiki/Algorithm" title="Algorithm">algorithm</a> would compute the product <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle A\times B}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>A</mi>
+   <mo>×<!-- × --></mo>
+   <mi>B</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle A\times B}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/65f31ae45b0098f06b5d22c38d317eb097a88fa9" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:6.348ex; height:2.176ex;" alt="{\displaystyle A\times B}"></span> explicitly and compare term by term whether this product equals <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle C}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>C</mi>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle C}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4fc55753007cd3c18576f7933f6f089196732029" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.766ex; height:2.176ex;" alt="{\displaystyle C}"></span>. However, the <a href="/wiki/Computational_complexity_of_matrix_multiplication" title="Computational complexity of matrix multiplication">best known matrix multiplication algorithm</a> runs in <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle O(n^{2.3729})}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>O</mi>
+   <mo stretchy="false">(</mo>
+   <msup>
+     <mi>n</mi>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mn>2.3729</mn>
+     </mrow>
+   </msup>
+   <mo stretchy="false">)</mo>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle O(n^{2.3729})}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d32afead7478922e250a51e8629d2e5c3f725042" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:9.777ex; height:3.176ex;" alt="{\displaystyle O(n^{2.3729})}"></span> time.<sup id="cite_ref-williams_1-0" class="reference"><a href="#cite_note-williams-1">[1]</a></sup> Freivalds' algorithm utilizes <a href="/wiki/Randomization" title="Randomization">randomization</a> in order to reduce this time bound to <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle O(n^{2})}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>O</mi>
+   <mo stretchy="false">(</mo>
+   <msup>
+     <mi>n</mi>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mn>2</mn>
+     </mrow>
+   </msup>
+   <mo stretchy="false">)</mo>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle O(n^{2})}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/6cd9594a16cb898b8f2a2dff9227a385ec183392" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:6.032ex; height:3.176ex;" alt="{\displaystyle O(n^{2})}"></span><sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>
+<a href="/wiki/With_high_probability" title="With high probability">with high probability</a>. In <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle O(kn^{2})}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <mi>O</mi>
+   <mo stretchy="false">(</mo>
+   <mi>k</mi>
+   <msup>
+     <mi>n</mi>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mn>2</mn>
+     </mrow>
+   </msup>
+   <mo stretchy="false">)</mo>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle O(kn^{2})}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/e38360670c88999fd738d8ddbe8de9a0518b80ee" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:7.243ex; height:3.176ex;" alt="{\displaystyle O(kn^{2})}"></span> time the algorithm can verify a matrix product with probability of failure less than <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle 2^{-k}}">
+<semantics>
+<mrow class="MJX-TeXAtom-ORD">
+ <mstyle displaystyle="true" scriptlevel="0">
+   <msup>
+     <mn>2</mn>
+     <mrow class="MJX-TeXAtom-ORD">
+       <mo>−<!-- − --></mo>
+       <mi>k</mi>
+     </mrow>
+   </msup>
+ </mstyle>
+</mrow>
+<annotation encoding="application/x-tex">{\displaystyle 2^{-k}}</annotation>
+</semantics>
+</math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d5ba5275e798107d7738afeb76e2bdb91cd37e0f" class="mwe-math-fallback-image-inline mw-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:3.53ex; height:2.676ex;" alt="{\displaystyle 2^{-k}}"></span>.
+</p>
+</blockquote>
+<p><a href="slalom/NIPS-2017-safetynets-verifiable-execution-of-deep-neural-networks-on-an-untrusted-cloud-Paper.pdf">Safetynets</a> is a framework that enables an untrusted server (the cloud) to provide a client with a short mathematical proof of the correctness of inference tasks that they perform on behalf of the client.</p>
+<h4 id="solution">Solution</h4>
+<p><strong>Privacy</strong>, $x$ is input, $r$ is random vector, $f$ is linear function. pre-computes $u=f(r)$, then TEE send $Enc(x)=x+r$ to unstrusted part, untrusted part then compute $f(Enc(x))$, TEE get result by $f(x)=f(x+r)-f(r)=f(Enc(x))-u$.</p>
+<h4 id="discussion">Discussion</h4>
+<ol>
+<li>
+<p>Communication in Distributed System.</p>
+<p>Slalom say,</p>
+<blockquote>
+<p>In our setting, the TEE is <em>co-located</em> with the server’s faster untrusted processors, thus widening the design space to <em>interactive</em> outsourcing protocols with high communication but better efficiency.</p>
+</blockquote>
+<p>so the overhead of communication in distributed system is not under consideration.</p>
+<p>Slalom say,</p>
+<blockquote>
+<p>Using Freivalds’ algorithm and symmetric encryption for each linear layer in a DNN incurs high interaction and communication between the TEE and untrusted co-processor (e.g., over 50MB per inference for VGG16, see Table 3). This would be prohibitive if they were not co-located.</p>
+</blockquote>
+</li>
+<li></li>
+</ol>
+<h3 id="delphi">Delphi</h3>
+<p>Delphi: A Cryptographic Inference Service for Neural Networks</p>
+<p>Gazelle using linearly-homomorphic encryption to compute linear layer, using grabled circuit to compute non-linear layer.</p>
+<p>Delphi using preprocess and secret shares to imporve LHE performance, using using quadratic approximations to imporve the performance of grabled circuits, moreover, delphi design a planner to find appropriate non-linear layer to replace with quadratic approximations.</p>
+<blockquote>
+<p>📌 Attacks</p>
+<p>Indeed, such attacks have been successfully carried out even against systems that “perfectly” hide the model parameters by requiring the client to upload its input to the server [Fre+14; Ate+15; Fre+15; Wu+16b; Tra+16].</p>
+</blockquote>
+<p><strong>workflow</strong>: First, model provider optimize model via planner. Second, client and provider run the pre-processing phase for this model. Third, they run the online inference phase to get result of nerual network.</p>
+<h4 id="solution-1">Solution</h4>
+<p>The <strong>linear layer</strong> involves the following steps: Given an input $ x \in \mathbb{R}^n $ (known only to the client), random vectors $ r_i \in \mathbb{R}^n $ and $ s_i \in \mathbb{R}^n $ are generated by the client and the server, respectively. The client sends $ \text{HE}(r_i) $, $ x_i - r_i $ to the server using homomorphic encryption. The model $ M $ is known <code>only</code> to the server. The server computes $ M_i r_i - s_i $ and $ M_i(x_i - r_i) + s_i $ using homomorphic encryption, then sends the results to the client. The client obtains $ M_i x_i $ through additive secret sharing.</p>
+<hr>
+<h2 id="overview">Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Pros.</th>
+<th>Cons.</th>
+<th>Related Research</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confidential Computing</td>
+<td>Easy to use, with low overhead costs.</td>
+<td>1) Only CPU-based trusted hardware is publicly available. <br />2) Communication between the trusted world and the normal world is costly.</td>
+<td>1) Outsource Computing (e.g. SLALOM/ShadowNet)<br />2) GPU-base trusted hardware architecture. (e.g. Graviton)<br />3) Criticality-aware smart encryption scheme<br />4) Outsource Computing based on fine tunning.</td>
+</tr>
+<tr>
+<td>Federated Learning</td>
+<td>Private data does not need to be shared with each other, only model weights should be shared.</td>
+<td>The model&rsquo;s weight might leak private information.</td>
+<td></td>
+</tr>
+<tr>
+<td>Homomorphic Encryption</td>
+<td></td>
+<td>with high overhead costs.</td>
+<td></td>
+</tr>
+<tr>
+<td>Differential Privacy</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Federated Learning</p>
+<blockquote>
+<p><a href="PPML/federated_machine_learning_concept_and_applications.pdf">Federated Machine Learning: Concept and Applications</a></p>
+<p>Today’s AI still faces two major challenges. One is that in most industries, data exists in the form of isolated islands. The other is the strengthening of data privacy and security. We propose a possible solution to these challenges: secure federated learning. Beyond the federated learning framework first proposed by Google in 2016, <font style="background-color: yellow;">we introduce a comprehensive secure federated learning framework, which includes horizontal federated learning, vertical federated learning and federated transfer learning.</font> We provide definitions, architectures and applications for the federated learning framework, and provide a comprehensive survey of existing works on this subject. In addition, we propose building data networks among organizations based on federated mechanisms as an effective solution to allow knowledge to be shared without compromising user privacy.</p>
+</blockquote>
+</li>
+<li>
+<p>Confidential Computing</p>
+<p>Keep computing on memory private based on trusted hardware.</p>
+</li>
+<li>
+<p>Homomorphic Encryption</p>
+</li>
+<li>
+<p>Differential Privacy</p>
+</li>
+</ul>
+<h2 id="baseline">Baseline</h2>
+<p>Baseline run NN fully in TEE.</p>
+<ul>
+<li><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">oblivious_multi_party_machine_learning_on_trusted_processors.pdf</a></li>
+<li><a href="PPML/cvpr_2021_mlcapsule_guarded_offline_deployment_of_machine_learning_as_a_service.pdf">cvpr_2021_mlcapsule_guarded_offline_deployment_of_machine_learning_as_a_service.pdf</a></li>
+</ul>
+<h2 id="homomorphic-encryption">Homomorphic Encryption</h2>
+<blockquote>
+<p><a href="gazelle_a_low_latency_framework_for_secure_neural_network_inference.pdf">gazelle_a_low_latency_framework_for_secure_neural_network_inference.pdf</a></p>
+</blockquote>
+<h2 id="verifiable-execution">Verifiable Execution</h2>
+<p><a href="slalom/NIPS-2017-safetynets-verifiable-execution-of-deep-neural-networks-on-an-untrusted-cloud-Paper.pdf">Safetynets</a> is a framework that enables an untrusted server (the cloud) to provide a client with a short mathematical proof of the correctness of inference tasks that they perform on behalf of the client.</p>
+<h2 id="quantization">Quantization</h2>
+<h2 id="slide">Slide</h2>
+<p><a href="hw-aitee-1.pdf">hw-aitee-1.pdf</a></p>
+<p><a href="hw-aitee-2.pdf">hw-aitee-2.pdf</a></p>
+<p><a href="hw-aitee3-final.pdf">hw-aitee3-final.pdf</a></p>
+<h2 id="experiment">Experiment</h2>
+<p><a href="main.ipynb">main.ipynb</a>:</p>
+<h2 id="related-paper">Related Paper</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="PPML/sealing_neural_network_models_in_encrypted_deep_learning_accelerators.pdf">SEALing Neural Network Models in Encrypted Deep Learning Accelerators</a></th>
+<th><em>DAC 2021</em></th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract</strong>—Deep learning (DL) accelerators suffer from a new security problem, i.e., being vulnerable to physical access based attacks. An adversary can easily obtain the entire neural network (NN) model by physically snooping the memory bus that connects the accelerator chip with DRAM memory. Therefore, memory encryption becomes important for DL accelerators to improve their security. Nevertheless, we observe that traditional memory encryption techniques that have been efficiently used in CPU systems cause significant performance degradation when directly used in DL accelerators, due to the big bandwidth gap between the memory bus and the encryption engine. To address this problem, our paper proposes SEAL, a Secure and Efficient Accelerator scheme for deep Learning to enhance the performance of encrypted DL accelerators by improving the data access band- width. <font style="background-color: yellow;">Specifically, SEAL leverages a criticality-aware smart encryption scheme that identifies partial data having no impact on the security of NN models and allows them to bypass the encryption engine, thus reducing the amount of data to be encrypted without affecting security.</font> Extensive experimental results demonstrate that, compared with existing memory encryption techniques, SEAL achieves 1.34−1.4× overall performance improvement.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="PPML/iclr_2024_privacy_preserving_in_context_learning_for_large_language_models.pdf">PRIVACY-PRESERVING IN-CONTEXT LEARNING FOR LARGE LANGUAGE MODELS</a></th>
+<th>ICLR 2024</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract</strong>: In-context learning (ICL) is an important capability of Large Language Models (LLMs), enabling these models to dynamically adapt based on specific, in-context exemplars, thereby improving accuracy and relevance. However, LLM’s responses may leak the sensitive private information contained in in-context exemplars. To address this challenge, we propose Differentially Private In-context Learning (DP- ICL), a general paradigm for privatizing ICL tasks. The key idea for DP-ICL paradigm is generating differentially private responses through a noisy consensus among an ensemble of LLM’s responses based on disjoint exemplar sets. Based on the general paradigm of DP-ICL, we instantiate several techniques showing how to privatize ICL for text classification and language generation. We evaluate DP-ICL on four text classification benchmarks and two language generation tasks, and our empirical results show that DP-ICL achieves a strong utility-privacy tradeoff.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="related_paper/bicoptor_two_round_secure_three_party_non_linear_computation_without_preprocessing_for_privacy_preserving_machine_learning.pdf">Bicoptor: Two-round Secure Three-party Non-linear Computation without Preprocessing for Privacy-preserving Machine Learning</a></th>
+<th><em>2023 SP</em></th>
+</tr>
+</thead>
+</table>
+<p>3-MPC Protocl for non-linear function overhead.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="related_paper/a_berkeley_view_of_systems_challenges_for_ai.pdf">A Berkeley View of Systems Challenges for AI</a></th>
+<th></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">Oblivious Multi-Party Machine Learning on Trusted Processors</a></th>
+<th><em>SS 2016</em></th>
+</tr>
+</thead>
+</table>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'research\/ppml\/privacy_perserving_machine_learning.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'research\/ppml\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

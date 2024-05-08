@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/research/">Researches</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/research/ppml/task_for_ppml/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#confidential-computing">Confidential Computing</a>
+      <ul>
+        <li><a href="#privacy-preserving-machine-learning">Privacy-Preserving Machine Learning</a></li>
+        <li><a href="#trusted-execution-environment">Trusted Execution Environment</a></li>
+      </ul>
+    </li>
+    <li><a href="#machine-learning">Machine Learning</a>
+      <ul>
+        <li><a href="#transformer-based-generative-models">Transformer-Based Generative Models</a></li>
+        <li><a href="#distributed-traning-framework">Distributed Traning Framework</a></li>
+        <li><a href="#tensor-computing-engine">Tensor Computing Engine</a></li>
+      </ul>
+    </li>
+    <li><a href="#related">Related</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="task-for-privacy-preserving-machine-learning">Task For Privacy-Preserving Machine Learning</h1>
+<h2 id="confidential-computing">Confidential Computing</h2>
+<h3 id="privacy-preserving-machine-learning">Privacy-Preserving Machine Learning</h3>
+<p><strong>目标</strong>： <font color=green>学习隐私保护的机器学习相关论文方法 (重点)</font>。</p>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Comment</th>
+<th>Source</th>
+<th></th>
+<th>Todo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf">shadownet_a_secure_and_efficient_on_<br />device_model_inference_system_for_<br />convolutional_neural_networks.pdf</a></td>
+<td></td>
+<td>SP 2023</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf">goten_gpu_outsourcing_trusted_execution<br />_of_neural_network_training.pdf</a></td>
+<td></td>
+<td>AAAI 2021</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">oblivious_multi_party_machine_learning_on<br />_trusted_processors.pdf</a></td>
+<td></td>
+<td>2016 SS</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf">slalom_fast_verifiable_and_private_execution<br />_of_neural_networks_in_trusted_hardware.pdf</a></td>
+<td>Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch computation) and a trusted execution environment (TEE) (for minimizing the use of cryptography).</td>
+<td>ICLR 2019</td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><a href="delphi_a_cryptographic_inference_service_for_neural_networks.pdf">delphi_a_cryptographic_inference_service_<br />for_neural_networks.pdf</a></td>
+<td>Delphi is based on Gazelle and uses homomorphic encryption, grabled circuits, and secret shares to achieve client and server privacy protection in neural network.</td>
+<td>Secur. Symp 2019</td>
+<td></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>📌 挑战任务:</p>
+<p>🌟 调研隐私保护机器学习相关论文并分享，给出一份 Slide。</p>
+</blockquote>
+<h3 id="trusted-execution-environment">Trusted Execution Environment</h3>
+<p><strong>目标</strong>：了解可信执行环境 (TEE) 概念，掌握 TEE 编程模式，了解 Intel SGX/Arm Trustzone 设计思想异同，架构优缺点。</p>
+<p><a href="intel_sgx_explained.pdf">intel_sgx_explained.pdf</a></p>
+<p><a href="https://optee.readthedocs.io/en/latest/building/devices/qemu.html">OP-TEE</a> is a Trusted Execution Environment (TEE) designed as companion to a non-secure Linux kernel running on Arm.</p>
+<blockquote>
+<p>📌 挑战任务：</p>
+<p>🌟 实现一个 Intel SGX demo，给出对应代码实现，学习过程总结。</p>
+<p>🌟 实现一个 Arm Trustzone demo，给出对应代码实现，学习过程总结。</p>
+<p>🌟🌟 了解 SGX/Trustzone 架构异同及优缺点，给出一份 Slide。</p>
+</blockquote>
+<h2 id="machine-learning">Machine Learning</h2>
+<h3 id="transformer-based-generative-models">Transformer-Based Generative Models</h3>
+<p><strong>目标</strong>：了解基于 Transformer 架构的生成式大模型网络结构。</p>
+<p><a href="NIPS-2017-attention-is-all-you-need-Paper.pdf">NIPS-2017-attention-is-all-you-need-Paper.pdf</a></p>
+<p><a href="http://zh.d2l.ai/chapter_attention-mechanisms/index.html">d2l-attention-mechanisms</a></p>
+<blockquote>
+<p>📌 挑战任务：</p>
+<p>🌟 以 <a href="https://llama.meta.com/get-started">Llama2</a> 为代表，总结网络结构，计算过程，给出一份总结的 Slide。</p>
+<p>🌟🌟 在单机节点运行 Llama2，尝试测定网络中不同函数的 CPU/GPU 的计算负载，给出测定方法及结果的文档。</p>
+<p>🌟🌟🌟 尝试评估 Llama2 权重参数的重要性，给出评估方法及结果的文档。</p>
+</blockquote>
+<h3 id="distributed-traning-framework">Distributed Traning Framework</h3>
+<p><strong>目标</strong>：学习分布式训练框架，了解深度学习的分布式训练过程，了解分布式训练过程的瓶颈及一般优化方法。</p>
+<p><a href="Distributed-Machine-Learning/a_survey_on_distributed_machine_learning.pdf">a_survey_on_distributed_machine_learning.pdf</a></p>
+<p><a href="Distributed-Machine-Learning/gpipe_easy_scaling_with_micro_batch_pipeline_parallelism.pdf">gpipe_easy_scaling_with_micro_batch_pipeline_parallelism.pdf</a></p>
+<p><a href="Distributed-Machine-Learning/horovod_fast_and_easy_distributed_deep_learning_in_tensorflow.pdf">horovod_fast_and_easy_distributed_deep_learning_in_tensorflow.pdf</a></p>
+<blockquote>
+<p>📌 挑战任务：</p>
+<p>🌟 调研分布式训练相关论文，了解相关优化方法，给出一份 Slide。</p>
+<p>🌟🌟 学习分布式训练框架，掌握分布式训练框架的一般设计思想，代码组织结构，给出一份 Slide。</p>
+</blockquote>
+<h3 id="tensor-computing-engine">Tensor Computing Engine</h3>
+<p><strong>目标</strong>：学习张量计算引擎实现，以 C/C++/Rust 实现基本张量计算引擎。</p>
+<p><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.</p>
+<p><a href="https://github.com/pytorch/pytorch/tree/main/aten">Aten</a> is the implementation of Pytorch Tensor Computing Engine.</p>
+<p><a href="https://www.netlib.org/blas/">BLAS</a> (Basic Linear Algebra Subprograms) are routines that provide standard building blocks for performing basic vector and matrix operations.</p>
+<blockquote>
+<p>📌 挑战任务：</p>
+<p>🌟🌟 学习一种张量计算引擎，掌握张量计算引擎的一般设计思想，代码组织结构，给出一份 Slide。</p>
+<p>🌟🌟🌟 以 C/C++/Rust 编程语言尝试实现支持线性计算、激活函数、自动求导的张量计算引擎库。</p>
+</blockquote>
+<h2 id="related">Related</h2>
+<blockquote>
+<p>📌 挑战任务:</p>
+<p>🌟 了解联邦学习 (Federated Learning) 基本概念，并给出 Slide 分享。</p>
+<ul>
+<li><a href="https://github.com/FederatedAI/FATE/blob/master/doc/resources/README.md">FederatedAI</a></li>
+</ul>
+<p>🌟 了解安全多方计算 (Multi-Party Computation) 基本概念，并给出 Slide 分享。</p>
+<p>🌟 了解同态加密 (Homomorphic Encrpytion) 基本概念，并给出 Slide 分享。</p>
+<p>🌟 了解深度学习量化方法 (Quantization in Deep Learning) 基本概念及方法，并给出 Slide 分享。</p>
+</blockquote>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'research\/ppml\/task_for_ppml.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'research\/ppml\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

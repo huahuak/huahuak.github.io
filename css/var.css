@@ -1,0 +1,10 @@
+:root {
+  --header-height: 3em;
+  --footer-height: 40px;
+  --main-height: calc(100svh - var(--header-height));
+  --max-content-width: 768px;
+  --aside-percent: 256px calc(100svw - 256px);
+  /* --aside-percent: minmax(min-content, 256px) 1fr; */
+  --blue: rgb(36, 132, 193);
+  --gray: #dedede;
+}

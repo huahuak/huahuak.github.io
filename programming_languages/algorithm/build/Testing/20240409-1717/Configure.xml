@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Darwin-clang++"
+	BuildStamp="20240409-1717-Continuous"
+	Name="mba.local"
+	Generator="ctest-3.27.7"
+	CompilerName="/usr/bin/clang++"
+	CompilerVersion="15.0.0.15000309"
+	OSName="macOS"
+	Hostname="mba.local"
+	OSRelease="14.4.1"
+	OSVersion="23E224"
+	OSPlatform="arm64"
+	Is64Bits="1"
+	VendorString="IBM"
+	VendorID="IBM"
+	FamilyID="16777228"
+	ModelID="2"
+	ProcessorCacheSize="131072"
+	NumberOfLogicalCPU="8"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="0"
+	TotalPhysicalMemory="16384"
+	LogicalProcessorsPerPhysical="8"
+	ProcessorClockFrequency="0"
+	>
+	<Configure>
+		<StartDateTime>Apr 10 01:17 CST</StartDateTime>
+		<StartConfigureTime>1712683039</StartConfigureTime>
+		<ConfigureCommand>"/opt/homebrew/Cellar/cmake/3.27.7/bin/cmake" "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode"</ConfigureCommand>
+		<Log>-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/build
+</Log>
+		<ConfigureStatus>0</ConfigureStatus>
+		<EndDateTime>Apr 10 01:17 CST</EndDateTime>
+		<EndConfigureTime>1712683040</EndConfigureTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Configure>
+</Site>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/daily-note/">Daily-Notes</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/daily-note/2022-10-04/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#spark-并发模型">Spark 并发模型</a>
+      <ul>
+        <li><a href="#rdd">RDD</a></li>
+        <li><a href="#treenode">TreeNode</a></li>
+        <li><a href="#shuffle">Shuffle</a></li>
+        <li><a href="#sql-提交流程">SQL 提交流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#线性模型">线性模型</a>
+      <ul>
+        <li><a href="#1-前置知识">§1 前置知识</a></li>
+        <li><a href="#2-线性模型">§2 线性模型</a></li>
+        <li><a href="#3-逻辑回归">§3 逻辑回归</a></li>
+        <li><a href="#4-广义线性模型">§4 广义线性模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#字典树">字典树</a></li>
+    <li><a href="#拉格朗日乘子法">拉格朗日乘子法</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="daily-note-10-04">Daily-Note 10-04</h1>
+<h2 id="overview">OVERVIEW</h2>
+<ol>
+<li><strong>Spark 并发模型</strong>，Spark 以 Executor 进程为单元，在 task 上实现多线程并发模型。</li>
+<li><strong>线性模型</strong>，传统机器学习模型。</li>
+<li><strong>字典树</strong>，一种前缀树，可用于路由匹配、语法补全等场景。</li>
+<li><strong>拉格朗日乘子法</strong>，数学最优化问题中求解多元函数在约束条件下局部极值的方法。</li>
+</ol>
+<h2 id="spark-并发模型">Spark 并发模型</h2>
+<h3 id="rdd">RDD</h3>
+<p>RDD 是 Resilient Distrubuted Dataset，弹性分布式数据集，是 Spark 数据的基本组织方式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- RDD.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">final</span> <span style="color:#a90d91">def</span> <span style="color:#000">iterator</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">storageLevel</span> <span style="color:#000">!=</span> <span style="color:#3f6e75">StorageLevel</span><span style="color:#000">.</span><span style="color:#3f6e75">NONE</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">getOrCompute</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">computeOrReadCheckpoint</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">private</span><span style="color:#000">[</span><span style="color:#a90d91">spark</span><span style="color:#000">]</span> <span style="color:#a90d91">def</span> <span style="color:#000">computeOrReadCheckpoint</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">isCheckpointedAndMaterialized</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">firstParent</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">].</span><span style="color:#000">iterator</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">compute</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">compute</span><span style="color:#000">(</span><span style="color:#000">split</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span>
+</span></span></code></pre></div><p>调用 <em>iterator()</em> 方法将触发 RDD 的计算方法，<em>getOrCompute</em> 和 <em>computeOrReadCheckpoint</em> 方法实现了计算结果缓存的机制，其最终的计算方法落在 <em>compute</em> 方法，该方法由 RDD 的子类实现具体的计算方法。</p>
+<h3 id="treenode">TreeNode</h3>
+<blockquote>
+<p><a href="https://stackoverflow.com/questions/33062753/how-to-explain-treenode-type-restriction-and-self-type-in-sparks-treenode">How to explain TreeNode type restriction and self-type in Spark&rsquo;s TreeNode?</a></p>
+</blockquote>
+<p>TreeNode 是 Spark 组织计算流程的数据结构，其子类包括 Expression 和 QueryPlan，QueryPlan 实现有 LogicalPlan 和 SparkPlan，前者是逻辑图，后者是实际的物理执行图。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- SparkPlan.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">final</span> <span style="color:#a90d91">def</span> <span style="color:#000">execute</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">InternalRow</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">executeQuery</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">isCanonicalizedPlan</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#3f6e75">IllegalStateException</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;A canonicalized plan is not supposed to be executed.&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">doExecute</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">protected</span> <span style="color:#a90d91">def</span> <span style="color:#000">doExecute</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">InternalRow</span><span style="color:#000">]</span>
+</span></span></code></pre></div><p><em>execute()</em> 方法用于产生新的 RDD，其具体实现由各子类实现 <em>doExecute()</em> 方法。<em>FileSourceScanExec</em> 等 <em>doExecute()</em> 方法实现如何从原始的数据源读取和转换数据；<em>HashAggregateExec</em> 等 <em>doExecute()</em> 方法实现如何将来自上一个 RDD 数据转换到下一个数据的计算过程。</p>
+<p><em>doExecute()</em> 方法一般通过调用上一个 RDD 的 <em>mapPartitions()</em> 系方法，传入转换函数 <em>f: Iterator[T] =&gt; Iterator[U]</em>，从而构造新的 RDD，而 <em>f</em> 将在 RDD 的 <em>compute()</em> 方法中调用。</p>
+<p>这样最开始只需要构造一个 RDD，调用其 <em>Iterator()</em> 方法，<em>Iterator()</em> 方法调用具体的 <em>compute()</em> 方法，实现 RDD 的转换，最后生成目标的 RDD。</p>
+<h3 id="shuffle">Shuffle</h3>
+<blockquote>
+<p><a href="https://dataninjago.com/2022/01/29/spark-sql-query-engine-deep-dive-shuffleexchangeexec-unsafeshufflewriter/">Spark SQL Query Engine Deep Dive (16) – ShuffleExchangeExec &amp; UnsafeShuffleWriter</a></p>
+</blockquote>
+<p>Shuffle 的作用是重排 inputRDD 中 partions 的 record，将其映射到 outputRDD 指定的 partions 中。</p>
+<h3 id="sql-提交流程">SQL 提交流程</h3>
+<p><em>sql()</em> 方法会调用 <em>parsePlan()</em> 方法创建一个 <em>LogicalPlan</em>，返回有一个由 plan 构成的 Dataset。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- main.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">sql</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;select avg(age), max(age) from people&#34;</span><span style="color:#000">).</span><span style="color:#000">show</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// -- SparkSession.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">def</span> <span style="color:#000">sql</span><span style="color:#000">(</span><span style="color:#000">sqlText</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">String</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">DataFrame</span> <span style="color:#000">=</span> <span style="color:#000">withActive</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">tracker</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">new</span> <span style="color:#3f6e75">QueryPlanningTracker</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">plan</span> <span style="color:#a90d91">=</span> <span style="color:#000">tracker</span><span style="color:#000">.</span><span style="color:#000">measurePhase</span><span style="color:#000">(</span><span style="color:#3f6e75">QueryPlanningTracker</span><span style="color:#000">.</span><span style="color:#3f6e75">PARSING</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">sessionState</span><span style="color:#000">.</span><span style="color:#000">sqlParser</span><span style="color:#000">.</span><span style="color:#000">parsePlan</span><span style="color:#000">(</span><span style="color:#000">sqlText</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">Dataset</span><span style="color:#000">.</span><span style="color:#000">ofRows</span><span style="color:#000">(</span><span style="color:#000">self</span><span style="color:#000">,</span> <span style="color:#000">plan</span><span style="color:#000">,</span> <span style="color:#000">tracker</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>在 <em>sql()</em> 方法中不会直接执行 plan 进行计算，而是在 <em>show()</em> 方法调用，在实际需要结果的时候发起计算，其中 <em>show()</em> 方法最终会调用 <em>executeCollect()</em> 方法收集 plan 的执行结果。</p>
+<p><em>execute()</em> 方法主要用于递归地构建 RDD 的转换过程，描述 RDD 转换的计算方法。通过 <em>sc.runJob()</em> 来实际的提交运算任务。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- SparkPlan.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">def</span> <span style="color:#000">executeCollect</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">InternalRow</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">byteArrayRdd</span> <span style="color:#a90d91">=</span> <span style="color:#000">getByteArrayRdd</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">results</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">ArrayBuffer</span><span style="color:#000">[</span><span style="color:#a90d91">InternalRow</span><span style="color:#000">]()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">byteArrayRdd</span><span style="color:#000">.</span><span style="color:#000">collect</span><span style="color:#000">().</span><span style="color:#000">foreach</span> <span style="color:#000">{</span> <span style="color:#000">countAndBytes</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">decodeUnsafeRows</span><span style="color:#000">(</span><span style="color:#000">countAndBytes</span><span style="color:#000">.</span><span style="color:#000">_2</span><span style="color:#000">).</span><span style="color:#000">foreach</span><span style="color:#000">(</span><span style="color:#000">results</span><span style="color:#000">.+=)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">results</span><span style="color:#000">.</span><span style="color:#000">toArray</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">private</span> <span style="color:#a90d91">def</span> <span style="color:#000">getByteArrayRdd</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">n</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Int</span> <span style="color:#000">=</span> <span style="color:#000">-</span><span style="color:#1c01ce">1</span><span style="color:#000">,</span> <span style="color:#000">takeFromEnd</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Boolean</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">RDD</span><span style="color:#000">[(</span><span style="color:#a90d91">Long</span>, <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Byte</span><span style="color:#000">])]</span> <span style="color:#a90d91">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">execute</span><span style="color:#000">()</span> <span style="color:#177500">// execute() 方法会递归地构建 RDD，描述计算方法
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">.</span><span style="color:#000">mapPartitionsInternal</span> <span style="color:#000">{</span> <span style="color:#000">iter</span> <span style="color:#a90d91">=&gt;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">count</span> <span style="color:#a90d91">=</span> <span style="color:#1c01ce">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">collect</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#000">withScope</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// 在这里调用 sc.runJob 提交任务
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">results</span> <span style="color:#a90d91">=</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">runJob</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">iter</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">])</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">iter</span><span style="color:#000">.</span><span style="color:#000">toArray</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">Array</span><span style="color:#000">.</span><span style="color:#000">concat</span><span style="color:#000">(</span><span style="color:#000">results</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">_</span><span style="color:#a90d91">*</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p><em>sc.runJob()</em> 方法最终会调用 <em>dagScheduler.runJob()</em> 方法，而 <em>dagScheduler.runJob()</em> 方法将调用 <em>submitJob()</em> 方法将任务包装为 <em>JobSubmitted</em> (case class) 推送到 <em>eventProcessLoop</em> 中，由 <em>DAGSchedulerEventProcessLoop</em> 实现中的 <em>doOnReceive()</em> 方法进行处理。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">runJob</span><span style="color:#000">[</span><span style="color:#a90d91">T</span>, <span style="color:#a90d91">U</span><span style="color:#000">](</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">rdd</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">],</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">func</span><span style="color:#a90d91">:</span> <span style="color:#000">(</span><span style="color:#a90d91">TaskContext</span><span style="color:#000">,</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">])</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">U</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">partitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">Int</span><span style="color:#000">],</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">callSite</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">CallSite</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">resultHandler</span><span style="color:#a90d91">:</span> <span style="color:#000">(</span><span style="color:#a90d91">Int</span><span style="color:#000">,</span> <span style="color:#a90d91">U</span><span style="color:#000">)</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#3f6e75">Unit</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">properties</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Properties</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span>
+</span></span></code></pre></div><p>在 <em>doOnReceive()</em> 方法中，对 <em>JobSubmitted</em> match 调用 <em>handleJobSubmitted()</em> 方法进行处理。该方法主要构建了 finalStage 后调用 <em>submitStage()</em> 方法提交 stage。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">private</span><span style="color:#000">[</span><span style="color:#a90d91">scheduler</span><span style="color:#000">]</span> <span style="color:#a90d91">def</span> <span style="color:#000">handleJobSubmitted</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Int</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">finalRDD</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">],</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">func</span><span style="color:#a90d91">:</span> <span style="color:#000">(</span><span style="color:#a90d91">TaskContext</span><span style="color:#000">,</span> <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">])</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#a90d91">_</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">partitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Int</span><span style="color:#000">],</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">callSite</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">CallSite</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">listener</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">JobListener</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">properties</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Properties</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">var</span> <span style="color:#000">finalStage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ResultStage</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">try</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// New stage creation may throw an exception if, for example, jobs are run on a
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// HadoopRDD whose underlying HDFS files have been deleted.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">finalStage</span> <span style="color:#a90d91">=</span> <span style="color:#000">createResultStage</span><span style="color:#000">(</span><span style="color:#000">finalRDD</span><span style="color:#000">,</span> <span style="color:#000">func</span><span style="color:#000">,</span> <span style="color:#000">partitions</span><span style="color:#000">,</span> <span style="color:#000">jobId</span><span style="color:#000">,</span> <span style="color:#000">callSite</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Job submitted, clear internal data.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">barrierJobIdToNumTasksCheckFailures</span><span style="color:#000">.</span><span style="color:#000">remove</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">job</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">new</span> <span style="color:#3f6e75">ActiveJob</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">,</span> <span style="color:#000">finalStage</span><span style="color:#000">,</span> <span style="color:#000">callSite</span><span style="color:#000">,</span> <span style="color:#000">listener</span><span style="color:#000">,</span> <span style="color:#000">properties</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">clearCacheLocs</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span> <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">jobSubmissionTime</span> <span style="color:#a90d91">=</span> <span style="color:#000">clock</span><span style="color:#000">.</span><span style="color:#000">getTimeMillis</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">jobIdToActiveJob</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">)</span> <span style="color:#a90d91">=</span> <span style="color:#000">job</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">activeJobs</span> <span style="color:#000">+=</span> <span style="color:#000">job</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">finalStage</span><span style="color:#000">.</span><span style="color:#000">setActiveJob</span><span style="color:#000">(</span><span style="color:#000">job</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">stageIds</span> <span style="color:#a90d91">=</span> <span style="color:#000">jobIdToStageIds</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">).</span><span style="color:#000">toArray</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">stageInfos</span> <span style="color:#a90d91">=</span> <span style="color:#000">stageIds</span><span style="color:#000">.</span><span style="color:#000">flatMap</span><span style="color:#000">(</span><span style="color:#000">id</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#000">stageIdToStage</span><span style="color:#000">.</span><span style="color:#000">get</span><span style="color:#000">(</span><span style="color:#000">id</span><span style="color:#000">).</span><span style="color:#000">map</span><span style="color:#000">(</span><span style="color:#a90d91">_</span><span style="color:#000">.</span><span style="color:#000">latestInfo</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">listenerBus</span><span style="color:#000">.</span><span style="color:#000">post</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">SparkListenerJobStart</span><span style="color:#000">(</span><span style="color:#000">job</span><span style="color:#000">.</span><span style="color:#000">jobId</span><span style="color:#000">,</span> <span style="color:#000">jobSubmissionTime</span><span style="color:#000">,</span> <span style="color:#000">stageInfos</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#3f6e75">Utils</span><span style="color:#000">.</span><span style="color:#000">cloneProperties</span><span style="color:#000">(</span><span style="color:#000">properties</span><span style="color:#000">)))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">submitStage</span><span style="color:#000">(</span><span style="color:#000">finalStage</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>在 <em>submiteStage()</em> 方法中，<em>getMissingParentStages()</em> 方法依靠 <em>denpendencies</em> 分析当前 stage 依赖的 stage，递归地提交依赖的 stage，<em>submitMissingTasks</em> 完成所有的 stage 的 job 提交。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">private</span> <span style="color:#a90d91">def</span> <span style="color:#000">submitStage</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Stage</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">jobId</span> <span style="color:#a90d91">=</span> <span style="color:#000">activeJobForStage</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">.</span><span style="color:#000">isDefined</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">logDebug</span><span style="color:#000">(</span><span style="color:#c41a16">s&#34;submitStage(</span><span style="color:#c41a16">$stage</span><span style="color:#c41a16"> (name=</span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">name</span><span style="color:#c41a16">}</span><span style="color:#c41a16">;&#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#c41a16">s&#34;jobs=</span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">jobIds</span><span style="color:#000">.</span><span style="color:#000">toSeq</span><span style="color:#000">.</span><span style="color:#000">sorted</span><span style="color:#000">.</span><span style="color:#000">mkString</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;,&#34;</span><span style="color:#000">)</span><span style="color:#c41a16">}</span><span style="color:#c41a16">))&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">waitingStages</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">)</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#000">runningStages</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">)</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#000">failedStages</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">))</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">val</span> <span style="color:#000">missing</span> <span style="color:#a90d91">=</span> <span style="color:#000">getMissingParentStages</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">).</span><span style="color:#000">sortBy</span><span style="color:#000">(</span><span style="color:#a90d91">_</span><span style="color:#000">.</span><span style="color:#000">id</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">logDebug</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;missing: &#34;</span> <span style="color:#000">+</span> <span style="color:#000">missing</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">missing</span><span style="color:#000">.</span><span style="color:#000">isEmpty</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">logInfo</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;Submitting &#34;</span> <span style="color:#000">+</span> <span style="color:#000">stage</span> <span style="color:#000">+</span> <span style="color:#c41a16">&#34; (&#34;</span> <span style="color:#000">+</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span> <span style="color:#000">+</span> <span style="color:#c41a16">&#34;), which has no missing parents&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">submitMissingTasks</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">,</span> <span style="color:#000">jobId</span><span style="color:#000">.</span><span style="color:#000">get</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#000">parent</span> <span style="color:#a90d91">&lt;-</span> <span style="color:#000">missing</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">submitStage</span><span style="color:#000">(</span><span style="color:#000">parent</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">waitingStages</span> <span style="color:#000">+=</span> <span style="color:#000">stage</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">abortStage</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">,</span> <span style="color:#c41a16">&#34;No active job for stage &#34;</span> <span style="color:#000">+</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">id</span><span style="color:#000">,</span> <span style="color:#3f6e75">None</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p><em>submitMissingTasks()</em> 方法首先完成任务执行的预处理，包括任务的执行地址等，然后对任务进行序列化，根据 shuffle 和 result 阶段生成对应的 task，最后调用 <em>taskScheduler.submitTask()</em> 提交对应的任务，当当前阶段的任务完成后，标记对应任务完成，并继续提交等待队列的任务。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">private</span> <span style="color:#a90d91">def</span> <span style="color:#000">submitMissingTasks</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Stage</span><span style="color:#000">,</span> <span style="color:#000">jobId</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Int</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// TODO: Maybe we can keep the taskBinary in Stage to avoid serializing it multiple times.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// Broadcasted binary for the task, used to dispatch tasks to executors. Note that we broadcast
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// the serialized copy of the RDD and for each task we will deserialize it, which means each
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// task gets a different copy of the RDD. This provides stronger isolation between tasks that
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// might modify state of objects referenced in their closures. This is necessary in Hadoop
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// where the JobConf/Configuration object is not thread-safe.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">var</span> <span style="color:#000">taskBinary</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Broadcast</span><span style="color:#000">[</span><span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Byte</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">null</span> <span style="color:#177500">//  序列化 task
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">var</span> <span style="color:#000">partitions</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Partition</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">null</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">try</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// For ShuffleMapTask, serialize and broadcast (rdd, shuffleDep).
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// For ResultTask, serialize and broadcast (rdd, func).
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">var</span> <span style="color:#000">taskBinaryBytes</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Array</span><span style="color:#000">[</span><span style="color:#a90d91">Byte</span><span style="color:#000">]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">null</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// taskBinaryBytes and partitions are both effected by the checkpoint status. We need
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// this synchronization in case another concurrent job is checkpointing this RDD, so we get a
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// consistent view of both variables.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#3f6e75">RDDCheckpointData</span><span style="color:#000">.</span><span style="color:#000">synchronized</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">taskBinaryBytes</span> <span style="color:#a90d91">=</span> <span style="color:#000">stage</span> <span style="color:#a90d91">match</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">case</span> <span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ShuffleMapStage</span> <span style="color:#000">=&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#3f6e75">JavaUtils</span><span style="color:#000">.</span><span style="color:#000">bufferToArray</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">closureSerializer</span><span style="color:#000">.</span><span style="color:#000">serialize</span><span style="color:#000">((</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">shuffleDep</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">AnyRef</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">case</span> <span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ResultStage</span> <span style="color:#000">=&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#3f6e75">JavaUtils</span><span style="color:#000">.</span><span style="color:#000">bufferToArray</span><span style="color:#000">(</span><span style="color:#000">closureSerializer</span><span style="color:#000">.</span><span style="color:#000">serialize</span><span style="color:#000">((</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">func</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">AnyRef</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">partitions</span> <span style="color:#a90d91">=</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">.</span><span style="color:#000">partitions</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">taskBinaryBytes</span><span style="color:#000">.</span><span style="color:#000">length</span> <span style="color:#000">&gt;</span> <span style="color:#3f6e75">TaskSetManager</span><span style="color:#000">.</span><span style="color:#3f6e75">TASK_SIZE_TO_WARN_KIB</span> <span style="color:#000">*</span> <span style="color:#1c01ce">1024</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">logWarning</span><span style="color:#000">(</span><span style="color:#c41a16">s&#34;Broadcasting large task binary with size &#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">s&#34;</span><span style="color:#c41a16">${</span><span style="color:#3f6e75">Utils</span><span style="color:#000">.</span><span style="color:#000">bytesToString</span><span style="color:#000">(</span><span style="color:#000">taskBinaryBytes</span><span style="color:#000">.</span><span style="color:#000">length</span><span style="color:#000">)</span><span style="color:#c41a16">}</span><span style="color:#c41a16">&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">taskBinary</span> <span style="color:#a90d91">=</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">broadcast</span><span style="color:#000">(</span><span style="color:#000">taskBinaryBytes</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">tasks</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Seq</span><span style="color:#000">[</span><span style="color:#a90d91">Task</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">]]</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">try</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">val</span> <span style="color:#000">serializedTaskMetrics</span> <span style="color:#a90d91">=</span> <span style="color:#000">closureSerializer</span><span style="color:#000">.</span><span style="color:#000">serialize</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">latestInfo</span><span style="color:#000">.</span><span style="color:#000">taskMetrics</span><span style="color:#000">).</span><span style="color:#000">array</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">stage</span> <span style="color:#a90d91">match</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ShuffleMapStage</span> <span style="color:#000">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">pendingPartitions</span><span style="color:#000">.</span><span style="color:#000">clear</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">partitionsToCompute</span><span style="color:#000">.</span><span style="color:#000">map</span> <span style="color:#000">{</span> <span style="color:#000">id</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">val</span> <span style="color:#000">locs</span> <span style="color:#a90d91">=</span> <span style="color:#000">taskIdToLocations</span><span style="color:#000">(</span><span style="color:#000">id</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">val</span> <span style="color:#000">part</span> <span style="color:#a90d91">=</span> <span style="color:#000">partitions</span><span style="color:#000">(</span><span style="color:#000">id</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">pendingPartitions</span> <span style="color:#000">+=</span> <span style="color:#000">id</span>
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>          <span style="color:#177500">// 生成 ShuffleMapTask
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>          <span style="color:#a90d91">new</span> <span style="color:#3f6e75">ShuffleMapTask</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">id</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">latestInfo</span><span style="color:#000">.</span><span style="color:#000">attemptNumber</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">taskBinary</span><span style="color:#000">,</span> <span style="color:#000">part</span><span style="color:#000">,</span> <span style="color:#000">locs</span><span style="color:#000">,</span> <span style="color:#000">properties</span><span style="color:#000">,</span> <span style="color:#000">serializedTaskMetrics</span><span style="color:#000">,</span> <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">applicationId</span><span style="color:#000">),</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">applicationAttemptId</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">.</span><span style="color:#000">isBarrier</span><span style="color:#000">())</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ResultStage</span> <span style="color:#000">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">partitionsToCompute</span><span style="color:#000">.</span><span style="color:#000">map</span> <span style="color:#000">{</span> <span style="color:#000">id</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">val</span> <span style="color:#000">p</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Int</span> <span style="color:#000">=</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">partitions</span><span style="color:#000">(</span><span style="color:#000">id</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">val</span> <span style="color:#000">part</span> <span style="color:#a90d91">=</span> <span style="color:#000">partitions</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">val</span> <span style="color:#000">locs</span> <span style="color:#a90d91">=</span> <span style="color:#000">taskIdToLocations</span><span style="color:#000">(</span><span style="color:#000">id</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>          <span style="color:#177500">// 生成 ResultTask
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>          <span style="color:#a90d91">new</span> <span style="color:#3f6e75">ResultTask</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">id</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">latestInfo</span><span style="color:#000">.</span><span style="color:#000">attemptNumber</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">taskBinary</span><span style="color:#000">,</span> <span style="color:#000">part</span><span style="color:#000">,</span> <span style="color:#000">locs</span><span style="color:#000">,</span> <span style="color:#000">id</span><span style="color:#000">,</span> <span style="color:#000">properties</span><span style="color:#000">,</span> <span style="color:#000">serializedTaskMetrics</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">jobId</span><span style="color:#000">),</span> <span style="color:#3f6e75">Option</span><span style="color:#000">(</span><span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">applicationId</span><span style="color:#000">),</span> <span style="color:#000">sc</span><span style="color:#000">.</span><span style="color:#000">applicationAttemptId</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#000">.</span><span style="color:#000">isBarrier</span><span style="color:#000">())</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">tasks</span><span style="color:#000">.</span><span style="color:#000">nonEmpty</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">logInfo</span><span style="color:#000">(</span><span style="color:#c41a16">s&#34;Submitting </span><span style="color:#c41a16">${</span><span style="color:#000">tasks</span><span style="color:#000">.</span><span style="color:#000">size</span><span style="color:#c41a16">}</span><span style="color:#c41a16"> missing tasks from </span><span style="color:#c41a16">$stage</span><span style="color:#c41a16"> (</span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">rdd</span><span style="color:#c41a16">}</span><span style="color:#c41a16">) (first 15 &#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#c41a16">s&#34;tasks are for partitions </span><span style="color:#c41a16">${</span><span style="color:#000">tasks</span><span style="color:#000">.</span><span style="color:#000">take</span><span style="color:#000">(</span><span style="color:#1c01ce">15</span><span style="color:#000">).</span><span style="color:#000">map</span><span style="color:#000">(</span><span style="color:#a90d91">_</span><span style="color:#000">.</span><span style="color:#000">partitionId</span><span style="color:#000">)</span><span style="color:#c41a16">}</span><span style="color:#c41a16">)&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// 提交任务
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">taskScheduler</span><span style="color:#000">.</span><span style="color:#000">submitTasks</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#3f6e75">TaskSet</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">tasks</span><span style="color:#000">.</span><span style="color:#000">toArray</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">id</span><span style="color:#000">,</span> <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">latestInfo</span><span style="color:#000">.</span><span style="color:#000">attemptNumber</span><span style="color:#000">,</span> <span style="color:#000">jobId</span><span style="color:#000">,</span> <span style="color:#000">properties</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">resourceProfileId</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Because we posted SparkListenerStageSubmitted earlier, we should mark
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// the stage as completed here in case there are no tasks to run
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">markStageAsFinished</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">,</span> <span style="color:#3f6e75">None</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">stage</span> <span style="color:#a90d91">match</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">stage</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ShuffleMapStage</span> <span style="color:#000">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">logDebug</span><span style="color:#000">(</span><span style="color:#c41a16">s&#34;Stage </span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#c41a16">}</span><span style="color:#c41a16"> is actually done; &#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">s&#34;(available: </span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">isAvailable</span><span style="color:#c41a16">}</span><span style="color:#c41a16">,&#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">s&#34;available outputs: </span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">numAvailableOutputs</span><span style="color:#c41a16">}</span><span style="color:#c41a16">,&#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">s&#34;partitions: </span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">numPartitions</span><span style="color:#c41a16">}</span><span style="color:#c41a16">)&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">markMapStageJobsAsFinished</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">case</span> <span style="color:#000">stage</span> <span style="color:#a90d91">:</span> <span style="color:#a90d91">ResultStage</span> <span style="color:#000">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">logDebug</span><span style="color:#000">(</span><span style="color:#c41a16">s&#34;Stage </span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#c41a16">}</span><span style="color:#c41a16"> is actually done; (partitions: </span><span style="color:#c41a16">${</span><span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#000">numPartitions</span><span style="color:#c41a16">}</span><span style="color:#c41a16">)&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">submitWaitingChildStages</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p><em>submitTasks()</em> 方法将 <em>taskSet</em> 置于 <em>scedulableBuilder</em> 的管理中，然后调用 <em>backend.reviveOffers()</em> 发送事件。在本地 <em>backend</em> 的实现是 <em>LocalSchedulerBackend</em>，通常分布式部署下 <em>backend</em> 的实现是 <em>CoarseGrainedSchedulerBackend</em> （意为粗粒度的调度器后端）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a90d91">override</span> <span style="color:#a90d91">def</span> <span style="color:#000">submitTasks</span><span style="color:#000">(</span><span style="color:#000">taskSet</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskSet</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">tasks</span> <span style="color:#a90d91">=</span> <span style="color:#000">taskSet</span><span style="color:#000">.</span><span style="color:#000">tasks</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">logInfo</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;Adding task set &#34;</span> <span style="color:#000">+</span> <span style="color:#000">taskSet</span><span style="color:#000">.</span><span style="color:#000">id</span> <span style="color:#000">+</span> <span style="color:#c41a16">&#34; with &#34;</span> <span style="color:#000">+</span> <span style="color:#000">tasks</span><span style="color:#000">.</span><span style="color:#000">length</span> <span style="color:#000">+</span> <span style="color:#c41a16">&#34; tasks &#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">+</span> <span style="color:#c41a16">&#34;resource profile &#34;</span> <span style="color:#000">+</span> <span style="color:#000">taskSet</span><span style="color:#000">.</span><span style="color:#000">resourceProfileId</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#000">synchronized</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">val</span> <span style="color:#000">manager</span> <span style="color:#a90d91">=</span> <span style="color:#000">createTaskSetManager</span><span style="color:#000">(</span><span style="color:#000">taskSet</span><span style="color:#000">,</span> <span style="color:#000">maxTaskFailures</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">val</span> <span style="color:#000">stage</span> <span style="color:#a90d91">=</span> <span style="color:#000">taskSet</span><span style="color:#000">.</span><span style="color:#000">stageId</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">val</span> <span style="color:#000">stageTaskSets</span> <span style="color:#a90d91">=</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">taskSetsByStageIdAndAttempt</span><span style="color:#000">.</span><span style="color:#000">getOrElseUpdate</span><span style="color:#000">(</span><span style="color:#000">stage</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#3f6e75">HashMap</span><span style="color:#000">[</span><span style="color:#a90d91">Int</span>, <span style="color:#a90d91">TaskSetManager</span><span style="color:#000">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Mark all the existing TaskSetManagers of this stage as zombie, as we are adding a new one.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// This is necessary to handle a corner case. Let&#39;s say a stage has 10 partitions and has 2
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// TaskSetManagers: TSM1(zombie) and TSM2(active). TSM1 has a running task for partition 10
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// and it completes. TSM2 finishes tasks for partition 1-9, and thinks he is still active
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// because partition 10 is not completed yet. However, DAGScheduler gets task completion
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// events for all the 10 partitions and thinks the stage is finished. If it&#39;s a shuffle stage
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// and somehow it has missing map outputs, then DAGScheduler will resubmit it and create a
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// TSM3 for it. As a stage can&#39;t have more than one active task set managers, we must mark
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// TSM2 as zombie (it actually is).
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">stageTaskSets</span><span style="color:#000">.</span><span style="color:#000">foreach</span> <span style="color:#000">{</span> <span style="color:#a90d91">case</span> <span style="color:#000">(</span><span style="color:#a90d91">_</span><span style="color:#000">,</span> <span style="color:#000">ts</span><span style="color:#000">)</span> <span style="color:#a90d91">=&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">ts</span><span style="color:#000">.</span><span style="color:#000">isZombie</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">stageTaskSets</span><span style="color:#000">(</span><span style="color:#000">taskSet</span><span style="color:#000">.</span><span style="color:#000">stageAttemptId</span><span style="color:#000">)</span> <span style="color:#a90d91">=</span> <span style="color:#000">manager</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// 添加任务到任务管理器中
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">schedulableBuilder</span><span style="color:#000">.</span><span style="color:#000">addTaskSetManager</span><span style="color:#000">(</span><span style="color:#000">manager</span><span style="color:#000">,</span> <span style="color:#000">manager</span><span style="color:#000">.</span><span style="color:#000">taskSet</span><span style="color:#000">.</span><span style="color:#000">properties</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">isLocal</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#000">hasReceivedTask</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">starvationTimer</span><span style="color:#000">.</span><span style="color:#000">scheduleAtFixedRate</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#3f6e75">TimerTask</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">override</span> <span style="color:#a90d91">def</span> <span style="color:#000">run</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">hasLaunchedTask</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">logWarning</span><span style="color:#000">(</span><span style="color:#c41a16">&#34;Initial job has not accepted any resources; &#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#c41a16">&#34;check your cluster UI to ensure that workers are registered &#34;</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#c41a16">&#34;and have sufficient resources&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#000">cancel</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">},</span> <span style="color:#3f6e75">STARVATION_TIMEOUT_MS</span><span style="color:#000">,</span> <span style="color:#3f6e75">STARVATION_TIMEOUT_MS</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">hasReceivedTask</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// 发送事件
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">backend</span><span style="color:#000">.</span><span style="color:#000">reviveOffers</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>在 <em>LocalSchedulerBackend</em> 中，本地 <em>RpcEndpoint.recive()</em> 方法收到 <em>reciveOffers</em> 事件后调用 <em>reciveOffers()</em> 方法处理任务，调用 <em>executor.launchTask()</em> 实现并发执行任务，后者调用将任务放入线程池中执行。</p>
+<p>可以看到 spark 中 task 得并发模型在 Thread 级别实现，据了解 Hadoop 的 Task 是在 Process 级别实现。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- LocalSchedulerBackend.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">def</span> <span style="color:#000">reviveOffers</span><span style="color:#000">()</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// local mode doesn&#39;t support extra resources like GPUs right now
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">offers</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">IndexedSeq</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#3f6e75">WorkerOffer</span><span style="color:#000">(</span><span style="color:#000">localExecutorId</span><span style="color:#000">,</span> <span style="color:#000">localExecutorHostname</span><span style="color:#000">,</span> <span style="color:#000">freeCores</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">Some</span><span style="color:#000">(</span><span style="color:#000">rpcEnv</span><span style="color:#000">.</span><span style="color:#000">address</span><span style="color:#000">.</span><span style="color:#000">hostPort</span><span style="color:#000">)))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#000">task</span> <span style="color:#a90d91">&lt;-</span> <span style="color:#000">scheduler</span><span style="color:#000">.</span><span style="color:#000">resourceOffers</span><span style="color:#000">(</span><span style="color:#000">offers</span><span style="color:#000">,</span> <span style="color:#a90d91">true</span><span style="color:#000">).</span><span style="color:#000">flatten</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">freeCores</span> <span style="color:#000">-=</span> <span style="color:#000">scheduler</span><span style="color:#000">.</span><span style="color:#3f6e75">CPUS_PER_TASK</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">executor</span><span style="color:#000">.</span><span style="color:#000">launchTask</span><span style="color:#000">(</span><span style="color:#000">executorBackend</span><span style="color:#000">,</span> <span style="color:#000">task</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// -- Executor.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">def</span> <span style="color:#000">launchTask</span><span style="color:#000">(</span><span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">ExecutorBackend</span><span style="color:#000">,</span> <span style="color:#000">taskDescription</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskDescription</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">Unit</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">tr</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">new</span> <span style="color:#3f6e75">TaskRunner</span><span style="color:#000">(</span><span style="color:#000">context</span><span style="color:#000">,</span> <span style="color:#000">taskDescription</span><span style="color:#000">,</span> <span style="color:#000">plugins</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">runningTasks</span><span style="color:#000">.</span><span style="color:#000">put</span><span style="color:#000">(</span><span style="color:#000">taskDescription</span><span style="color:#000">.</span><span style="color:#000">taskId</span><span style="color:#000">,</span> <span style="color:#000">tr</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">threadPool</span><span style="color:#000">.</span><span style="color:#000">execute</span><span style="color:#000">(</span><span style="color:#000">tr</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">decommissioned</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">log</span><span style="color:#000">.</span><span style="color:#000">error</span><span style="color:#000">(</span><span style="color:#c41a16">s&#34;Launching a task while in decommissioned state.&#34;</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>其中 <em>TaskRunner</em> 是对 task 的 runnable 封装，其中的 <em>run()</em> 方法调用 <em>task.run()</em> 方法，而 <em>task.run()</em> 方法分别调用其各自的具体实现，分为 <em>ShuffleMapTask</em> 和 <em>ResultTask</em>.</p>
+<p>在 <em>ShuffleMapTask</em> 中，调用 <em>dep.shuffleWriterProcessor.write()</em> 方法将 shuffle 阶段的中间结果写出到文件中，目前 <em>write()</em> 方法中 <em>getWriter</em> 实现只有 <em>SortShuffleManager</em>，其调用 <em>SortShuffleManager.write()</em> 方法将 <em>rdd.iterator(partition, context)</em> 的结果写出文件。</p>
+<p>在 <em>ResultTask</em> 中，调用 <em>func(context, rdd.iterator(partition, context))</em> 写出结果，其中 <em>func</em> 由任务发起方在 <em>sc.runJob()</em> 中传入，在本例中为 <em>sparkPlan</em> 中调用的 <em>val results = sc.runJob(this, (iter: Iterator[T]) =&gt; iter.toArray)</em>，其将 RDD 的最终结果输出成 Array。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#177500">// -- ShuffleMapTask.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">override</span> <span style="color:#a90d91">def</span> <span style="color:#000">runTask</span><span style="color:#000">(</span><span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">MapStatus</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Deserialize the RDD using the broadcast variable.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">threadMXBean</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">ManagementFactory</span><span style="color:#000">.</span><span style="color:#000">getThreadMXBean</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">deserializeStartTimeNs</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">System</span><span style="color:#000">.</span><span style="color:#000">nanoTime</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">deserializeStartCpuTime</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">isCurrentThreadCpuTimeSupported</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">getCurrentThreadCpuTime</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#1c01ce">0L</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">ser</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">SparkEnv</span><span style="color:#000">.</span><span style="color:#000">get</span><span style="color:#000">.</span><span style="color:#000">closureSerializer</span><span style="color:#000">.</span><span style="color:#000">newInstance</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">rddAndDep</span> <span style="color:#a90d91">=</span> <span style="color:#000">ser</span><span style="color:#000">.</span><span style="color:#000">deserialize</span><span style="color:#000">[(</span><span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">_</span><span style="color:#000">]</span>, <span style="color:#a90d91">ShuffleDependency</span><span style="color:#000">[</span><span style="color:#a90d91">_</span>, <span style="color:#a90d91">_</span>, <span style="color:#a90d91">_</span><span style="color:#000">])](</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">ByteBuffer</span><span style="color:#000">.</span><span style="color:#000">wrap</span><span style="color:#000">(</span><span style="color:#000">taskBinary</span><span style="color:#000">.</span><span style="color:#000">value</span><span style="color:#000">),</span> <span style="color:#3f6e75">Thread</span><span style="color:#000">.</span><span style="color:#000">currentThread</span><span style="color:#000">.</span><span style="color:#000">getContextClassLoader</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">_executorDeserializeTimeNs</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">System</span><span style="color:#000">.</span><span style="color:#000">nanoTime</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">deserializeStartTimeNs</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">_executorDeserializeCpuTime</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">isCurrentThreadCpuTimeSupported</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">getCurrentThreadCpuTime</span> <span style="color:#000">-</span> <span style="color:#000">deserializeStartCpuTime</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#1c01ce">0L</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">rdd</span> <span style="color:#a90d91">=</span> <span style="color:#000">rddAndDep</span><span style="color:#000">.</span><span style="color:#000">_1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">dep</span> <span style="color:#a90d91">=</span> <span style="color:#000">rddAndDep</span><span style="color:#000">.</span><span style="color:#000">_2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// While we use the old shuffle fetch protocol, we use partitionId as mapId in the
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#177500">// ShuffleBlockId construction.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">mapId</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#3f6e75">SparkEnv</span><span style="color:#000">.</span><span style="color:#000">get</span><span style="color:#000">.</span><span style="color:#000">conf</span><span style="color:#000">.</span><span style="color:#000">get</span><span style="color:#000">(</span><span style="color:#000">config</span><span style="color:#000">.</span><span style="color:#3f6e75">SHUFFLE_USE_OLD_FETCH_PROTOCOL</span><span style="color:#000">))</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">partitionId</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">context</span><span style="color:#000">.</span><span style="color:#000">taskAttemptId</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">dep</span><span style="color:#000">.</span><span style="color:#000">shuffleWriterProcessor</span><span style="color:#000">.</span><span style="color:#000">write</span><span style="color:#000">(</span><span style="color:#000">rdd</span><span style="color:#000">,</span> <span style="color:#000">dep</span><span style="color:#000">,</span> <span style="color:#000">mapId</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#000">,</span> <span style="color:#000">partition</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// -- ResultTask.scala -- //
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">override</span> <span style="color:#a90d91">def</span> <span style="color:#000">runTask</span><span style="color:#000">(</span><span style="color:#000">context</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">TaskContext</span><span style="color:#000">)</span><span style="color:#a90d91">:</span> <span style="color:#a90d91">U</span> <span style="color:#000">=</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// Deserialize the RDD and the func using the broadcast variables.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#a90d91">val</span> <span style="color:#000">threadMXBean</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">ManagementFactory</span><span style="color:#000">.</span><span style="color:#000">getThreadMXBean</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">deserializeStartTimeNs</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">System</span><span style="color:#000">.</span><span style="color:#000">nanoTime</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">deserializeStartCpuTime</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">isCurrentThreadCpuTimeSupported</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">getCurrentThreadCpuTime</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#1c01ce">0L</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">ser</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">SparkEnv</span><span style="color:#000">.</span><span style="color:#000">get</span><span style="color:#000">.</span><span style="color:#000">closureSerializer</span><span style="color:#000">.</span><span style="color:#000">newInstance</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">val</span> <span style="color:#000">(</span><span style="color:#000">rdd</span><span style="color:#000">,</span> <span style="color:#000">func</span><span style="color:#000">)</span> <span style="color:#a90d91">=</span> <span style="color:#000">ser</span><span style="color:#000">.</span><span style="color:#000">deserialize</span><span style="color:#000">[(</span><span style="color:#a90d91">RDD</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">]</span>, <span style="color:#000">(</span><span style="color:#a90d91">TaskContext</span>, <span style="color:#a90d91">Iterator</span><span style="color:#000">[</span><span style="color:#a90d91">T</span><span style="color:#000">])</span> <span style="color:#a90d91">=&gt;</span> <span style="color:#a90d91">U</span><span style="color:#000">)](</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#3f6e75">ByteBuffer</span><span style="color:#000">.</span><span style="color:#000">wrap</span><span style="color:#000">(</span><span style="color:#000">taskBinary</span><span style="color:#000">.</span><span style="color:#000">value</span><span style="color:#000">),</span> <span style="color:#3f6e75">Thread</span><span style="color:#000">.</span><span style="color:#000">currentThread</span><span style="color:#000">.</span><span style="color:#000">getContextClassLoader</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">_executorDeserializeTimeNs</span> <span style="color:#a90d91">=</span> <span style="color:#3f6e75">System</span><span style="color:#000">.</span><span style="color:#000">nanoTime</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">deserializeStartTimeNs</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#3f6e75">_executorDeserializeCpuTime</span> <span style="color:#a90d91">=</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">isCurrentThreadCpuTimeSupported</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">threadMXBean</span><span style="color:#000">.</span><span style="color:#000">getCurrentThreadCpuTime</span> <span style="color:#000">-</span> <span style="color:#000">deserializeStartCpuTime</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#1c01ce">0L</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">func</span><span style="color:#000">(</span><span style="color:#000">context</span><span style="color:#000">,</span> <span style="color:#000">rdd</span><span style="color:#000">.</span><span style="color:#000">iterator</span><span style="color:#000">(</span><span style="color:#000">partition</span><span style="color:#000">,</span> <span style="color:#000">context</span><span style="color:#000">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><p>至此，spark sql 的提交流程结束。</p>
+<p><strong>总结</strong>，</p>
+<h2 id="线性模型">线性模型</h2>
+<blockquote>
+<p><a href="https://docs.google.com/spreadsheets/d/18pHRegyB0XawIdbZbvkr8-jMfi_2ltHVYPjBEOim-6w/edit#gid=0">CS229 Syllabus</a></p>
+</blockquote>
+<h3 id="1-前置知识">§1 前置知识</h3>
+<h4 id="11-极大似然法">§1.1 极大似然法</h4>
+<p><em>(<strong>M</strong>aximum <strong>L</strong>ikelihood <strong>E</strong>stimation，MLE)</em></p>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0">似然函数 Wiki</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Likelihood_function">Likelihood function Wiki</a></p>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1">极大似然估计 Wiki</a></p>
+</blockquote>
+<h4 id="12-矩阵导数">§1.2 矩阵导数</h4>
+<p><em>(Matrix derivatives)</em></p>
+<h4 id="13-指数族分布">§1.3 指数族分布</h4>
+<p><em>(The exponential family)</em></p>
+<blockquote>
+<p><a href="https://baike.baidu.com/item/%E6%8C%87%E6%95%B0%E6%97%8F%E5%88%86%E5%B8%83/19098398">指数族分布 百度百科</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Exponential_family">Exponential family Wiki</a></p>
+</blockquote>
+<h4 id="14-多项分布">§1.4 多项分布</h4>
+<p><em>(Multinomial Distribution)</em></p>
+<blockquote>
+<p><a href="https://baike.baidu.com/item/%E5%A4%9A%E9%A1%B9%E5%88%86%E5%B8%83/6548502">多项分布 百度百科</a></p>
+</blockquote>
+<p>多项分布的概率分布函数为：
+</p>
+$$
+\mathrm{P}\left(\mathrm{X}_{1}=\mathrm{k}_{1},\mathrm{X}_{2}=\mathrm{k}_{2},\cdots,\mathrm{X}_{\mathrm{n}}=\mathrm{k}_{\mathrm{n}}\right)=\dfrac{\mathrm{n}!}{\mathrm{k}_{1}!\mathrm{k}_{2}!\cdots\mathrm{k}_{\mathrm{n}}!}\prod_{i=1}^{\mathrm{n}}\mathrm{p}_{i}^{\mathrm{k}_{i}}\quad,\sum_{i=1}^{\mathrm{n}}\mathrm{k}_{i}=\mathrm{n}
+$$
+<h3 id="2-线性模型">§2 线性模型</h3>
+<p><em>(Linear Module)</em></p>
+<p><strong>Object function</strong>:
+</p>
+$$
+h(x) = \theta^{\mathrm{T}}x;
+$$
+<p>
+<strong>Cost function(LMS)</strong>:
+</p>
+$$
+J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2
+$$
+<p>
+<strong>方法一</strong>，通过 <em>gradient descent</em> 方法调整参数 $\theta$。</p>
+<p>首先计算梯度方向，
+</p>
+$$
+\begin{array}{rcl}
+  \frac{\partial}{\partial\theta_j}J(\theta)
+  &=&\frac{\partial}{\partial\theta_j}\frac{1}{2}\left(h_\theta(x)-y\right)^2\\
+  &=&2\cdot\frac{1}{2}\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(h_\theta(x)-y\right)\\
+  &=&\left(h_\theta(x)-y\right)\cdot\frac{\partial}{\partial\theta_j}\left(\sum_{i=0}^{d}\theta_ix_i-y\right)\\
+  &=&\left(h_\theta(x)-y\right)x_j
+\end{array}
+$$
+<p>
+根据下式迭代调整 $\theta$ 参数。
+</p>
+$$
+\begin{align}\theta_j:=\theta_j+\alpha\left(y^{(i)}-h_\theta(x^{(i)})\right)x_j^{(i)}.\end{align}
+$$
+<p>
+<strong>方法二</strong>，通过 <em>closed-form solution</em> 直接求得最优参数。</p>
+<p>首先计算损失的梯度，
+</p>
+$$
+\begin{array}{rcl}
+\nabla_\theta J(\theta)
+&=&\nabla_\theta\frac{1}{2}(X(\theta-\vec{y})^T(X\theta-\vec{y})\\
+&=&\frac{1}{2}\nabla_\theta((X\theta)^T X\theta-(X\theta)^T\vec{y}-\vec{y}^T(X\theta)+\vec{y}^T\vec{y})\\
+&=&\frac{1}{2}\nabla_\theta(\theta^T(X^T X)\theta-\vec{y}^T(X\theta)-\vec{y}^T(X\theta))\\
+&=&\frac{1}{2}\nabla_\theta\left(\theta^T(X^T X X)\theta-2(X^T\vec{y})^T\theta\right)\\ &=&\frac{1}{2}\left(2X^T X\theta-2X^T\vec{y}\right)\\
+&=&X^T X\theta-X^T\vec{y}\\
+\end{array}
+$$
+<p>
+令 $\nabla_\theta J(\theta) = 0$，得
+</p>
+$$
+\theta = (X^TX)^{-1}X^T \overrightarrow{y}
+$$
+<p>
+<strong>概率解释</strong>，为什么选择 $J(\theta) = \frac{1}{2} \sum\limits_{i=1}^{n} (h_\theta(x_i) - y_i)^2$ 作为 cost function?</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/u012946504/article/details/78785583">CS229学习笔记之概率解释与局部加权线性回归</a></p>
+</blockquote>
+<h3 id="3-逻辑回归">§3 逻辑回归</h3>
+<p><em>(Logistic Regression)</em></p>
+<p>根据极大似然法，逻辑回归中由 x 给出的 y 满足二项分布(Bernoulli distribution)，概率分布为:
+</p>
+$$
+p(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y}
+$$
+<p>
+使 $L(\theta)=p(y|x;\theta)$ 最大，
+</p>
+$$
+\begin{array}{rcl}
+L(\theta)
+&=&p(\vec{y}\mid X;\theta)\\
+&=&\prod\limits_{i=1}^np(y^{(i)}\mid x^{(i)};\theta)\\
+&=&\prod\limits_{i=1}^n\left(h_\theta(x^{(i)})\right)^{y^{(i)}}\left(1-h_\theta(x^{(i)})\right)^{1-y^{(i)}}
+\end{array}
+$$
+<p>
+为求解方便，对 $L(\theta)$ 取对数，
+</p>
+$$
+\begin{array}{rcl}
+\ell(\theta)
+&=&\log L(\theta)\\
+&=&\sum_{i=1}^n y^{(i)}\log h(x^{(i)})+(1-y^{(i)})\log(1-h(x^{(i)}))
+\end{array}
+$$
+<p>
+对 $\ell(\theta)$ 求导，这里 $g(\cdot)$ 是联系函数(link function)，$g(\cdot)=\frac{1}{1+\exp^{-x}}$，称之为 sigmod 函数，该函数的导数恰为 $g'(x)=g(x)(1-g(x))$。
+</p>
+$$
+\begin{array}{rcl}
+\frac{\partial}{\partial\theta_j}\ell(\theta)
+&=&\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)\frac{\partial}{\partial\theta_j}g(\theta^Tx)\\
+&=&\left(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\right)g(\theta^Tx)(1-g(\theta^Tx))\frac{\partial}{\partial\theta_j}g^Tx\\
+&=&\left(y(1-g(\theta^Tx))-(1-y)g(\theta^Tx)\right)x_j\\
+&=&(y-h_g(x))\:x_j
+\end{array}
+$$
+<p>
+根据 gradient descent rule 更新参数 $\theta$。
+</p>
+$$
+\theta_j:=\theta_j+\alpha\left(y^{(i)}-h_\theta(x^{(i)})\right)x_j^{(i)}
+$$
+<p>
+这里形式上与线性模型相同，其中不同在于 $h(\theta)$，线性模型中为 $h(\theta)=\omega x+b$，此处为 $h(\theta)=g(\omega x+b)=\frac{1}{1+\exp^{-(\omega x+b)}}$ 。</p>
+<h3 id="4-广义线性模型">§4 广义线性模型</h3>
+<p><em>(<strong>G</strong>eneralized <strong>L</strong>inear <strong>M</strong>odels, GLMs)</em></p>
+<h4 id="41-softmax-regression">§4.1 Softmax Regression</h4>
+<p>Softmax Regression 用于多分类场景，这里我们假设多分类场景中 $y$ 满足指数族分布，即 $y|x,\theta \sim ExponentialFmaily(\theta)$，且这里的指数族分布为多项分布(Multinomial Distribution)。
+</p>
+$$
+\begin{array}{rcl}
+p(y|x;\theta)
+&=&\phi_1^{1\{y=1\}}\phi_2^{1\{y=2\}}\phi_3^{1\{y=3\}}\cdots\phi_k^{1\{y=k\}}\\
+&=&\phi_1^{1\{y=1\}}\phi_2^{1\{y=2\}}\phi_3^{1\{y=3\}}\cdots\phi_k^{1-\sum_{i=1}^{k-1}1\{y=i\}}\\
+&=&\phi_1^{(T(y))_1}\phi_2^{(T(y))_2}\phi_3^{(T(y))_3}\cdots\phi_k^{1-\sum_{i=1}^{k-1}(T(y))_k}\\
+&=&\exp((T(y))_1log(\phi_1)+(T(y))_2log(\phi_2)+(T(y))_3log(\phi_3)+\\
+&&\cdots+(1-\sum_{i=1}^{k-1}(T(y))_k)log(\phi_k))\\
+&=&\exp((T(y))_1log(\frac{\phi_1}{\phi_k})+(T(y))_2log(\frac{\phi_2}{\phi_k})+(T(y))_3log(\frac{\phi_3}{\phi_k})+\\
+&&\cdots+(T(y))_klog(\phi_k))\\
+&=&b(y)\exp(\eta^TT\left(y\right)-a\left(\eta\right))\\
+\end{array}
+$$
+<p>
+根据指数族分布形式可知，
+</p>
+$$
+\begin{array}{rcl}
+\eta
+&=&\begin{bmatrix}
+\log(\frac{\phi_1}{\phi_k})\\
+\log(\frac{\phi_2}{\phi_k})\\
+\vdots\\
+\log(\frac{\phi_k-1}{\phi_k})
+\end{bmatrix}\\
+a(\eta)&=&-log(\phi_k)\\
+b(y)&=&1
+\end{array}
+$$
+<p>
+这里假设 $T(y)=y; h(\theta)=E[y|x]$，则有，
+</p>
+$$
+\begin{array}{rcl}
+h_{\theta}(x)
+&=&\text{E}[T(y)|x;\theta]\\
+&=&E\left[\begin{array}{c|c}
+ \begin{matrix}
+ 1\{y=2\}\\
+ 1\{y=2\}\\
+ \vdots\\
+ 1\{y=k-1\}
+ \end{matrix}&
+ x;\theta
+ \end{array}\right]\\
+&=&\left[
+ \begin{matrix}
+ \phi_1\\
+ \phi_2\\
+ \vdots\\
+ \phi_{k-1}
+ \end{matrix}
+ \right]\\
+&=&\left[
+  \begin{matrix}
+  \frac{\exp(\theta_1^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\
+  \frac{\exp(\theta_2^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\
+  \vdots\\
+  \frac{\exp(\theta_{k-1}^Tx)}{\sum_{j=1}^{k}\exp(\theta_j^Tx)}\\
+  \end{matrix}
+  \right]
+\end{array}
+$$
+<p>
+根据多项分布的概率分布函数，将 $h(\theta)$ 代入概率分布函数，根据极大似然求对应的 $\theta$。
+</p>
+$$
+\begin{array}{rcl}\ell(\theta)
+&=&\sum\limits_{i=1}^n\log p(y^{(i)}|x^{(i)};\theta)\\
+&=&\sum\limits_{i=1}^n\log\prod\limits_{l=1}^k\left(\dfrac{e^{\theta_l^Tx^{(i)}}}{\sum\limits_{j=1}^ke^{\theta_j^Tx^{(i)}}}\right)^{1\{y^{(i)}=l\}}\end{array}
+$$
+<p>
+可以通过 gradient ascent 或 Newton&rsquo;s method 进行求解。</p>
+<h2 id="字典树">字典树</h2>
+<blockquote>
+<p><a href="https://oi-wiki.org/string/trie/">字典树(Trie) OI-Wiki</a></p>
+</blockquote>
+<h2 id="拉格朗日乘子法">拉格朗日乘子法</h2>
+<blockquote>
+<p><a href="https://zh.m.wikipedia.org/zh-cn/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0">拉格朗日乘数 wiki</a></p>
+<p>同济大学 高等数学下</p>
+</blockquote>
+<p><strong>二元函数极值</strong>，</p>
+<p><strong>拉格朗日乘子法</strong>，</p>
+<p>目标函数
+</p>
+$$
+z=f(x,y)\\
+$$
+<p>
+在条件
+</p>
+$$
+\varphi(x,y)=0
+$$
+<p>
+下取得极值的问题，等价于求下式极值。
+</p>
+$$
+\mathcal{L}(x,y,\lambda)=f(x,y)-\lambda\cdot\varphi(x,y)
+$$
+<p>
+<strong>推导</strong>，</p>
+<p><strong>证明</strong>，</p>
+<p><strong>应用</strong>，</p>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'daily-note\/2022-10-04.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'daily-note\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

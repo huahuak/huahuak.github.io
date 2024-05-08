@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/programming_languages/">Programming_languages</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/programming_languages/algorithm/algorithm/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#two-sum">Two Sum</a></li>
+    <li><a href="#add-two-sum">Add Two Sum</a></li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="algorithm">Algorithm</h1>
+<h2 id="two-sum">Two Sum</h2>
+<div class="elfjS" data-track-load="description_content"><p>Given an array of integers <code>nums</code>&nbsp;and an integer <code>target</code>, return <em>indices of the two numbers such that they add up to <code>target</code></em>.</p>
+<p>You may assume that each input would have <strong><em>exactly</em> one solution</strong>, and you may not use the <em>same</em> element twice.</p>
+<p>You can return the answer in any order.</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre><strong>Input:</strong> nums = [2,7,11,15], target = 9
+<strong>Output:</strong> [0,1]
+<strong>Explanation:</strong> Because nums[0] + nums[1] == 9, we return [0, 1].
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> nums = [3,2,4], target = 6
+<strong>Output:</strong> [1,2]
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre><strong>Input:</strong> nums = [3,3], target = 6
+<strong>Output:</strong> [0,1]
+</pre>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>2 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>
+	<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+	<li><code>-10<sup>9</sup> &lt;= target &lt;= 10<sup>9</sup></code></li>
+	<li><strong>Only one valid answer exists.</strong></li>
+</ul>
+<strong>Follow-up:&nbsp;</strong>Can you come up with an algorithm that is less than <code>O(n<sup>2</sup>)</code><font face="monospace">&nbsp;</font>time complexity?
+</div>
+<p><strong>Solution:</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span><span style="color:#000">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">vector</span><span style="color:#000">&lt;</span><span style="color:#a90d91">int</span><span style="color:#000">&gt;</span> <span style="color:#000">twoSum</span>(<span style="color:#000">vector</span><span style="color:#000">&lt;</span><span style="color:#a90d91">int</span><span style="color:#000">&gt;</span> <span style="color:#000">&amp;</span><span style="color:#000">nums</span>, <span style="color:#a90d91">int</span> <span style="color:#000">target</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">unordered_map</span><span style="color:#000">&lt;</span><span style="color:#a90d91">int</span>, <span style="color:#a90d91">int</span><span style="color:#000">&gt;</span> <span style="color:#000">num2index</span>(<span style="color:#1c01ce">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">nums</span>.<span style="color:#000">size</span>(); <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">auto</span> <span style="color:#000">it</span> <span style="color:#000">=</span> <span style="color:#000">num2index</span>.<span style="color:#000">find</span>(<span style="color:#000">target</span> <span style="color:#000">-</span> <span style="color:#000">nums</span>[<span style="color:#000">i</span>]);
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> (<span style="color:#000">it</span> <span style="color:#000">==</span> <span style="color:#000">num2index</span>.<span style="color:#000">end</span>()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">num2index</span>[<span style="color:#000">nums</span>[<span style="color:#000">i</span>]] <span style="color:#000">=</span> <span style="color:#000">i</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">continue</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> {<span style="color:#000">it</span><span style="color:#000">-&gt;</span><span style="color:#000">second</span>, <span style="color:#000">i</span>};
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> {};
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="add-two-sum">Add Two Sum</h2>
+<div class="elfjS" data-track-load="description_content"><p>You are given two <strong>non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong>reverse order</strong>, and each of their nodes contains a single digit. Add the two numbers and return the sum&nbsp;as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg" style="width: 483px; height: 342px;">
+<pre><strong>Input:</strong> l1 = [2,4,3], l2 = [5,6,4]
+<strong>Output:</strong> [7,0,8]
+<strong>Explanation:</strong> 342 + 465 = 807.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> l1 = [0], l2 = [0]
+<strong>Output:</strong> [0]
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre><strong>Input:</strong> l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+<strong>Output:</strong> [8,9,9,9,0,0,0,1]
+</pre>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes in each linked list is in the range <code>[1, 100]</code>.</li>
+	<li><code>0 &lt;= Node.val &lt;= 9</code></li>
+	<li>It is guaranteed that the list represents a number that does not have leading zeros.</li>
+</ul>
+</div>
+<p><strong>Solution:</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Definition for singly-linked list.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * struct ListNode {
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *     int val;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *     ListNode *next;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *     ListNode() : val(0), next(nullptr) {}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *     ListNode(int x) : val(x), next(nullptr) {}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * };
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span><span style="color:#000">:</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">ListNode</span> <span style="color:#000">*</span><span style="color:#000">addTwoNumbers</span>(<span style="color:#000">ListNode</span> <span style="color:#000">*</span><span style="color:#000">l1</span>, <span style="color:#000">ListNode</span> <span style="color:#000">*</span><span style="color:#000">l2</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">ListNode</span> <span style="color:#000">dummy</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000">ListNode</span> <span style="color:#000">*</span><span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#000">&amp;</span><span style="color:#000">dummy</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000">ListNode</span> <span style="color:#000">*</span><span style="color:#000">pl1</span> <span style="color:#000">=</span> <span style="color:#000">l1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000">ListNode</span> <span style="color:#000">*</span><span style="color:#000">pl2</span> <span style="color:#000">=</span> <span style="color:#000">l2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">auto</span> <span style="color:#000">tmp</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">auto</span> <span style="color:#000">add</span> <span style="color:#000">=</span> [<span style="color:#000">&amp;</span><span style="color:#000">tmp</span>, <span style="color:#000">&amp;</span><span style="color:#000">p</span>](<span style="color:#a90d91">int</span> <span style="color:#000">sum</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">sum</span> <span style="color:#000">+=</span> <span style="color:#000">tmp</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#000">tmp</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">/</span> <span style="color:#1c01ce">10</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#000">p</span><span style="color:#000">-&gt;</span><span style="color:#000">next</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ListNode</span>(<span style="color:#000">sum</span> <span style="color:#000">%</span> <span style="color:#1c01ce">10</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#000">p</span><span style="color:#000">-&gt;</span><span style="color:#000">next</span>;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">while</span> (<span style="color:#000">pl1</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nullptr</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">pl2</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nullptr</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">add</span>(<span style="color:#000">pl1</span><span style="color:#000">-&gt;</span><span style="color:#000">val</span> <span style="color:#000">+</span> <span style="color:#000">pl2</span><span style="color:#000">-&gt;</span><span style="color:#000">val</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">pl1</span> <span style="color:#000">=</span> <span style="color:#000">pl1</span><span style="color:#000">-&gt;</span><span style="color:#000">next</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#000">pl2</span> <span style="color:#000">=</span> <span style="color:#000">pl2</span><span style="color:#000">-&gt;</span><span style="color:#000">next</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">while</span> (<span style="color:#000">pl1</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nullptr</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">add</span>(<span style="color:#000">pl1</span><span style="color:#000">-&gt;</span><span style="color:#000">val</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">pl1</span> <span style="color:#000">=</span> <span style="color:#000">pl1</span><span style="color:#000">-&gt;</span><span style="color:#000">next</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">while</span> (<span style="color:#000">pl2</span> <span style="color:#000">!=</span> <span style="color:#a90d91">nullptr</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">add</span>(<span style="color:#000">pl2</span><span style="color:#000">-&gt;</span><span style="color:#000">val</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">pl2</span> <span style="color:#000">=</span> <span style="color:#000">pl2</span><span style="color:#000">-&gt;</span><span style="color:#000">next</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> (<span style="color:#000">tmp</span> <span style="color:#000">&gt;</span> <span style="color:#1c01ce">0</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">add</span>(<span style="color:#1c01ce">0</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#000">dummy</span>.<span style="color:#000">next</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div>
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'programming_languages\/algorithm\/algorithm.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'programming_languages\/algorithm\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

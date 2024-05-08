@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/var.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/machine_learning/">Machine_learnings</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/machine_learning/math/probability/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-probability-introduction">§1 Probability Introduction</a>
+      <ul>
+        <li><a href="#element-of-probability">Element of Probability</a></li>
+        <li><a href="#permutation--combination">Permutation &amp; Combination</a></li>
+        <li><a href="#conditional-probability">Conditional Probability</a></li>
+        <li><a href="#law-of-total-probability">Law of total probability</a></li>
+        <li><a href="#bayes-theorem">Bayes’ theorem</a></li>
+        <li><a href="#common-distribution">Common distribution</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-random-variables">§2 Random Variables</a>
+      <ul>
+        <li><a href="#cumulative-distribution-functions">Cumulative distribution functions</a></li>
+        <li><a href="#probability-mass-function">Probability mass function</a></li>
+        <li><a href="#probability-denstiy-function">Probability denstiy function</a></li>
+        <li><a href="#expectation">Expectation</a></li>
+        <li><a href="#variance">Variance</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="probability">Probability</h1>
+<p><a href="cs229-probability_review.pdf">cs229-probability_review.pdf</a></p>
+<hr>
+<h2 id="1-probability-introduction">§1 Probability Introduction</h2>
+<h3 id="element-of-probability">Element of Probability</h3>
+<p><strong>样本空间 (Sample Space)</strong></p>
+<p>是指随机现象所有的基本结果组成的集合。</p>
+<p><strong>事件空间 (Event Space)</strong></p>
+<p>是指样本空间所有子集合所构成的集合</p>
+<h3 id="permutation--combination">Permutation &amp; Combination</h3>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Combinatorics">Combinatorics -Wiki</a></p>
+</blockquote>
+<p>排列 (permutation) 指从 n 个元素按次序选取 r 个元素组成一组，定义为</p>
+$$
+P_n^r=n\times(n-1)\times\cdots\times(n-r+1)=\frac{n!}{(n-r!)}.
+$$
+<p>组合 (combination) 指从 n 个不同的元素中任意抽取 r 个元素组成一组，定义为</p>
+$$
+C_n^r = \binom nr=\frac{P_n^r}{r!}=\frac{n(n-1)\cdots(n-r+1)}{r!}=\frac{n!}{r!(n-r)!}.
+$$
+<h3 id="conditional-probability">Conditional Probability</h3>
+$$
+P(A|B)\triangleq\frac{P(A\cap B)}{P(B)}
+$$
+<p>条件概率即已知事件 B 发生的情况下，事件 A 发生的概率。</p>
+<h3 id="law-of-total-probability">Law of total probability</h3>
+<p>假设 $S = \{1, 2, ..., k\}$ ，若有</p>
+$$
+A_i, i \in S,
+P(\bigcap_{i \in S'}A_i) = \varnothing \\
+B \subseteq \bigcup_{i \in S} A_i
+$$
+<p>则有</p>
+$$
+P(B) = \sum_i^k P(A_i)P(B|A_i)
+$$
+<p>全概率公式表明当事件 A 空间包含事件 B 时，将事件 A 空间划分为多个不相交的空间，则事件 B 发生的概率等于事件 B 在事件 A 划分的各个子空间中的概率之和。</p>
+<h3 id="bayes-theorem">Bayes’ theorem</h3>
+<blockquote>
+<p>第四章 朴素贝叶斯法 -统计学方法</p>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86">贝叶斯定理 -Wiki</a></p>
+</blockquote>
+<p><a href="Probability%2025f6505de6c848b5b3152c38cb53ebe9/%25E7%25AC%25AC%25E5%259B%259B%25E7%25AB%25A0%25E6%259C%25B4%25E7%25B4%25A0%25E8%25B4%259D%25E5%258F%25B6%25E6%2596%25AF%25E6%25B3%2595_.pdf">第四章朴素贝叶斯法 .pdf</a></p>
+<p>假设 $S = \{1, 2, ..., k\}$ ，若有</p>
+$$
+P(B) \neq 0 \\
+B \subset \bigcup_{i \in S} A_i
+$$
+<p>则有</p>
+$$
+\begin{aligned}
+P(A_i|B) &= \frac{P(A_i)P(B|A_i)}{P(B)} \\
+&= \frac{P(A_i)P(B|A_i)}{\sum_i^k P(A_i)P(B|A_i)}
+\end{aligned}
+$$
+<p>贝叶斯定理中第一个等号由条件概率可得，第二个等号由全概率公式可得。</p>
+<p>贝叶斯定理表明通过先验概率 $P(A_i)$ 及条件概率分布 $P(B|A)$ 获得已知数据的经验知识，即通过观察 $P(A_i)P(B|A_i)$ 的先验知识（已有的数据知识）掌握 $A_i$ 发生时 $B$ 的分布情况，用来判断事件 B 发生时事件 A 发生的信心。</p>
+<h3 id="common-distribution">Common distribution</h3>
+<p><a href="Probability%2025f6505de6c848b5b3152c38cb53ebe9/cs229-probability_review_(dragged).pdf">cs229-probability_review.pdf</a></p>
+<h2 id="2-random-variables">§2 Random Variables</h2>
+<blockquote>
+<p><a href="Probability%2025f6505de6c848b5b3152c38cb53ebe9.md"><strong>样本空间 (Sample Space)</strong> </a></p>
+</blockquote>
+<p>随机变量是定义在样本空间 (Sample Space) $\Omega$ 上的函数 $X: \Omega \rightarrow R$，即将样本点映射到实数的函数，将自然语言描述的事件描述为数学语言中的实数。</p>
+<p>离散型随机变量有定义</p>
+$$
+P(X = k) \triangleq P(\{\omega: \omega \in X(\omega)= k \})
+$$
+<p>该定义表明函数 $X = k$ 的概率由 $P(\{\omega: X(\omega)= k \})$ 给出，而 $P(\{\omega: X(\omega)= k \})$ 指由能够得到 $X(\omega) = k$ 的事件 $\omega$ 构成的集合的概率。</p>
+<p>连续型随机变量有定义</p>
+$$
+P(a < X < b) \triangleq P(\{\omega: a < X(\omega) < b \})
+$$
+<h3 id="cumulative-distribution-functions">Cumulative distribution functions</h3>
+<p>累计分布函数 CDF 是一个函数 $F_X: R \rightarrow [0,1]$，定义为</p>
+$$
+F_X(x) \triangleq P(X \leq x)
+$$
+<h3 id="probability-mass-function">Probability mass function</h3>
+<p>质量密度函数 PMF 定义为：</p>
+$$
+p_X(x) \triangleq P(X = x)
+$$
+<h3 id="probability-denstiy-function">Probability denstiy function</h3>
+<p>当概率分布函数 $F_X$ 处处可微时，质量密度函数 PDF 定义为：</p>
+$$
+f_X(x) \triangleq \frac{dF_X(x)}{dx}.
+$$
+<h3 id="expectation">Expectation</h3>
+<p>$\Omega$ 为样本空间，离散型随机变量的期望定义为：</p>
+$$
+E[X] = \sum_{x \in \Omega} xP(X=x)
+$$
+<p>连续型随机变量的期望定义为：</p>
+$$
+E[X] = \int_{-\infty}^{\infty} xf_X(x)dx
+$$
+<p>期望常见性质：</p>
+<ul>
+<li>$E[a] = 0$，$a$ 为常数。</li>
+<li>$E[af(x)] = aE[f(x)]$，$a$ 为常数。</li>
+<li>$E[f(x)+g(x)] = E[f(x)] + E[g(x)]$，该性质又称 linearity of expectation。</li>
+</ul>
+<h3 id="variance">Variance</h3>
+<p>随机变量的方差描述随机变量在期望附近的波动程度，定义为：</p>
+$$
+Var(X) \triangleq E[(X-E[X])^2]
+$$
+<p>其中</p>
+$$
+\begin{aligned}
+E[(X-E[X])^2]&= E[X^2-2E[X]X+E[X]^2]  \\
+&= E[X^2]-2E[X]E[X]+E[X]^2 \\
+&= E[X^2]-E[X]^2,
+\end{aligned}
+$$
+<p>方差常见性质：</p>
+<ul>
+<li>$Var(a)=0$，$a$ 是常数。</li>
+<li>$Var(af(x)) = a^2Var(f(x))$，$a$ 是常数。</li>
+</ul>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'machine_learning\/math\/probability.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'machine_learning\/math\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>
