@@ -86,7 +86,9 @@
   <nav id="TableOfContents">
   <ul>
     <li><a href="#two-sum">Two Sum</a></li>
-    <li><a href="#add-two-sum">Add Two Sum</a></li>
+    <li><a href="#add-two-numbers">Add Two Numbers</a></li>
+    <li><a href="#longest-substring-without-repeating-characters">Longest Substring Without Repeating Characters</a></li>
+    <li><a href="#median-of-two-sorted-arrays">Median of Two Sorted Arrays</a></li>
   </ul>
 </nav>
 </div> </aside>
@@ -119,6 +121,14 @@
 
 <h1 id="algorithm">Algorithm</h1>
 <h2 id="two-sum">Two Sum</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="https://leetcode.com/problems/two-sum/">Two Sum</a></th>
+<th style="text-align:right">HashMap</th>
+</tr>
+</thead>
+</table>
 <div class="elfjS" data-track-load="description_content"><p>Given an array of integers <code>nums</code>&nbsp;and an integer <code>target</code>, return <em>indices of the two numbers such that they add up to <code>target</code></em>.</p>
 <p>You may assume that each input would have <strong><em>exactly</em> one solution</strong>, and you may not use the <em>same</em> element twice.</p>
 <p>You can return the answer in any order.</p>
@@ -160,7 +170,15 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> {};
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><h2 id="add-two-sum">Add Two Sum</h2>
+</span></span></code></pre></div><h2 id="add-two-numbers">Add Two Numbers</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers</a></th>
+<th style="text-align:right">LinkedList</th>
+</tr>
+</thead>
+</table>
 <div class="elfjS" data-track-load="description_content"><p>You are given two <strong>non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong>reverse order</strong>, and each of their nodes contains a single digit. Add the two numbers and return the sum&nbsp;as a linked list.</p>
 <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
 <p><strong class="example">Example 1:</strong></p>
@@ -228,7 +246,98 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#000">dummy</span>.<span style="color:#000">next</span>;
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div>
+</span></span></code></pre></div><h2 id="longest-substring-without-repeating-characters">Longest Substring Without Repeating Characters</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a></th>
+<th style="text-align:right">Sliding-Window</th>
+</tr>
+</thead>
+</table>
+<div class="elfjS" data-track-load="description_content"><p>Given a string <code>s</code>, find the length of the <strong>longest</strong> substring without repeating characters.</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre><strong>Input:</strong> s = "abcabcbb"
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The answer is "abc", with the length of 3.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> s = "bbbbb"
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> The answer is "b", with the length of 1.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre><strong>Input:</strong> s = "pwwkew"
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+</pre>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>0 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>
+	<li><code>s</code> consists of English letters, digits, symbols and spaces.</li>
+</ul>
+</div>
+<p><strong>Solution:</strong></p>
+<img src="img_d8d333204ded_1.jpeg" alt="img_d8d333204ded_1" style="zoom:33%;" />
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Solution</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a90d91">public</span><span style="color:#000">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">lengthOfLongestSubstring</span>(<span style="color:#000">string</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">maxLength</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">bitmap</span>[<span style="color:#1c01ce">256</span>] <span style="color:#000">=</span> {};
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">lhs</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">rhs</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#a90d91">char</span> <span style="color:#000">ch</span> : <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> (<span style="color:#000">bitmap</span>[<span style="color:#000">ch</span>] <span style="color:#000">==</span> <span style="color:#1c01ce">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#000">lhs</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">s</span>[<span style="color:#000">p</span>] <span style="color:#000">!=</span> <span style="color:#000">ch</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#000">bitmap</span>[<span style="color:#000">s</span>[<span style="color:#000">p</span>]] <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#000">p</span><span style="color:#000">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#000">lhs</span> <span style="color:#000">=</span> <span style="color:#000">p</span> <span style="color:#000">+</span> <span style="color:#1c01ce">1</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#000">bitmap</span>[<span style="color:#000">ch</span>] <span style="color:#000">=</span> <span style="color:#1c01ce">1</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#000">rhs</span> <span style="color:#000">+=</span> <span style="color:#1c01ce">1</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> (<span style="color:#000">rhs</span> <span style="color:#000">-</span> <span style="color:#000">lhs</span> <span style="color:#000">&gt;</span> <span style="color:#000">maxLength</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">maxLength</span> <span style="color:#000">=</span> <span style="color:#000">rhs</span> <span style="color:#000">-</span> <span style="color:#000">lhs</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#000">maxLength</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="median-of-two-sorted-arrays">Median of Two Sorted Arrays</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">Median of Two Sorted Arrays</a></th>
+<th style="text-align:right">Binary Search</th>
+</tr>
+</thead>
+</table>
+<div class="elfjS" data-track-load="description_content"><p>Given two sorted arrays <code>nums1</code> and <code>nums2</code> of size <code>m</code> and <code>n</code> respectively, return <strong>the median</strong> of the two sorted arrays.</p>
+<p>The overall run time complexity should be <code>O(log (m+n))</code>.</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre><strong>Input:</strong> nums1 = [1,3], nums2 = [2]
+<strong>Output:</strong> 2.00000
+<strong>Explanation:</strong> merged array = [1,2,3] and median is 2.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> nums1 = [1,2], nums2 = [3,4]
+<strong>Output:</strong> 2.50000
+<strong>Explanation:</strong> merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+</pre>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>nums1.length == m</code></li>
+	<li><code>nums2.length == n</code></li>
+	<li><code>0 &lt;= m &lt;= 1000</code></li>
+	<li><code>0 &lt;= n &lt;= 1000</code></li>
+	<li><code>1 &lt;= m + n &lt;= 2000</code></li>
+	<li><code>-10<sup>6</sup> &lt;= nums1[i], nums2[i] &lt;= 10<sup>6</sup></code></li>
+</ul>
+</div>
+<p><strong>Solution:</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"></code></pre></div>
 
 
         <style>

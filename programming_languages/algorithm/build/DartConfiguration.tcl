@@ -4,17 +4,17 @@
 
 
 # Configuration directories and files
-SourceDirectory: /Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode
-BuildDirectory: /Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/build
+SourceDirectory: /Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/algorithm
+BuildDirectory: /Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/algorithm/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: mba.local
+Site: huahuas-MacBook-Pro.local
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
-BuildName: Darwin-clang++
+BuildName: Darwin-c++
 
 # Subprojects
 LabelsForSubprojects: 
@@ -27,8 +27,8 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/opt/homebrew/Cellar/cmake/3.27.7/bin/cmake" "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode"
-MakeCommand: /opt/homebrew/Cellar/cmake/3.27.7/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
+ConfigureCommand: "/opt/homebrew/Cellar/cmake/3.29.3/bin/cmake" "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/algorithm"
+MakeCommand: /opt/homebrew/Cellar/cmake/3.29.3/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -63,7 +63,7 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: /usr/bin/clang++
+Compiler: /Library/Developer/CommandLineTools/usr/bin/c++
 CompilerVersion: 15.0.0.15000309
 
 # Dynamic analysis (MemCheck)

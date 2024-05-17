@@ -9,10 +9,24 @@
     <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
+      <link>/project/ohmymac/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/project/ohmymac/</guid>
+      <description>ohmymac ohmymac is a menubar-only application, which is used to extend functionality of mac.&#xA;ohmymac is currently under development.&#xA;Features Window Design Philosophy When using MacBook, I will lose direction in multiple windows and spaces, Because window and Space switch logic is so complex. For Example, when I change to another space, I will forget the old windows when need to go back.&#xA;So I need to remember the most recent windows (just record the order of the openning windows) globally.</description>
+    </item>
+    <item>
+      <title></title>
       <link>/project/soteria/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/project/soteria/</guid>
       <description>Soteria Soteria1 is a secure neural network framework based on trusted hardware.&#xA;Overview Soteria Wiki&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>/project/what_do_you_need_in_a_new_computer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/project/what_do_you_need_in_a_new_computer/</guid>
+      <description>What do you need in a new computer? If you have a new MacBook/Linux Computer&amp;hellip;&#xA;ohmyzsh You need install ohmyzsh on you new MacBook.&#xA;https://ohmyz.sh&#xA;sh -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&amp;#34; and you need install some plugin.&#xA;https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md&#xA;git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions # add below config to .zshrc plugins=( # other plugins... zsh-autosuggestions ) https://github.com/zsh-users/zsh-syntax-highlighting&#xA;git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # add beblow config to .zshrc plugins=( [plugins...] zsh-syntax-highlighting) Data Science Env Pytorch https://pytorch.</description>
     </item>
   </channel>
 </rss>

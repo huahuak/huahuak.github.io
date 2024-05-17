@@ -148,7 +148,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf">ShadowNet: A Secure and Efficient On-device Model Inference System for Convolutional Neural Networks</a></th>
-<th style="text-align:right"><em>SP 2023</em></th>
+<th style="text-align:right">SP 2023</th>
 </tr>
 </thead>
 </table>
@@ -156,7 +156,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="PPML/atc22_soter_guarding_black_box_inference_for_general_neural_networks_at_the_edge.pdf">Soter: Guarding Black-box Inference for General Neural Networks at the Edge</a></th>
-<th style="text-align:right"><em>ATC 2022</em></th>
+<th style="text-align:right">ATC 2022</th>
 </tr>
 </thead>
 </table>
@@ -168,7 +168,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="goten_gpu_outsourcing_trusted_execution_of_neural_network_training.pdf">Goten: GPU-Outsourcing Trusted Execution of Neural Network Training</a></th>
-<th style="text-align:right"><em>AAAI 2020</em></th>
+<th style="text-align:right">AAAI 2020</th>
 </tr>
 </thead>
 </table>
@@ -177,7 +177,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf">SLALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</a></th>
-<th style="text-align:right"><em>ICLR 2019</em></th>
+<th style="text-align:right">ICLR 2019</th>
 </tr>
 </thead>
 </table>
@@ -186,7 +186,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="delphi_a_cryptographic_inference_service_for_neural_networks.pdf">Delphi: A Cryptographic Inference Service for Neural Networks</a></th>
-<th style="text-align:right"><em>Secur. Symp 2019</em></th>
+<th style="text-align:right">Secur. Symp 2019</th>
 </tr>
 </thead>
 </table>
@@ -195,7 +195,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="GPUTEE/osdi18_graviton_trusted_execution_environments_on_gpus.pdf">Graviton: Trusted Execution Environments on GPUs</a></th>
-<th style="text-align:right"><em>OSDI 2020</em></th>
+<th style="text-align:right">OSDI 2020</th>
 </tr>
 </thead>
 </table>
@@ -453,8 +453,32 @@
 <table>
 <thead>
 <tr>
+<th style="text-align:left"><a href="related_paper/neurips_2022_iron_private_inference_on_transformers_paper_conference.pdf">Iron: Private Inference on Transformers</a></th>
+<th style="text-align:right">NeurIPS 2022</th>
+</tr>
+</thead>
+</table>
+<p><strong>#HE</strong></p>
+<blockquote>
+<p>We initiate the study of private inference on Transformer-based models in the client-server setting, where clients have private inputs and servers hold proprietary models. <span style="background-color: yellow;">Our main contribution is to provide several new secure protocols for matrix multiplication and complex non-linear functions like Softmax, GELU activations, and LayerNorm, which are critical components of Transformers.</span> Specifically, we first propose a customized homomorphic encryption-based protocol for matrix multiplication that crucially relies on a novel compact packing technique. This design achieves √m× less communication (m is the number of rows of the output matrix) over the most efficient work. Second, we design efficient protocols for three non-linear functions via integrating advanced underlying protocols and specialized optimizations. Compared to the state-of-the-art protocols, our recipes reduce about half of the communication and computation overhead. Furthermore, all protocols are numerically precise, which preserve the model accuracy of plaintext. These techniques together allow us to implement Iron, an efficient Transformer-based private inference framework. Experiments conducted on several real-world datasets and models demonstrate that Iron achieves 3 ∼ 14× less communication and 3 ∼ 11× less runtime compared to the prior art.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="related_paper/llms_can_understand_encrypted_prompt_towards_privacy_computing_friendly_transformers.pdf">LLMs Can Understand Encrypted Prompt: Towards Privacy-Computing Friendly Transformers</a></th>
+<th style="text-align:right">arXiv 2023</th>
+</tr>
+</thead>
+</table>
+<p><strong>#HE</strong> <strong>#MPC</strong></p>
+<blockquote>
+<p>The community explored to build private inference frameworks for transformer- based large language models (LLMs) in a server-client setting, where the server holds the model parameters and the client inputs its private data (or prompt) for inference. However, these frameworks impose significant overhead when the private inputs are forward propagated through the original LLMs. In this paper, we show that substituting the computation and communication-heavy operators in the transformer architecture with privacy-computing friendly approximations can greatly reduce the private inference costs while incurring very minor impact on model performance. Compared to state-of-the-art Iron (NeurIPS 2022), our privacy-computing friendly model inference pipeline achieves a 5× acceleration in computation and an 80% reduction in communication overhead, while retaining nearly identical accuracy.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
 <th style="text-align:left"><a href="PPML/sealing_neural_network_models_in_encrypted_deep_learning_accelerators.pdf">SEALing Neural Network Models in Encrypted Deep Learning Accelerators</a></th>
-<th><em>DAC 2021</em></th>
+<th style="text-align:right">DAC 2021</th>
 </tr>
 </thead>
 </table>
@@ -465,7 +489,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="PPML/iclr_2024_privacy_preserving_in_context_learning_for_large_language_models.pdf">PRIVACY-PRESERVING IN-CONTEXT LEARNING FOR LARGE LANGUAGE MODELS</a></th>
-<th>ICLR 2024</th>
+<th style="text-align:right">ICLR 2024</th>
 </tr>
 </thead>
 </table>
@@ -476,7 +500,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="related_paper/bicoptor_two_round_secure_three_party_non_linear_computation_without_preprocessing_for_privacy_preserving_machine_learning.pdf">Bicoptor: Two-round Secure Three-party Non-linear Computation without Preprocessing for Privacy-preserving Machine Learning</a></th>
-<th><em>2023 SP</em></th>
+<th style="text-align:right">2023 SP</th>
 </tr>
 </thead>
 </table>
@@ -493,7 +517,7 @@
 <thead>
 <tr>
 <th style="text-align:left"><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">Oblivious Multi-Party Machine Learning on Trusted Processors</a></th>
-<th><em>SS 2016</em></th>
+<th style="text-align:right">SS 2016</th>
 </tr>
 </thead>
 </table>

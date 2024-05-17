@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en"
+  dir="ltr">
+
+<head>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]  
+    }
+  };
+</script>
+  
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> | </title>
+
+      <link rel="stylesheet" href="/css/main.min.4e3925258a07dcd1db9457696be79fd505b229e2280d31f3f622c14c35c26655.css" integrity="sha256-TjklJYoH3NHblFdpa&#43;ef1QWyKeIoDTHz9iLBTDXCZlU=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
+
+
+      <script src="/js/main.f2979a93a325fecf9605263bd141398a311c8e23388ed7dcff74f92f7e632866.js" integrity="sha256-8peak6Ml/s&#43;WBSY70UE5ijEcjiM4jtfc/3T5L35jKGY=" crossorigin="anonymous"></script>
+
+
+<link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+  <div class="aside-layout">
+    <aside id="sidebar"> <header>
+  <div style="display: flex;">
+    <button id="sidebar-lhs-button" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  </div>
+
+  <div>
+    <nav aria-label="breadcrumb" class="breadcrumb" style="display: flex; align-items: center;">
+  <style>
+    ol {
+      margin: 0;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    .breadcrumb ol {
+      padding-left: 0;
+    }
+
+    .breadcrumb li {
+      display: inline;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+       
+      color: var(--blue);
+      content: "·";
+    }
+  </style>
+  <ol>
+    
+    <li>
+      <a href="/"></a>
+    </li>
+    
+    <li>
+      <a href="/project/">Projects</a>
+    </li>
+    
+    <li class="active">
+      <a aria-current="page" href="/project/ohmymac/"></a>
+    </li>
+  </ol>
+</nav>
+  </div>
+</header>
+
+<div class="main-container">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#features">Features</a>
+      <ul>
+        <li><a href="#window">Window</a></li>
+        <li><a href="#shortcut">Shortcut</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div> </aside>
+    <div id="right-board">
+      <header> <div style="display: flex; align-items: center;">
+  <button id="sidebar-rhs-button" style="display: none;" onclick="toggleVisibility()" class="sidebar-ico"></button>
+  <a href="/" style="font-size: 2em; color: #222; text-decoration: none;">
+    <span> HUAHUA </span>
+  </a>
+</div>
+
+<div style="display: flex; align-items: center;">
+  <button onclick="toggleEdit()" class="edit-ico" style="display: none;"></button>
+  <button onclick="toggleSearch()" class="search-ico"></button>
+  <a href="https://github.com/huahuak/huahuak.github.io">
+    <span class="gh-ico"></span>
+  </a>
+</div>
+ </header>
+      <main class="center main-container">
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<style>
+  .pagefind-ui__result-thumb.svelte-4xnkmf.svelte-4xnkmf {
+    display: none;
+  }
+</style>
+<div id="search" style="display: none; margin-top: 0.5em;"></div>
+        
+
+<h1 id="ohmymac">ohmymac</h1>
+<p><a href="https://github.com/huahuak/ohmymac">ohmymac</a> is a menubar-only application, which is used to extend functionality of mac.</p>
+<p><em>ohmymac is currently under development.</em></p>
+<h2 id="features">Features</h2>
+<h3 id="window">Window</h3>
+<h4 id="design-philosophy">Design Philosophy</h4>
+<ul>
+<li>
+<p>When using MacBook, I will lose direction in multiple windows and spaces, Because window and Space switch logic is so complex. For Example, when I change to another space, I will forget the old windows when need to go back.</p>
+</li>
+<li>
+<p>So I need to <strong>remember the most recent windows</strong> (just record the order of the openning windows) globally.</p>
+<p><strong>Basic Rule</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Condition</th>
+<th style="text-align:left">Action</th>
+<th style="text-align:center">Done</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">When window unhide/activate</td>
+<td style="text-align:left">append applicatoin icon to menubar.</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">When window hide/close</td>
+<td style="text-align:left">remove application icon from menubar.</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">When click application icon on menubar</td>
+<td style="text-align:left">switch to last activated window.</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">When press <code>Cmd+Tab</code></td>
+<td style="text-align:left">switch to last activated window.</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td style="text-align:left">When click applition icon with flag <code>Opt</code></td>
+<td style="text-align:left">close the last activated window of the being clicked application.</td>
+<td style="text-align:center">✅</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>How to work with the window features of ohmymac?</p>
+<ol>
+<li>Just use StageManager/Mission-Control/Dock to find your <strong>target</strong> application and window, but use ohmymac to find your <strong>the most recent activated window</strong>.</li>
+<li>FullScreen: You can set menubar always show,  So you can use ohmymac to find window quicklly. (without Mission Control or dock)</li>
+</ol>
+</li>
+</ul>
+<h4 id="description">Description</h4>
+<ul>
+<li>
+<p>You will find the <strong>most recent three</strong> windows in the menu bar.</p>
+<p><img src="README.assets/Screenshot%202024-03-14%20at%2023.09.30.png" alt="Screenshot 2024-03-14 at 23.09.30"></p>
+</li>
+<li>
+<p><code>cmd+tab</code> has been overwritten by ohmymac, when you press <code>cmd+tab</code>, the menubar will show a list of all windows, and it will hightlight the selected window.</p>
+<p>(In the fucture, you may be able to choose your custom shortcut instead of <code>cmd+tab</code>)</p>
+<p><img src="README.assets/Screenshot%202024-03-14%20at%2023.12.15-0429150.png" alt="Screenshot 2024-03-14 at 23.12.15"></p>
+</li>
+<li>
+<p>When the mouse enters the menu bar area of ohmymac, the menu bar will show a list of all windows, and it will hide when the mouse exits.</p>
+</li>
+</ul>
+<h3 id="shortcut">Shortcut</h3>
+<ul>
+<li>
+<p><code>cmd+opt+g</code>: To select some text, then call google search in little window. it works when in fullscreen, allowing you to avoid switching windows when you need to perform a Google search. You can close the window by pressing <code>Cmd+W</code>. You can open website in the google by pressing <code>Cmd+O</code>.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2015.58.29.png" alt="Screenshot 2024-03-05 at 15.58.29"></p>
+</li>
+<li>
+<p>double click <code>opt</code>: To translate a text and display it side-by-side, simply enter <code>\space</code> to close the window.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.36.43-9617654.png" alt="Screenshot 2024-03-05 at 13.36.43"></p>
+<blockquote>
+<p>‼️ you must install a shortcut in mac, which named &ldquo;apple-translator&rdquo;, because this function relies on the internal Apple Translate feature, it doesn&rsquo;t require an internet connection.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.39.10-9617654.png" alt="Screenshot 2024-03-05 at 13.39.10"></p>
+</blockquote>
+</li>
+<li>
+<p><code>opt+l</code> / <code>opt+;</code> / <code>opt+'</code> / <code>opt+m</code>: adjust window size to small, middle, large, full.</p>
+<p><img src="README.assets/Screenshot%202024-03-05%20at%2013.58.40.png" alt="Screenshot 2024-03-05 at 13.58.40"></p>
+</li>
+</ul>
+
+
+
+        <style>
+  .utterances {
+    margin-top: 30svh;
+    border-top: 1px solid var(--gray);
+  }
+</style>
+
+<div id="utterances-container"></div>
+<script>
+  var repo = "huahuak/huahuak.github.io";
+  var issueTerm = btoa(location.pathname);
+  var theme = "github-light";
+  (function () {
+    var container = document.getElementById("utterances-container");
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    script.setAttribute("theme", theme);
+    script.crossorigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+</script>
+      </main>
+      <footer>  </footer>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+<script>
+  
+  
+  
+  const localPrefix = "http://localhost:8080/Users/huahua/Library/Mobile%20Documents/com~apple~CloudDocs/HUAHUA/iNOTE";
+  var localFunc = []
+  window.onload = () => {
+    fetch('http://localhost:8080/ping')
+      .then((_1, _2) => { localFunc.forEach((f, _1, _2) => f()) })
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  
+  
+  function toggleVisibility() {
+    let lbtn = document.getElementById("sidebar-lhs-button")
+    let rbtn = document.getElementById("sidebar-rhs-button")
+    var asideLayout = document.querySelector("div.aside-layout");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none") {
+      sidebar.style.display = "block"; 
+      var rootStyles = getComputedStyle(document.documentElement);
+      var asidePercent = rootStyles.getPropertyValue('--aside-percent');
+      asideLayout.style.gridTemplateColumns = asidePercent;
+
+      lbtn.style.display = "block"
+      rbtn.style.display = "none"
+    } else {
+      sidebar.style.display = "none"; 
+      asideLayout.style.gridTemplateColumns = '100svw';
+
+      rbtn.style.display = "block"
+      lbtn.style.display = "none"
+    }
+  }
+
+  
+  
+  
+  var oldScroll = 0
+  function toggleSearch() {
+    let search = document.getElementById("search")
+    var main = document.getElementsByTagName("main")[0]
+    if (search.style.display !== 'none') {
+      search.style.display = 'none'
+      main.scrollTop = oldScroll
+    } else {
+      search.style.display = 'block'
+      document.getElementsByTagName('input')[0].focus()
+      oldScroll = main.scrollTop
+      main.scrollTop = 0
+    }
+  }
+
+  
+  
+  
+  var path = 'project\/ohmymac.md'
+  localFunc.push(() => {
+    document.getElementsByClassName("edit-ico")[0].style.display = "block"
+  })
+  function toggleEdit() {
+    fetch(localPrefix + "/" + path)
+      .catch(error => console.error('Error:', error));
+  }
+
+  
+  var mediaQuery = window.matchMedia('(max-width: 600px)');
+  if (mediaQuery.matches) {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        toggleVisibility()
+      }
+    });
+
+    document.getElementById("sidebar-rhs-button").style.display = "block"
+  }
+
+  
+  
+  
+  const prefix = 'project\/'
+  var base = document.getElementsByTagName("main")[0]
+
+  const wrapLink = link => {
+    var pre = prefix
+    if (link.includes("http")) {
+      return link
+    }
+    if (link.startsWith("#")) {
+      return link
+    }
+    if (link.startsWith("/")) {
+      return link
+    }
+    if (prefix !== '/') {
+      pre = '/' + prefix
+    }
+    link = pre + link
+    link = link.replace(".md", "")
+    return link
+  }
+
+  Array.from(base.getElementsByTagName('img')).forEach(item => {
+    item.setAttribute('src', wrapLink(item.getAttribute('src')))
+  })
+  Array.from(base.getElementsByTagName('a')).forEach(item => {
+    let old = item.getAttribute('href')
+    let link = wrapLink(old)
+    if (old !== link && link.includes(".")) {
+      localFunc.push(() => {
+        item.addEventListener('click', event => {
+          event.preventDefault()
+          fetch(localPrefix + link)
+            .catch(error => console.error('Error:', error));
+        })
+      })
+    }
+    item.setAttribute('href', link)
+  })
+
+  
+  
+  
+  var main = document.getElementsByTagName("main")[0]
+  document.querySelectorAll('a[href^="#"]').forEach((v, _1, _2) => {
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = this.getAttribute("href").slice(1);
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        main.scrollTo({
+          top: targetElement.offsetTop - 54,
+          behavior: 'smooth'
+        });
+      }
+    })
+  });
+
+  
+  
+  
+  main.addEventListener('scroll', function () {
+    var sections = document.querySelectorAll('main h2, main h3');
+    var scrollPosition = main.scrollTop + 54;
+    for (var i = 0; i < sections.length; i++) {
+      var currentSection = sections[i];
+      if (scrollPosition >= sections[i].offsetTop && (i + 1 >= sections.length || scrollPosition < sections[i + 1].offsetTop)) {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'bold';
+      } else {
+        document.querySelector('#sidebar #TableOfContents a[href="#' + currentSection.id + '"]').style.fontWeight = 'normal';
+      }
+
+    }
+  });
+
+
+  
+  
+  
+  window.addEventListener('scroll', function () {
+    window.scrollTo({ top: 0 })
+  });
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+
+</script>
+
+</html>

@@ -1,14 +1,8 @@
 [
 {
-  "directory": "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/build",
-  "command": "/usr/bin/clang++ -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -o CMakeFiles/leetcode.dir/main.cc.o -c \"/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/main.cc\"",
-  "file": "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/main.cc",
-  "output": "CMakeFiles/leetcode.dir/main.cc.o"
-},
-{
-  "directory": "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/build",
-  "command": "/usr/bin/clang++ -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -o CMakeFiles/leetcode.dir/solution.cc.o -c \"/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/solution.cc\"",
-  "file": "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/leetcode/solution.cc",
+  "directory": "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/algorithm/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -g -o CMakeFiles/leetcode.dir/solution.cc.o -c \"/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/algorithm/solution.cc\"",
+  "file": "/Users/huahua/Library/Mobile Documents/com~apple~CloudDocs/HUAHUA/iNOTE/programming_languages/algorithm/solution.cc",
   "output": "CMakeFiles/leetcode.dir/solution.cc.o"
 }
 ]
