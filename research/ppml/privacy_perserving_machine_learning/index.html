@@ -87,14 +87,21 @@
   <ul>
     <li><a href="#paper">Paper</a>
       <ul>
+        <li><a href="#translinkguard">TransLinkGuard</a></li>
         <li><a href="#spf">SPF</a></li>
         <li><a href="#soter">SOTER</a></li>
         <li><a href="#slalom">SLALOM</a></li>
+        <li><a href="#shadownet">ShadowNet</a></li>
         <li><a href="#delphi">Delphi</a></li>
       </ul>
     </li>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#baseline">Baseline</a></li>
+    <li><a href="#trusted-execution-environment">Trusted Execution Environment</a>
+      <ul>
+        <li><a href="#compare">Compare</a></li>
+      </ul>
+    </li>
     <li><a href="#homomorphic-encryption">Homomorphic Encryption</a></li>
     <li><a href="#verifiable-execution">Verifiable Execution</a></li>
     <li><a href="#quantization">Quantization</a></li>
@@ -136,6 +143,17 @@
 <table>
 <thead>
 <tr>
+<th style="text-align:left"><a href="arxiv_translinkguard_safeguarding_transformer_models_against_model_stealing_in_edge_deployment.pdf">TransLinkGuard: Safeguarding Transformer Models Against Model Stealing in Edge Deployment</a></th>
+<th style="text-align:right">arXiv 2024</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract:</strong> Proprietary large language models (LLMs) have been widely applied in various scenarios. Additionally, deploying LLMs on edge devices is trending for efficiency and privacy reasons. However, edge deployment of proprietary LLMs introduces new security challenges: edge-deployed models are exposed as white-box accessible to users, enabling adversaries to conduct effective model stealing (MS) attacks. Unfortunately, existing defense mechanisms fail to provide effective protection. Specifically, we identify four critical protection properties that existing methods fail to simultaneously satisfy: (1) maintaining protection after a model is physically copied; (2) authorizing model access at request level; (3) safeguarding runtime reverse engineering; (4) achieving high security with negligible runtime overhead. To address the above issues, we propose TransLinkGuard, a plug-and-play model protection approach against model stealing on edge devices. The core part of TransLinkGuard is a lightweight authorization module residing in a secure environment, e.g., TEE. The authorization module can freshly authorize each request based on its input. Extensive experiments show that TransLinkGuard achieves the same security protection as the black-box security guarantees with negligible overhead.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
 <th style="text-align:left"><a href="PPML/icassp_2024_a_fast_performant_secure_distributed_training_framework_for_llm.pdf">A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM</a></th>
 <th style="text-align:right">ICASSP 2024</th>
 </tr>
@@ -152,6 +170,9 @@
 </tr>
 </thead>
 </table>
+<blockquote>
+<p><strong>Abstract:</strong> With the increased usage of AI accelerators on mobile and edge devices, on-device machine learning (ML) is gaining popularity. Thousands of proprietary ML models are being deployed today on billions of untrusted devices. This raises serious security concerns about model privacy. However, protecting model privacy without losing access to the untrusted AI accelerators is a challenging problem. In this paper, we present a novel on-device model inference system, ShadowNet. ShadowNet protects the model privacy with Trusted Execution Environment (TEE) while securely outsourcing the heavy linear layers of the model to the untrusted hardware accelerators. ShadowNet achieves this by transforming the weights of the linear layers before outsourcing them and restoring the results inside the TEE. The non-linear layers are also kept secure inside the TEE. ShadowNet’s design ensures efficient transformation of the weights and the subsequent restoration of the results. We build a ShadowNet prototype based on TensorFlow Lite and evaluate it on five popular CNNs, namely, MobileNet, ResNet44, MiniVGG, ResNet-404, and YOLOv4-tiny. Our evaluation shows that ShadowNet achieves strong security guarantees with reasonable performance, offering a practical solution for secure on-device model inference.</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -199,12 +220,54 @@
 </tr>
 </thead>
 </table>
+<h3 id="translinkguard">TransLinkGuard</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="arxiv_translinkguard_safeguarding_transformer_models_against_model_stealing_in_edge_deployment.pdf">TransLinkGuard: Safeguarding Transformer Models Against Model Stealing in Edge Deployment</a></th>
+<th style="text-align:right">arXiv 2024</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract:</strong> Proprietary large language models (LLMs) have been widely applied in various scenarios. Additionally, deploying LLMs on edge devices is trending for efficiency and privacy reasons. However, edge deployment of proprietary LLMs introduces new security challenges: edge-deployed models are exposed as white-box accessible to users, enabling adversaries to conduct effective model stealing (MS) attacks. Unfortunately, existing defense mechanisms fail to provide effective protection. Specifically, we identify four critical protection properties that existing methods fail to simultaneously satisfy: (1) maintaining protection after a model is physically copied; (2) authorizing model access at request level; (3) safeguarding runtime reverse engineering; (4) achieving high security with negligible runtime overhead. To address the above issues, we propose TransLinkGuard, a plug-and-play model protection approach against model stealing on edge devices. The core part of TransLinkGuard is a lightweight authorization module residing in a secure environment, e.g., TEE. The authorization module can freshly authorize each request based on its input. Extensive experiments show that TransLinkGuard achieves the same security protection as the black-box security guarantees with negligible overhead.</p>
+</blockquote>
 <h3 id="spf">SPF</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="PPML/icassp_2024_a_fast_performant_secure_distributed_training_framework_for_llm.pdf">A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM</a></th>
+<th style="text-align:right">ICASSP 2024</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract:</strong> The distributed (federated) LLM is an important method for co-training the domain-specific LLM using siloed data. However, maliciously stealing model parameters and data from the server or client side has become an urgent problem to be solved. In this paper, we propose a secure distributed LLM based on model slicing. In this case, we deploy the Trusted Execution Environment (TEE) on both the client and server side, and put the fine-tuned structure (LoRA or embedding of P-tuning v2) into the TEE. Then, secure communication is executed in the TEE and general environments through lightweight encryption. In order to further reduce the equipment cost as well as increase the model performance and accuracy, we propose a split fine-tuning scheme. In particular, we split the LLM by layers and place the latter layers in a server-side TEE (the client does not need a TEE). We then combine the proposed Sparsification Parameter Fine-tuning (SPF) with the LoRA part to improve the accuracy of the downstream task. Numerous experiments have shown that our method guarantees accuracy while maintaining security</p>
+</blockquote>
+<ul>
+<li>Method 1: Using one-time pad encryption to protect the gradient of training in Federated Learning. The client needs to perform computation, and the server only needs to aggregate parameters.</li>
+<li>Method 2: Splitting the model into two parts: the first part of the model is fixed and computed by the client end, while the second part&rsquo;s parameters are trained using fine-tuning on the server end.</li>
+<li>Using sparse fine-tuning and LoRA to reduce the number of parameters that need to be trained.</li>
+<li>Privacy Concern: The clients don&rsquo;t interact with each other in Method 2, so there is no need to protect the computations of the clients.</li>
+<li><strong>Result:</strong> 1) Method 1 is 33% faster than shielding whole-model by the TEE when using P-Tuning v2 fine-tuning, but shows almost same performance when using LoRA. 2) Method 2 is 75% faster than SWMT because the client doesn&rsquo;t need to compute in TEE and the server uses sparse fine-tuning.</li>
+</ul>
 <img src="ppml.assets/Screenshot%202024-03-20%20at%2021.32.19.png" alt="Screenshot 2024-03-20 at 21.32.19" style="zoom:50%;" />
+<p><img src="privacy_perserving_machine_learning.assets/image-20240606133525358.png" alt="image-20240606133525358"></p>
+<p><img src="privacy_perserving_machine_learning.assets/image-20240606133542124.png" alt="image-20240606133542124"></p>
 <h3 id="soter">SOTER</h3>
 <img src="ppml.assets/Screenshot%202024-03-20%20at%2020.43.42-0938664.png" alt="Screenshot 2024-03-20 at 20.43.42" style="zoom: 50%;" />
 <h3 id="slalom">SLALOM</h3>
-<p>SlALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="slalom_fast_verifiable_and_private_execution_of_neural_networks_in_trusted_hardware.pdf">SLALOM: FAST, VERIFIABLE AND PRIVATE EXECUTION OF NEURAL NETWORKS IN TRUSTED HARDWARE</a></th>
+<th style="text-align:right">ICLR 2019</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p>Slalom, recently proposed by Tramer and Boneh, is the first solution that leverages both GPU (for efficient batch computation) and a trusted execution environment (TEE) (for minimizing the use of cryptography).</p>
+</blockquote>
 <h4 id="introduction">Introduction</h4>
 <p><strong>Challenge:</strong> A specific challenge they raised is that of appropriately splitting ML computations between trusted and untrusted components, to increase efficiency as well as security by minimizing the Trusted Computing Base.</p>
 <p><strong>Solution:</strong> This paper explores a novel approach to this challenge, wherein a Deep Neural Network (DNN) execution is <em>partially outsourced from a TEE to a co-located, untrusted but faster device</em>.</p>
@@ -362,6 +425,18 @@
 </li>
 <li></li>
 </ol>
+<h3 id="shadownet">ShadowNet</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="shadownet_a_secure_and_efficient_on_device_model_inference_system_for_convolutional_neural_networks.pdf">ShadowNet: A Secure and Efficient On-device Model Inference System for Convolutional Neural Networks</a></th>
+<th style="text-align:right">SP 2023</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p><strong>Abstract:</strong> With the increased usage of AI accelerators on mobile and edge devices, on-device machine learning (ML) is gaining popularity. Thousands of proprietary ML models are being deployed today on billions of untrusted devices. This raises serious security concerns about model privacy. However, protecting model privacy without losing access to the untrusted AI accelerators is a challenging problem. In this paper, we present a novel on-device model inference system, ShadowNet. ShadowNet protects the model privacy with Trusted Execution Environment (TEE) while securely outsourcing the heavy linear layers of the model to the untrusted hardware accelerators. ShadowNet achieves this by transforming the weights of the linear layers before outsourcing them and restoring the results inside the TEE. The non-linear layers are also kept secure inside the TEE. ShadowNet’s design ensures efficient transformation of the weights and the subsequent restoration of the results. We build a ShadowNet prototype based on TensorFlow Lite and evaluate it on five popular CNNs, namely, MobileNet, ResNet44, MiniVGG, ResNet-404, and YOLOv4-tiny. Our evaluation shows that ShadowNet achieves strong security guarantees with reasonable performance, offering a practical solution for secure on-device model inference.</p>
+</blockquote>
 <h3 id="delphi">Delphi</h3>
 <p>Delphi: A Cryptographic Inference Service for Neural Networks</p>
 <p>Gazelle using linearly-homomorphic encryption to compute linear layer, using grabled circuit to compute non-linear layer.</p>
@@ -394,13 +469,13 @@
 <tr>
 <td>Federated Learning</td>
 <td>Private data does not need to be shared with each other, only model weights should be shared.</td>
-<td>The model&rsquo;s weight might leak private information.</td>
+<td>1) The model&rsquo;s weight might leak private information.<br />2)the overhead of network communication. (It  is not suitable for real-time task)</td>
 <td></td>
 </tr>
 <tr>
 <td>Homomorphic Encryption</td>
 <td></td>
-<td>with high overhead costs.</td>
+<td>1) Slow.</td>
 <td></td>
 </tr>
 <tr>
@@ -436,6 +511,39 @@
 <li><a href="related_paper/oblivious_multi_party_machine_learning_on_trusted_processors.pdf">oblivious_multi_party_machine_learning_on_trusted_processors.pdf</a></li>
 <li><a href="PPML/cvpr_2021_mlcapsule_guarded_offline_deployment_of_machine_learning_as_a_service.pdf">cvpr_2021_mlcapsule_guarded_offline_deployment_of_machine_learning_as_a_service.pdf</a></li>
 </ul>
+<h2 id="trusted-execution-environment">Trusted Execution Environment</h2>
+<h3 id="compare">Compare</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Paper</th>
+<th style="text-align:left">Problem</th>
+<th>Challenge/Contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="#translinkguard">TransLinkGuard</a></td>
+<td style="text-align:left"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#spf">SPF</a></td>
+<td style="text-align:left">malicious attacker(client/server) stealing data and parameter in the training of <span style="background-color: yellow;">Federated LLM</span>.</td>
+<td>1) Protect the data privacy in both the client and server sides of the Federated LLM system.<br />2) Balance between accuracy and performance when using fine-tuning.</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#shadownet">ShadowNet</a></td>
+<td style="text-align:left">Protect the model of <span style="background-color: yellow;">on-device machine learning</span>.</td>
+<td>1）Protect the model privacy of on device.</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#slalom">Slalom</a></td>
+<td style="text-align:left">cloud based ML-as-a-Service platforms</td>
+<td>1) Protect the outsource computation using one-time-pad encryption.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="homomorphic-encryption">Homomorphic Encryption</h2>
 <blockquote>
 <p><a href="gazelle_a_low_latency_framework_for_secure_neural_network_inference.pdf">gazelle_a_low_latency_framework_for_secure_neural_network_inference.pdf</a></p>

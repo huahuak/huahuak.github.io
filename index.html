@@ -534,6 +534,57 @@
 </div>
 
 <script>
+  section = 'Maths'
+  node = document.createElement('h2');
+  node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  }).toUpperCase();
+  node.setAttribute('id', section)
+  document.currentScript.parentNode.insertBefore(node, document.currentScript.nextSibling);
+</script>
+<div class="card-container">
+  
+  <div class="card">
+    <div class="card-header">
+      <a href="/math/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/">
+        <script>
+          filename = '工程数学'
+          a = document.currentScript.parentElement
+          a.textContent = filename.replace(/_/g, ' ')
+            .toUpperCase()
+        </script>
+      </a>
+    </div>
+    <div class="card-summary">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#6-线性方程组的解法">§6 线性方程组的解法</a>
+      <ul>
+        <li><a href="#条件数">条件数</a></li>
+        <li><a href="#严格对角占有矩阵">严格对角占有矩阵</a></li>
+        <li><a href="#三角分解">三角分解</a></li>
+        <li><a href="#迭代格式的误差">迭代格式的误差</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-插值法与数值逼近">§7 插值法与数值逼近</a>
+      <ul>
+        <li><a href="#hermite-插值">Hermite 插值</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-数值积分与数值微分">§8 数值积分与数值微分</a>
+      <ul>
+        <li><a href="#高斯型求积公式">高斯型求积公式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      
+    </div>
+  </div>
+  
+</div>
+
+<script>
   section = 'Os_notes'
   node = document.createElement('h2');
   node.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
@@ -867,14 +918,21 @@
   <ul>
     <li><a href="#paper">Paper</a>
       <ul>
+        <li><a href="#translinkguard">TransLinkGuard</a></li>
         <li><a href="#spf">SPF</a></li>
         <li><a href="#soter">SOTER</a></li>
         <li><a href="#slalom">SLALOM</a></li>
+        <li><a href="#shadownet">ShadowNet</a></li>
         <li><a href="#delphi">Delphi</a></li>
       </ul>
     </li>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#baseline">Baseline</a></li>
+    <li><a href="#trusted-execution-environment">Trusted Execution Environment</a>
+      <ul>
+        <li><a href="#compare">Compare</a></li>
+      </ul>
+    </li>
     <li><a href="#homomorphic-encryption">Homomorphic Encryption</a></li>
     <li><a href="#verifiable-execution">Verifiable Execution</a></li>
     <li><a href="#quantization">Quantization</a></li>
@@ -958,6 +1016,18 @@
 
 <script>
   section = 'Machine_learnings'
+  li = document.createElement('li')
+  a = document.createElement('a')
+  a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {
+    return " " + chr.toUpperCase();
+  }).toUpperCase();
+  a.setAttribute('href', '#' + section)
+  li.appendChild(a)
+  ul.appendChild(li)
+</script>
+
+<script>
+  section = 'Maths'
   li = document.createElement('li')
   a = document.createElement('a')
   a.textContent = section.replace(/[-/_]+(.)/g, function (match, chr) {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maths on </title>
+    <link>/math/</link>
+    <description>Recent content in Maths on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <atom:link href="/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>/math/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/math/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/</guid>
+      <description>工程数学 §6 线性方程组的解法 条件数 严格对角占有矩阵 三角分解 迭代格式的误差 §7 插值法与数值逼近 Hermite 插值 §8 数值积分与数值微分 高斯型求积公式 </description>
+    </item>
+  </channel>
+</rss>

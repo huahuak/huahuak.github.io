@@ -19,7 +19,7 @@
       <link>/research/ppml/privacy_perserving_machine_learning/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/research/ppml/privacy_perserving_machine_learning/</guid>
-      <description>Privacy-Perserving Machine Learning Paper A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM ICASSP 2024 Abstract: The distributed (federated) LLM is an important method for co-training the domain-specific LLM using siloed data. How- ever, maliciously stealing model parameters and data from the server or client side has become an urgent problem to be solved. In this paper, we propose a secure distributed LLM based on model slicing. In this case, we deploy the Trusted Execution Environment (TEE) on both the client and server side, and put the fine-tuned structure (LoRA or embedding of P-tuning v2) into the TEE.</description>
+      <description>Privacy-Perserving Machine Learning Paper TransLinkGuard: Safeguarding Transformer Models Against Model Stealing in Edge Deployment arXiv 2024 Abstract: Proprietary large language models (LLMs) have been widely applied in various scenarios. Additionally, deploying LLMs on edge devices is trending for efficiency and privacy reasons. However, edge deployment of proprietary LLMs introduces new security challenges: edge-deployed models are exposed as white-box accessible to users, enabling adversaries to conduct effective model stealing (MS) attacks. Unfortunately, existing defense mechanisms fail to provide effective protection.</description>
     </item>
     <item>
       <title></title>

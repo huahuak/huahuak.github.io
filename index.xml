@@ -100,6 +100,13 @@
     </item>
     <item>
       <title></title>
+      <link>/math/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/math/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/</guid>
+      <description>工程数学 §6 线性方程组的解法 条件数 严格对角占有矩阵 三角分解 迭代格式的误差 §7 插值法与数值逼近 Hermite 插值 §8 数值积分与数值微分 高斯型求积公式 </description>
+    </item>
+    <item>
+      <title></title>
       <link>/os_note/os_note/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/os_note/os_note/</guid>
@@ -159,7 +166,7 @@
       <link>/research/ppml/privacy_perserving_machine_learning/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/research/ppml/privacy_perserving_machine_learning/</guid>
-      <description>Privacy-Perserving Machine Learning Paper A FAST, PERFORMANT, SECURE DISTRIBUTED TRAINING FRAMEWORK FOR LLM ICASSP 2024 Abstract: The distributed (federated) LLM is an important method for co-training the domain-specific LLM using siloed data. How- ever, maliciously stealing model parameters and data from the server or client side has become an urgent problem to be solved. In this paper, we propose a secure distributed LLM based on model slicing. In this case, we deploy the Trusted Execution Environment (TEE) on both the client and server side, and put the fine-tuned structure (LoRA or embedding of P-tuning v2) into the TEE.</description>
+      <description>Privacy-Perserving Machine Learning Paper TransLinkGuard: Safeguarding Transformer Models Against Model Stealing in Edge Deployment arXiv 2024 Abstract: Proprietary large language models (LLMs) have been widely applied in various scenarios. Additionally, deploying LLMs on edge devices is trending for efficiency and privacy reasons. However, edge deployment of proprietary LLMs introduces new security challenges: edge-deployed models are exposed as white-box accessible to users, enabling adversaries to conduct effective model stealing (MS) attacks. Unfortunately, existing defense mechanisms fail to provide effective protection.</description>
     </item>
     <item>
       <title></title>

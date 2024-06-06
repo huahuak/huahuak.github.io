@@ -16,7 +16,7 @@
   
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>Researches | </title>
+<title> | </title>
 
       <link rel="stylesheet" href="/css/main.min.4e3925258a07dcd1db9457696be79fd505b229e2280d31f3f622c14c35c26655.css" integrity="sha256-TjklJYoH3NHblFdpa&#43;ef1QWyKeIoDTHz9iLBTDXCZlU=" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/var.min.f4ad28441b010d71b331e4a3acd0878a1f12df0c47c4e6d09c5087fa963c50f8.css" integrity="sha256-9K0oRBsBDXGzMeSjrNCHih8S3wxHxObQnFCH&#43;pY8UPg=" crossorigin="anonymous">
@@ -70,8 +70,12 @@
       <a href="/"></a>
     </li>
     
+    <li>
+      <a href="/math/">Maths</a>
+    </li>
+    
     <li class="active">
-      <a aria-current="page" href="/research/">Researches</a>
+      <a aria-current="page" href="/math/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6/"></a>
     </li>
   </ol>
 </nav>
@@ -79,7 +83,28 @@
 </header>
 
 <div class="main-container">
-  
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#6-线性方程组的解法">§6 线性方程组的解法</a>
+      <ul>
+        <li><a href="#条件数">条件数</a></li>
+        <li><a href="#严格对角占有矩阵">严格对角占有矩阵</a></li>
+        <li><a href="#三角分解">三角分解</a></li>
+        <li><a href="#迭代格式的误差">迭代格式的误差</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-插值法与数值逼近">§7 插值法与数值逼近</a>
+      <ul>
+        <li><a href="#hermite-插值">Hermite 插值</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-数值积分与数值微分">§8 数值积分与数值微分</a>
+      <ul>
+        <li><a href="#高斯型求积公式">高斯型求积公式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 </div> </aside>
     <div id="right-board">
       <header> <div style="display: flex; align-items: center;">
@@ -107,99 +132,31 @@
 </style>
 <div id="search" style="display: none; margin-top: 0.5em;"></div>
         
-<h1 class="center">Researches</h1>
 
-<div class="card-container">
-  
-  <div class="card">
-    <div class="card-header">
-      <a href="/research/llm/large_language_model/">LARGE_LANGUAGE_MODEL </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#peft">PEFT</a>
-      <ul>
-        <li><a href="#lora">LoRA</a></li>
-        <li><a href="#lst">LST</a></li>
-      </ul>
-    </li>
-    <li><a href="#transformer">Transformer</a>
-      <ul>
-        <li><a href="#attention">Attention</a></li>
-      </ul>
-    </li>
-    <li><a href="#benchmark">Benchmark</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <a href="/research/ppml/privacy_perserving_machine_learning/">PRIVACY_PERSERVING_MACHINE_LEARNING </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#paper">Paper</a>
-      <ul>
-        <li><a href="#translinkguard">TransLinkGuard</a></li>
-        <li><a href="#spf">SPF</a></li>
-        <li><a href="#soter">SOTER</a></li>
-        <li><a href="#slalom">SLALOM</a></li>
-        <li><a href="#shadownet">ShadowNet</a></li>
-        <li><a href="#delphi">Delphi</a></li>
-      </ul>
-    </li>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#baseline">Baseline</a></li>
-    <li><a href="#trusted-execution-environment">Trusted Execution Environment</a>
-      <ul>
-        <li><a href="#compare">Compare</a></li>
-      </ul>
-    </li>
-    <li><a href="#homomorphic-encryption">Homomorphic Encryption</a></li>
-    <li><a href="#verifiable-execution">Verifiable Execution</a></li>
-    <li><a href="#quantization">Quantization</a></li>
-    <li><a href="#slide">Slide</a></li>
-    <li><a href="#experiment">Experiment</a></li>
-    <li><a href="#related-paper">Related Paper</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <a href="/research/ppml/task_for_ppml/">TASK_FOR_PPML </a>
-    </div>
-    <div class="card-summary">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#confidential-computing">Confidential Computing</a>
-      <ul>
-        <li><a href="#privacy-preserving-machine-learning">Privacy-Preserving Machine Learning</a></li>
-        <li><a href="#trusted-execution-environment">Trusted Execution Environment</a></li>
-      </ul>
-    </li>
-    <li><a href="#machine-learning">Machine Learning</a>
-      <ul>
-        <li><a href="#transformer-based-generative-models">Transformer-Based Generative Models</a></li>
-        <li><a href="#distributed-traning-framework">Distributed Traning Framework</a></li>
-        <li><a href="#tensor-computing-engine">Tensor Computing Engine</a></li>
-      </ul>
-    </li>
-    <li><a href="#related">Related</a></li>
-  </ul>
-</nav>
-      
-    </div>
-  </div>
-  
-</div>
+<h1 id="工程数学">工程数学</h1>
+<h2 id="6-线性方程组的解法">§6 线性方程组的解法</h2>
+<h3 id="条件数">条件数</h3>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603060928591.png" alt="image-20240603060928591"></p>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603060952774.png" alt="image-20240603060952774"></p>
+<h3 id="严格对角占有矩阵">严格对角占有矩阵</h3>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603061220057.png" alt="image-20240603061220057"></p>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603061531242.png" alt="image-20240603061531242"></p>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603061548478.png" alt="image-20240603061548478"></p>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/Screenshot%202024-06-03%20at%2006.16.19.png" alt="Screenshot 2024-06-03 at 06.16.19"></p>
+<h3 id="三角分解">三角分解</h3>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603061911868.png" alt="image-20240603061911868"></p>
+<h3 id="迭代格式的误差">迭代格式的误差</h3>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603062327368.png" alt="image-20240603062327368"></p>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603062350836.png" alt="image-20240603062350836"></p>
+<h2 id="7-插值法与数值逼近">§7 插值法与数值逼近</h2>
+<h3 id="hermite-插值">Hermite 插值</h3>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603063245343.png" alt="image-20240603063245343"></p>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603064453266.png" alt="image-20240603064453266"></p>
+<h2 id="8-数值积分与数值微分">§8 数值积分与数值微分</h2>
+<h3 id="高斯型求积公式">高斯型求积公式</h3>
+<p><img src="%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6.assets/image-20240603074241980.png" alt="image-20240603074241980"></p>
+
+
 
         <style>
   .utterances {
@@ -296,7 +253,7 @@
   
   
   
-  var path = ''
+  var path = 'math\/工程数学.md'
   localFunc.push(() => {
     document.getElementsByClassName("edit-ico")[0].style.display = "block"
   })
@@ -321,7 +278,7 @@
   
   
   
-  const prefix = ''
+  const prefix = 'math\/'
   var base = document.getElementsByTagName("main")[0]
 
   const wrapLink = link => {
