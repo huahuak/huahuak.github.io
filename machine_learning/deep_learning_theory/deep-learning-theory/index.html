@@ -86,6 +86,7 @@
   <nav id="TableOfContents">
   <ul>
     <li><a href="#paper-reading">Paper Reading</a></li>
+    <li><a href="#batch-normalization">Batch Normalization</a></li>
     <li><a href="#scratch">Scratch</a></li>
   </ul>
 </nav>
@@ -151,13 +152,46 @@
 </tr>
 </thead>
 </table>
-<p><strong>#Parameter</strong></p>
+<p><strong>#Parameter Init</strong></p>
 <blockquote>
 <p>这就是现在标准且实用的<em>Xavier初始化</em>的基础， 它以其提出者 (<a href="http://zh.d2l.ai/chapter_references/zreferences.html#id44">Glorot and Bengio, 2010</a>) 第一作者的名字命名。 通常，Xavier初始化从均值为零，方差的高斯分布中采样权重。</p>
 </blockquote>
+<h2 id="batch-normalization">Batch Normalization</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="icml_2015_batch_normalization_accelerating_deep_network_training_by_reducing_internal_covariate_shift.pdf">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></th>
+<th style="text-align:right">ICML 2015</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p>Training Deep Neural Networks is complicated by the fact that the distribution of each layer’s inputs changes during training, as the parameters of the previous layers change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to this phenomenon as internal covariate shift, and address the problem by normalizing layer inputs. <span style="background-color: yellow;">Our method draws its strength from making normalization a part of the model architecture and performing the normalization for each training mini-batch. Batch Normalization allows us to use much higher learning rates and be less careful about initialization, and in some cases eliminates the need for Dropout.</span> Applied to a stateof-the-art image classification model, Batch Normalization achieves the same accuracy with 14 times fewer training steps, and beats the original model by a significant margin. Using an ensemble of batch-normalized networks, we improve upon the best published result on ImageNet classification: reaching 4.82% top-5 test error, exceeding the accuracy of human raters.</p>
+<p>训练深度神经网络因以下事实而变得复杂：每个层的输入分布在训练期间都会发生变化，因为前一层的参数会发生变化。这需要较低的学习率和仔细的参数初始化，从而减慢了训练速度，并使训练具有饱和非线性的模型变得臭名昭著。我们将这种现象称为内部协变位移，并通过归一化层输入来解决这个问题。我们的方法利用其优势，使标准化成为模型架构的一部分，并为每个训练迷你批量执行标准化。批量标准化允许我们使用更高的学习率，对初始化不那么谨慎，在某些情况下消除了 Dropout 的需要。应用于最先进的图像分类模型，批量规范化以少 14 倍的训练步骤实现了相同的准确性，并大大超过了原始模型。使用批量标准化网络的集合，我们改进了 ImageNet 分类的最佳发布结果：达到 4.82% 的前 5 名测试错误，超过了人类评分员的准确性。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="icml_2018_bayesian_uncertainty_estimation_for_batch_normalized_deep_networks.pdf">Bayesian Uncertainty Estimation for Batch Normalized Deep Networks</a></th>
+<th style="text-align:right">ICML 2018</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p>We show that training a deep network using batch normalization is equivalent to approximate inference in Bayesian models. We further demonstrate that this finding allows us to make meaningful estimates of the model uncertainty using conventional architectures, without modifications to the network or the training procedure. Our approach is thoroughly validated by measuring the quality of uncertainty in a series of empirical experiments on different tasks. It outperforms baselines with strong statistical significance, and displays competitive performance with recent Bayesian approaches.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="iclr_2019_towards_understanding_regularization_in_batch_normalization.pdf">TOWARDS UNDERSTANDING REGULARIZATION IN BATCH NORMALIZATION</a></th>
+<th style="text-align:right">ICML 2019</th>
+</tr>
+</thead>
+</table>
+<blockquote>
+<p>Batch Normalization (BN) improves both convergence and generalization in training neural networks. This work understands these phenomena theoretically. We analyze BN by using a basic block of neural networks, consisting of a kernel layer, a BN layer, and a nonlinear activation function. This basic network helps us understand the impacts of BN in three aspects. First, by viewing BN as an implicit regularizer, BN can be decomposed into population normalization (PN) and gamma decay as an explicit regularization. Second, learning dynamics of BN and the regularization show that training converged with large maximum and effective learning rate. Third, generalization of BN is explored by using statistical mechanics. Experiments demonstrate that BN in convolutional neural networks share the same traits of regularization as the above analyses.</p>
+</blockquote>
 <h2 id="scratch">Scratch</h2>
-<p><img src="Deep%20Learning%20Theory.assets/Screenshot%202024-04-10%20at%2011.14.30.png" alt="Screenshot 2024-04-10 at 11.14.30"></p>
-<p><img src="Deep%20Learning%20Theory.assets/Screenshot%202024-04-10%20at%2020.04.52-2750697.png" alt="Screenshot 2024-04-10 at 20.04.52"></p>
 
 
 
